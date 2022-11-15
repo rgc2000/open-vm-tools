@@ -1,0 +1,2 @@
+driver alias=pciex15ad,720 name=vmxnet perms="* 0600 root sys"
+driver alias=pciex15ad,7b0 name=vmxnet3s perms="* 0600 root sys"

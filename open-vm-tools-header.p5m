@@ -1,0 +1,15 @@
+set name=pkg.fmri value=vmware/open-vm-tools@12.1.0,12320-0
+set name=org.opensolaris.smf.fmri value=svc:/vmware/vmware-tools value=svc:/vmware/vmware-tools:default
+set name=pkg.summary value="VMWare tools for Solaris 11"
+set name=pkg.description value="Drivers and tools for virtual machines running Solaris under a VMWare hypervisor"
+set name=variant.variant.arch value=i386
+set name=variant.opensolaris.zone value=global
+set name=info.classification value=\
+    "org.opensolaris.category.2008:System/Administration and Configuration"
+dir group=sys mode=0755 owner=root path=lib/svc/manifest/vmware
+file lib/svc/method/vmware-tools path=lib/svc/method/vmware-tools \
+    owner=root group=sys mode=0555
+file lib/svc/manifest/vmware/vmware-tools.xml \
+    path=lib/svc/manifest/vmware/vmware-tools.xml owner=root \
+    group=sys mode=0444 \
+    restart_fmri=svc:/system/manifest-import:default
