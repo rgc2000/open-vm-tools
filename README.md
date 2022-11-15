@@ -217,6 +217,32 @@ Use the appropriate generic Linux designation when configuring a VM for your Lin
 ## What Operating Systems are supported for customization?
 The [Guest OS Customization Support Matrix](http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf) provides details about the guest operating systems supported for customization.
 
+## Solaris 11
+To compile this product for Solaris 11 x86 you will need the following packages installed on your developpement environment :
+- gnu-make
+- autoconf
+- automake
+- libtool
+- pkg-config
+- gcc
+
+Execute the following command to install the needed packages for compilation (not needed for runtime)
+```
+pkg install gnu-make autoconf automake libtool pkg-config gcc
+```
+
+Then execute the commands
+```
+cd open-vm-tools
+./build.sh
+```
+
+To remove all the ganerated files execute command
+```
+cd open-vm-tools
+./clean.sh
+```
+
 ## Which versions of open-vm-tools are compatible with other VMware products?
 
 The [VMware Product Interoperability Matrix](http://partnerweb.vmware.com/comp_guide2/sim/interop_matrix.php) provides details about the compatibility of different versions of VMware Tools (includes open-vm-tools) and other VMware Products.
