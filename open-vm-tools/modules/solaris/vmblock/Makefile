@@ -25,7 +25,7 @@ LDFLAGS  :=
 
 # Solaris version defines for in-code #ifdefs (default to Solaris 9)
 ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.11)
-CFLAGS   += -DSOL11
+CFLAGS   += -DSOL11 --warn-no-unused-but-set-variable
 else
 ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.10)
 CFLAGS   += -DSOL10
@@ -81,12 +81,28 @@ else
 LDFLAGS_64 += -64
 endif
 
+ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.10)
+
+# Solaris 10
+MODULES := $(MODULE_32) $(MODULE_64)
+INSTALL := install32 install64
+
+endif
+
+ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.11)
+
+# Solaris 11
+MODULES := $(MODULE_64)
+INSTALL := install64
+
+endif
+
 ##
 ## Building targets
 ##
 .PHONY: all prepare_dirs clean install
 
-all: prepare_dirs $(MODULE_32) $(MODULE_64)
+all: prepare_dirs $(MODULES)
 
 prepare_dirs:
 	@echo "Creating build directories"
@@ -116,9 +132,16 @@ clean:
 	@rm -rf $(MODULE_32) $(VMBLOCK_32_OBJS) i386
 	@rm -rf $(MODULE_64) $(VMBLOCK_32_OBJS) amd64
 
-install:
-	@echo "Installing modules"
-	cp $(MODULE_32) /kernel/drv/
-	chmod 755 /kernel/drv/$(MODULE)
-	cp $(MODULE_64) /kernel/drv/amd64
-	chmod 755 /kernel/drv/amd64/$(MODULE)
+install32:
+	@echo "Installing modules 32"
+	[ -d $(DESTDIR)/kernel/drv ] || mkdir -p $(DESTDIR)/kernel/drv
+	cp $(MODULE_32) $(DESTDIR)/kernel/drv/
+	chmod 755 $(DESTDIR)/kernel/drv/$(MODULE)
+
+install64:
+	@echo "Installing modules 64"
+	[ -d $(DESTDIR)/kernel/drv/amd64 ] || mkdir -p $(DESTDIR)/kernel/drv/amd64
+	cp $(MODULE_64) $(DESTDIR)/kernel/drv/amd64
+	chmod 755 $(DESTDIR)/kernel/drv/amd64/$(MODULE)
+
+install: $(INSTALL)

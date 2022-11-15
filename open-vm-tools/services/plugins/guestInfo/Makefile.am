@@ -35,6 +35,8 @@ libguestInfo_la_LIBADD += @DNET_LIBS@
 
 libguestInfo_la_SOURCES =
 libguestInfo_la_SOURCES += guestInfoServer.c
-libguestInfo_la_SOURCES += perfMonLinux.c
+if LINUX
+   libguestInfo_la_SOURCES += perfMonLinux.c
+endif
 libguestInfo_la_SOURCES += diskInfo.c
 libguestInfo_la_SOURCES += diskInfoPosix.c

@@ -88,13 +88,13 @@
 
 #ifdef _KERNEL
 
-INLINE void HgfsDebugPrintVfssw(char *str, struct vfssw *vfsswp);
-INLINE void HgfsDebugPrintVfs(char *str, struct vfs *vfsp);
-INLINE void HgfsDebugPrintVnode(uint32 level, char *str,
-                                struct vnode *vnodep, Bool printFileName);
-INLINE void HgfsDebugPrintCred(char *str, struct cred *credp);
-INLINE void HgfsDebugPrintMounta(char *str, struct mounta *mntp);
-INLINE void HgfsDebugPrintVattr(const struct vattr *vap);
+void HgfsDebugPrintVfssw(char *str, struct vfssw *vfsswp);
+void HgfsDebugPrintVfs(char *str, struct vfs *vfsp);
+void HgfsDebugPrintVnode(uint32 level, char *str,
+                         struct vnode *vnodep, Bool printFileName);
+void HgfsDebugPrintCred(char *str, struct cred *credp);
+void HgfsDebugPrintMounta(char *str, struct mounta *mntp);
+void HgfsDebugPrintVattr(const struct vattr *vap);
 void HgfsDebugPrintReqList(DblLnkLst_Links *listAnchor);
 void HgfsDebugPrintReq(const char *str, HgfsReq *req);
 void HgfsDebugPrintReqPool(const char *str);

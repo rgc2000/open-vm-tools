@@ -188,7 +188,7 @@ extern ddi_device_acc_attr_t vmxnet3_dev_attr;
 #define VMXNET3_WARN(Device, Format, Args...)         \
    VMXNET3_LOG(CE_WARN, Device, Format, ##Args)
 
-#define VMXNET3_DEBUG_LEVEL 2
+/* #define VMXNET3_DEBUG_LEVEL 2 */
 #ifdef VMXNET3_DEBUG_LEVEL
 #define VMXNET3_DEBUG(Device, Level, Format, Args...) \
    do {                                               \

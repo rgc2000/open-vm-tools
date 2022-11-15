@@ -214,7 +214,11 @@ OS_MemCopy(void *dest,      // OUT
 unsigned long
 OS_ReservedPageGetLimit(void)
 {
+#ifdef SOL11
+   return physmem;
+#else
    return maxmem;
+#endif
 }
 
 

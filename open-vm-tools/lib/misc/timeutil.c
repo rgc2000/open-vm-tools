@@ -856,7 +856,7 @@ TimeUtil_GetTimeFormat(int64 utcTime,  // IN:
    char buf[26];
    const time_t t = (time_t) utcTime;  // Implicit narrowing on 32-bit
 
-#if defined sun
+#if defined sun && ! defined SOL114
    str = Util_SafeStrdup(ctime_r(&t, buf, sizeof buf));
 #else
    str = Util_SafeStrdup(ctime_r(&t, buf));

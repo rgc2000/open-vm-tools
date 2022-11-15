@@ -24,10 +24,10 @@ MODULE_32 := i386/$(MODULE)
 MODULE_64 := amd64/$(MODULE)
 
 CFLAGS    :=
-LDFLAGS   :=
+LDFLAGS   := -dy -Nmisc/gld
 
 CFLAGS    += -O2
-CFLAGS    += -Wall -Werror
+CFLAGS    += -Wall -Werror -Wno-unused-but-set-variable
 CFLAGS    += -U_NO_LONGLONG
 CFLAGS    += -D_KERNEL
 CFLAGS    += -I../../../lib/include    # for buildNumber.h
@@ -47,11 +47,22 @@ MODULES := $(MODULE_32)
 
 else # } {
 
-# Assume Solaris 10 or 11.
+ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.11)
+
+# Solaris 11
+MODULES := $(MODULE_64)
+INSTALL := install64
+CFLAGS  += -DSOL11
+
+else
+
+# Assume Solaris 10
 MODULES := $(MODULE_32) $(MODULE_64)
+INSTALL := install32 install64
 CFLAGS  += -ffreestanding
 CFLAGS  += -nodefaultlibs
 
+endif
 endif # }
 
 ifdef OVT_SOURCE_DIR
@@ -102,9 +113,17 @@ clean:
 	@rm -rf $(MODULE_32) $(VMXNET_32_OBJS) i386
 	@rm -rf $(MODULE_64) $(VMXNET_64_OBJS) amd64
 
-install:
-	@echo "Installing modules"
-	cp $(MODULE_32) /kernel/drv/
-	chmod 755 /kernel/drv/$(MODULE)
-	cp $(MODULE_64) /kernel/drv/amd64
-	chmod 755 /kernel/drv/amd64/$(MODULE)
+install32:
+	@echo "Installing modules 32"
+	[ -d $(DESTDIR)/kernel/drv ] || mkdir -p $(DESTDIR)/kernel/drv
+	cp $(MODULE_32) $(DESTDIR)/kernel/drv/
+	chmod 755 $(DESTDIR)/kernel/drv/$(MODULE)
+
+install64:
+	@echo "Installing modules 64"
+	[ -d $(DESTDIR)/kernel/drv/amd64 ] || mkdir -p $(DESTDIR)/kernel/drv/amd64
+	cp $(MODULE_64) $(DESTDIR)/kernel/drv/amd64
+	chmod 755 $(DESTDIR)/kernel/drv/amd64/$(MODULE)
+
+install: $(INSTALL)
+

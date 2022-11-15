@@ -654,7 +654,7 @@ ToolsCore_LoadPlugins(ToolsServiceState *state)
    guint i;
    GPtrArray *plugins = NULL;
 
-#if defined(sun) && defined(__x86_64__)
+#if defined(sun) && defined(__x86_64__) && ! defined(SOL11)
    const char *subdir = "/amd64";
 #else
    const char *subdir = "";

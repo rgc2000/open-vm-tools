@@ -44,6 +44,7 @@ for i in $src/*.vmsg; do
    ldest=${dest}/open-vm-tools/messages/`echo $ldest | cut -d . -f 1 -`
    if ! test -d $ldest; then
       mkdir -p $ldest
+      [ "`basename $ldest`" == "en" ] && ln -s en $ldest/../C
    fi
    cp -f $i ${ldest}/${prog}.vmsg || exit 1
 done

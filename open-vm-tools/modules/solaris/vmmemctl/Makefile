@@ -64,8 +64,8 @@ ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.11)
 
 # Solaris 11
 SUPPORTED := 1
-MODULES := $(MODULE_32) $(MODULE_64)
-INSTALL := install32 install64
+MODULES := $(MODULE_64)
+INSTALL := install64
 CFLAGS  += -DSOL11
 KFLAGS  += -ffreestanding
 KFLAGS  += -nodefaultlibs
@@ -133,11 +133,15 @@ clean:
 	@rm -rf $(MODULE_64) $(VMMCTL_64_OBJS) amd64
 
 install32:
-	cp $(MODULE_32) /kernel/drv/
-	chmod 755 /kernel/drv/$(MODULE)
+	@echo "Installing modules 32"
+	[ -d $(DESTDIR)/kernel/drv ] || mkdir -p $(DESTDIR)/kernel/drv
+	cp $(MODULE_32) $(DESTDIR)/kernel/drv/
+	chmod 755 $(DESTDIR)/kernel/drv/$(MODULE)
 
 install64:
-	chmod 755 /kernel/drv/$(MODULE)
-	cp $(MODULE_64) /kernel/drv/amd64
+	@echo "Installing modules 64"
+	[ -d $(DESTDIR)/kernel/drv/amd64 ] || mkdir -p $(DESTDIR)/kernel/drv/amd64
+	cp $(MODULE_64) $(DESTDIR)/kernel/drv/amd64
+	chmod 755 $(DESTDIR)/kernel/drv/amd64/$(MODULE)
 
 install: $(INSTALL)

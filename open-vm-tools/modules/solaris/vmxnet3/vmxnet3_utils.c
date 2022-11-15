@@ -17,7 +17,7 @@
 #include "vmxnet3_solaris.h"
 
 /* This symbol is needed by the Solaris dynamic loader */
-char _depends_on[] = {"misc/mac"};
+/* char _depends_on[] = {"misc/mac"}; */
 
 /* Used by ddi_regs_map_setup() and ddi_dma_mem_alloc() */
 ddi_device_acc_attr_t vmxnet3_dev_attr = {

@@ -36,7 +36,9 @@
 #define COMPAT_DDI_DEFINE_STREAM_OPS DDI_DEFINE_STREAM_OPS
 #endif
 
-#define HW_LSO 0x10
+#ifndef HW_LSO
+#define HW_LSO 0x0010
+#endif
 
 #define DB_LSOMSS(mp) ((mp)->b_datap->db_struioun.cksum.pad)
 

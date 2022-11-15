@@ -247,10 +247,10 @@ vmxnet3_tx_one(vmxnet3_softc_t *dp,
             if (frags >= cmdRing->size - 1 ||
                 (ol->om != VMXNET3_OM_TSO && frags >= VMXNET3_MAX_TXD_PER_PKT)) {
 
-               if (retry) {
+               /*if (retry) {
                   VMXNET3_DEBUG(dp, 2, "overfragmented, frags=%u ring=%hu om=%hu\n",
                                 frags, cmdRing->size, ol->om);
-               }
+               }*/
                ddi_dma_unbind_handle(dp->txDmaHandle);
                ret = VMXNET3_TX_PULLUP;
                goto error;

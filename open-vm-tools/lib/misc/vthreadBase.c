@@ -59,7 +59,7 @@
       * the Posix standard is somewhat modern.  Most of our builds
       * set this; we should chase down the oversight.
       */
-#    define _XOPEN_SOURCE 500
+//#    define _XOPEN_SOURCE 500
 #  endif
 #  if defined __linux__
 #    include <sys/syscall.h>   // for gettid(2)

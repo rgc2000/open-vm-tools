@@ -64,7 +64,7 @@ static int vxn_debug = SOLVMXNET_DEBUG_LEVEL;
 #endif
 
 static char ident[] = "VMware Ethernet Adapter b" BUILD_NUMBER_NUMERIC_STRING;
-char _depends_on[] = {"misc/gld"};
+/* char _depends_on[] = {"misc/gld"}; */
 
 #define MAX_NUM_RECV_BUFFERS            128
 #define DEFAULT_NUM_RECV_BUFFERS        100

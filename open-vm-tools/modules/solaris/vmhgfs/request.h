@@ -55,10 +55,10 @@
  */
 void HgfsInitRequestList(HgfsSuperInfo *sip);
 void HgfsCancelAllRequests(HgfsSuperInfo *sip);
-INLINE Bool HgfsListIsEmpty(DblLnkLst_Links *listAnchor);
+Bool HgfsListIsEmpty(DblLnkLst_Links *listAnchor);
 HgfsReq *HgfsGetNewReq(HgfsSuperInfo *sip);
 void HgfsDestroyReq(HgfsSuperInfo *sip, HgfsReq *oldReq);
 int HgfsSendRequest(HgfsSuperInfo *sip, HgfsReq *req);
-INLINE void HgfsWakeWaitingClient(HgfsSuperInfo *sip, HgfsReq *req);
+void HgfsWakeWaitingClient(HgfsSuperInfo *sip, HgfsReq *req);
 
 #endif /* __REQUEST_H_ */

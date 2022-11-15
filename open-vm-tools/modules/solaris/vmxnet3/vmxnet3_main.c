@@ -925,7 +925,13 @@ vmxnet3_multicst(void *data, boolean_t add, const uint8_t *macaddr)
    if (dp->mfTable.buf) {
       vmxnet3_free_dma_mem(&dp->mfTable);
    }
-   dp->mfTable = newMfTable;
+
+   dp->mfTable.buf = newMfTable.buf;
+   dp->mfTable.bufPA = newMfTable.bufPA;
+   dp->mfTable.bufLen = newMfTable.bufLen;
+   dp->mfTable.dmaHandle = newMfTable.dmaHandle;
+   dp->mfTable.dataHandle = newMfTable.dataHandle;
+
    VMXNET3_DS(dp)->devRead.rxFilterConf.mfTablePA = newMfTable.bufPA;
    VMXNET3_DS(dp)->devRead.rxFilterConf.mfTableLen = newMfTable.bufLen;
 

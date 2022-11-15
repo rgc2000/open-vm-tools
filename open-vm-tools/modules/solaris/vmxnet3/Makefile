@@ -29,9 +29,9 @@ $(if $(SUPPORTED),,$(error "Unsupported Solaris version: $(VM_UNAME)"))
 ## General build locations and variables
 ##
 
-MODULE    := vmxnet3
+MODULE    := vmxnet3s
 CFLAGS    :=
-LDFLAGS   :=
+LDFLAGS   := -dy -Nmisc/mac
 
 CFLAGS    += -O2
 CFLAGS    += -Wall -Werror -Wno-unknown-pragmas
@@ -45,6 +45,15 @@ CFLAGS    += -nodefaultlibs
 ifdef OVT_SOURCE_DIR
    CFLAGS += -I$(OVT_SOURCE_DIR)/lib/include
    CFLAGS += -I$(OVT_SOURCE_DIR)/modules/shared/vmxnet
+endif
+
+
+ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.10)
+CFLAGS  += -DSOL10
+endif
+
+ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.11)
+CFLAGS  += -DSOL11
 endif
 
 CFLAGS_32  := $(CFLAGS)
@@ -76,7 +85,17 @@ VMXNET3_64_OBJS := $(addprefix amd64/, $(VMXNET3_OBJS))
 MODULE_32 := i386/$(MODULE)
 MODULE_64 := amd64/$(MODULE)
 
-all: prepare_dirs $(MODULE_32) $(MODULE_64)
+ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.10)
+MODULES := $(MODULE_32) $(MODULE_64)
+INSTALL := install32 install64
+endif
+
+ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.11)
+MODULES := $(MODULE_64)
+INSTALL := install64
+endif
+
+all: prepare_dirs $(MODULES)
 
 prepare_dirs:
 	@echo "Creating build directories"
@@ -104,11 +123,20 @@ clean:
 	@rm -rf $(MODULE_32) $(VMXNET3_32_OBJS) i386
 	@rm -rf $(MODULE_64) $(VMXNET3_64_OBJS) amd64
 
-install:
-	@echo "Installing modules"
-	cp $(MODULE_32) /kernel/drv/
-	chmod 755 /kernel/drv/$(MODULE)
-	cp $(MODULE_64) /kernel/drv/amd64
-	chmod 755 /kernel/drv/amd64/$(MODULE)
-	cp vmxnet3s.conf /kernel/drv/vmxnet3s.conf
-	chmod 644 /kernel/drv/vmxnet3s.conf
+install32:
+	@echo "Installing modules 32"
+	[ -d $(DESTDIR)/kernel/drv ] || mkdir -p $(DESTDIR)/kernel/drv
+	cp $(MODULE_32) $(DESTDIR)/kernel/drv/
+	chmod 755 $(DESTDIR)/kernel/drv/$(MODULE)
+
+install64:
+	@echo "Installing modules 64"
+	[ -d $(DESTDIR)/kernel/drv/amd64 ] || mkdir -p $(DESTDIR)/kernel/drv/amd64
+	cp $(MODULE_64) $(DESTDIR)/kernel/drv/amd64
+	chmod 755 $(DESTDIR)/kernel/drv/amd64/$(MODULE)
+
+install: $(INSTALL)
+	@echo "Installing modules configuration"
+	[ -d $(DESTDIR)/kernel/drv ] || mkdir -p $(DESTDIR)/kernel/drv
+	cp vmxnet3s.conf $(DESTDIR)/kernel/drv/vmxnet3s.conf
+	chmod 644 $(DESTDIR)/kernel/drv/vmxnet3s.conf

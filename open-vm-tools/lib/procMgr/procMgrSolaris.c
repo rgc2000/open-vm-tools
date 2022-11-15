@@ -30,6 +30,10 @@
 #include <errno.h>
 #include <string.h>
 
+#ifdef SOL11
+#define __USE_DRAFT6_PROTOTYPES__
+#endif
+
 #if _FILE_OFFSET_BITS != 64
 #   error FILE_OFFSET_BITS=64 required
 #endif

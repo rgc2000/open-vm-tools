@@ -55,6 +55,10 @@
 
 #define SYSFS_BLOCK_FOLDER  "/sys/block"
 
+#ifndef NAME_MAX
+#define NAME_MAX 255
+#endif
+
 /*
  * For now, all data collection is of uint64 values. Rates are always returned
  * as a double, derived from the uint64 data.

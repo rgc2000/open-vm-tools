@@ -184,7 +184,7 @@ typedef struct HgfsSuperInfo {
  */
 
 /* Pool of request structures */
-HgfsReq requestPool[HGFS_MAX_OUTSTANDING_REQS];
+extern HgfsReq requestPool[HGFS_MAX_OUTSTANDING_REQS];
 
 /*
  * Used to access shared state of driver and filesystem.  superInfoHead is
@@ -198,8 +198,8 @@ HgfsReq requestPool[HGFS_MAX_OUTSTANDING_REQS];
  * change, which /should/ be guaranteed, and there is only a single instance,
  * which cannot happen.
  */
-void *superInfoHead;
-int hgfsInstance;
+extern void *superInfoHead;
+extern int hgfsInstance;
 
 #endif /* _KERNEL */
 

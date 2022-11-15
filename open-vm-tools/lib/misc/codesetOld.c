@@ -938,6 +938,8 @@ CodeSetOld_GenericToGenericDb(char const *codeIn,   // IN:
 
 #ifdef __linux__
       status = iconv(cd, (char **)&bufIn, &sizeIn, &out, &outLeft);
+#elif defined SOL11
+      status = iconv(cd, (char **)&bufIn, &sizeIn, &out, &outLeft);
 #else
       status = iconv(cd, &bufIn, &sizeIn, &out, &outLeft);
 #endif

@@ -22,6 +22,7 @@
  *      Stubs for AsyncSokcet SSL functions without actually using SSL.
  */
 
+#define _XPG4_2
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
