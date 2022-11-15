@@ -29,6 +29,12 @@
 #include "hgfsSolaris.h"
 #include "request.h"
 
+/*
+ * Global Variables
+ */
+
+/* Pool of request structures */
+HgfsReq requestPool[HGFS_MAX_OUTSTANDING_REQS];
 
 /*
  *----------------------------------------------------------------------------

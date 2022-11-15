@@ -81,6 +81,7 @@ SOLHGFS_LIB_OBJS += hgfsUtil.o
 SOLHGFS_LIB_OBJS += message.o
 SOLHGFS_LIB_OBJS += rpcout.o
 SOLHGFS_LIB_OBJS += sha1.o
+SOLHGFS_LIB_OBJS += rpcvmx.o
 
 SOLHGFS_32_LIB_OBJS := $(addprefix i386/, $(SOLHGFS_LIB_OBJS))
 SOLHGFS_32_LIB_OBJS += i386/backdoorGcc32.o
@@ -105,6 +106,7 @@ ifdef OVT_SOURCE_DIR
    VPATH  := $(VPATH):$(OVT_SOURCE_DIR)/lib/message
    VPATH  := $(VPATH):$(OVT_SOURCE_DIR)/lib/misc
    VPATH  := $(VPATH):$(OVT_SOURCE_DIR)/lib/rpcOut
+   VPATH  := $(VPATH):$(OVT_SOURCE_DIR)/lib/rpcVmx
 endif
 
 CFLAGS_32  := $(CFLAGS)

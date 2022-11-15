@@ -283,6 +283,20 @@ RpcVMX_ConfigGetBool(Bool defval, const char *var)
  *----------------------------------------------------------------------------
  */
 
+#ifdef SOL11
+static int local_atoi(char* str)
+{
+    int i, res = 0;
+
+    for (i = 0; str[i] != '\0'; ++i)
+        res = res * 10 + str[i] - '0';
+
+    return res;
+}
+
+#define atoi(s) local_atoi(s)
+#endif
+
 int32
 RpcVMX_ConfigGetLong(int32 defval, const char *var)
 {

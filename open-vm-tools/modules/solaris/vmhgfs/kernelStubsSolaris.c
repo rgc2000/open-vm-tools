@@ -101,6 +101,41 @@ Str_Strcpy(char *buf,       // OUT
 /*
  *----------------------------------------------------------------------
  *
+ * Str_Sprintf --
+ *
+ *      sprintf wrapper that fails on overflow
+ *
+ * Results:
+ *      Returns the number of bytes stored in 'buf'.
+ *
+ * Side effects:
+ *      None.
+ *
+ *----------------------------------------------------------------------
+ */
+
+int
+Str_Sprintf(char *buf,       // OUT
+            size_t maxSize,  // IN
+            const char *fmt, // IN
+            ...)             // IN
+{
+   va_list args;
+   int i;
+
+   va_start(args, fmt);
+   i = Str_Vsnprintf(buf, maxSize, fmt, args);
+   va_end(args);
+   if (i < 0) {
+      Panic("%s:%d Buffer too small\n", __FILE__, __LINE__);
+   }
+   return i;
+}
+
+
+/*
+ *----------------------------------------------------------------------
+ *
  * Str_Vsnprintf --
  *
  * Compatability wrapper b/w different libc versions
