@@ -29,13 +29,11 @@ Impact: None.
 
 Drivers
 -------
-. vmxnet3s : VMware EtherAdapter v3
-. vmxnet   : VMware Ethernet Adapter (deprecated)
-. vmblock  : VMBlock File system (for copy/paste on VMware workstation)
-. vmmemctl : VMware Memory Control (ballooning)
-. vmhgfs   : Host/Guest Filesystem
+* `vmxnet3s` : VMware EtherAdapter v3
+* `vmxnet`   : VMware Ethernet Adapter (deprecated)
+* `vmblock`  : VMBlock File system (for copy/paste on VMware workstation)
+* `vmmemctl` : VMware Memory Control (ballooning)
+* `vmhgfs`   : Host/Guest Filesystem
 
 Only network drivers will be loaded if corresponding virtual hardware is detected.
 Other drivers need to be loaded manually using modload
-
-End of document
