@@ -49,7 +49,7 @@ EXTERN int HgfsReserved(struct vfs *vfsp, struct vnode **vnodepp, char * /* ?? *
 EXTERN void HgfsFreevfs(struct vfs *vfsp);
 
 /* Struct needed in struct modlfs */
-EXTERN struct mod_ops mod_fsops;
+//EXTERN struct mod_ops mod_fsops;
 
 
 #endif /* __MODULE_H_ */
