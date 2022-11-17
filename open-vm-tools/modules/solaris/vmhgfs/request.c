@@ -37,6 +37,21 @@
 HgfsReq requestPool[HGFS_MAX_OUTSTANDING_REQS];
 
 /*
+ * Used to access shared state of driver and filesystem.  superInfoHead is
+ * a pointer to state managed by Solaris, hgfsInstance is the index into this state
+ * list, and is set in HgfsDevAttach().
+ *
+ * Note that both the driver and filesystem use ddi_get_soft_state() to get
+ * a pointer to the superinfo.  Both use superInfoHead, but the device uses the
+ * instance number derived from passed in arguments and the filesystem uses
+ * hgfsInstance.  This is not a problem as long as the instance number cannot
+ * change, which /should/ be guaranteed, and there is only a single instance,
+ * which cannot happen.
+ */
+void *superInfoHead;
+int hgfsInstance;
+
+/*
  *----------------------------------------------------------------------------
  *
  *  HgfsInitRequestList --
