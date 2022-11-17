@@ -1,4 +1,4 @@
-set name=pkg.fmri value=vmware/open-vm-tools@12.1.0,12320-0
+set name=pkg.fmri value=vmware/open-vm-tools@12.1.0,12320-1
 set name=org.opensolaris.smf.fmri value=svc:/vmware/vmware-tools value=svc:/vmware/vmware-tools:default
 set name=pkg.summary value="VMWare tools for Solaris 11"
 set name=pkg.description value="Drivers and tools for virtual machines running Solaris under a VMWare hypervisor"
