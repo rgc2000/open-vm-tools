@@ -9,23 +9,6 @@ export PKG_CONFIG_PATH=/usr/lib/64/pkgconfig
 TARGETOS=$(uname -s)
 
 case "${TARGETOS}" in
-    Linux)
-        # =======  Compile open-vm-tools
-
-        cd open-vm-tools
-        autoreconf -i
-        ./configure --prefix=/opt/vmware --enable-static --without-x --enable-libappmonitor --disable-deploypkg --without-pam --without-xml2
-        gmake -j 5
-        gmake install
-        cd ..
-
-        # =======  Clean files
-
-        find $DESTDIR -type f -exec file {} \; | grep 'not stripped' | cut -d: -f1 | xargs -t -L 1 strip
-
-        echo "Linux binaries compiled and installed under $DESTDIR"
-        ;;
-
     SunOS)
         SOLARIS_VERSION="$(uname -v | cut -d. -f-2)"
         export MAKE="gmake"
