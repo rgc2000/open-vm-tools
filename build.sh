@@ -67,9 +67,16 @@ case "${TARGETOS}" in
 
         find $DESTDIR -type f -exec file {} \; | grep 'not stripped' | cut -d: -f1 | xargs -t -L 1 strip
         mv $DESTDIR/sbin $DESTDIR/usr/sbin
-        ln -fs /opt/vmware/sbin/mount.vmblock $DESTDIR/usr/sbin/mount.vmblock
+        mkdir -p $DESTDIR/usr/lib/fs/vmblock
+        mkdir -p $DESTDIR/usr/lib/fs/vmhgfs
+        mkdir -p $DESTDIR/etc/fs
+        ln -fs /opt/vmware/sbin/mount.vmblock $DESTDIR/usr/lib/fs/vmblock/mount
+        ln -fs /opt/vmware/sbin/mount.vmhgfs $DESTDIR/usr/lib/fs/vmhgfs/mount
+        ln -fs /usr/lib/fs/vmblock $DESTDIR/etc/fs/vmblock
+        ln -fs /usr/lib/fs/vmhgfs $DESTDIR/etc/fs/vmhgfs
         ln -fs /opt/vmware/bin/vmtoolsd $DESTDIR/usr/sbin/vmtoolsd
         ln -fs /opt/vmware/bin/vmware-toolbox-cmd $DESTDIR/usr/bin/vmware-toolbox-cmd
+        rm -f $DESTDIR/usr/sbin/mount.*
 
         # =======  Sign solaris drivers
 
@@ -91,6 +98,7 @@ case "${TARGETOS}" in
 
         pkgsend generate $DESTDIR | pkgfmt |
             grep -v 'dir  path=etc ' |
+            grep -v 'dir  path=etc/fs ' |
             grep -v 'dir  path=etc/pam.d ' |
             grep -v 'dir  path=etc/certs' |
             grep -v 'dir  path=kernel ' |
@@ -98,6 +106,8 @@ case "${TARGETOS}" in
             grep -v 'dir  path=kernel/drv/amd64 ' |
             grep -v 'dir  path=opt ' |
             grep -v 'dir  path=usr ' |
+            grep -v 'dir  path=usr/lib ' |
+            grep -v 'dir  path=usr/lib/fs ' |
             grep -v 'dir  path=usr/sbin ' |
             grep -v 'dir  path=usr/bin ' > open-vm-tools.p5m.1
 
