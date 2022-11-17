@@ -1548,6 +1548,7 @@ MODULES=""
 MODULES_OS="$os"
 TARGET_OS="$os"
 MODULES_DIR=""
+buildHgfsmounter=no
 
 if test "$os" = "linux"; then
    MODULES_DIR="$LINUXDIR/kernel/"
@@ -1577,6 +1578,7 @@ if test "$os" = "linux"; then
    if test "$osVersion" -lt 300000; then
       MODULES="$MODULES vmblock vmsync"
    fi
+   buildHgfsmounter=yes
    if test "x$enable_resolutionkms" != "xno" && test "x$enable_vmwgfxctrl" != "xno"; then
       PKG_CHECK_MODULES(
          [LIBUDEV],
@@ -1636,6 +1638,7 @@ if test "$os" = "solaris"; then
    # HGFS and vmblock need Solaris 10 at least.
    if test "$osVersion" -ge 510000; then
       MODULES="$MODULES vmhgfs vmblock"
+      buildHgfsmounter=yes
    fi
 
    # vmxnet3 is built on Solaris 10 / 11 only if GLDv3 is installed.
@@ -1686,6 +1689,7 @@ if test "x$enable_vmwgfxctrl" = "xauto"; then
    enable_vmwgfxctrl="no"
 fi
 
+AM_CONDITIONAL(BUILD_HGFSMOUNTER, test "$buildHgfsmounter" = "yes")
 AM_CONDITIONAL(LINUX, test "$os" = "linux")
 AM_CONDITIONAL(SOLARIS, test "$os" = "solaris")
 AM_CONDITIONAL(FREEBSD, test "$os" = "freebsd" -o "$os" = "kfreebsd-gnu")
@@ -1903,6 +1907,7 @@ AC_CONFIG_FILES([                      \
    vmware-user-suid-wrapper/Makefile   \
    toolbox/Makefile                    \
    hgfsclient/Makefile                 \
+   hgfsmounter/Makefile                \
    checkvm/Makefile                    \
    vmwgfxctrl/Makefile                 \
    rpctool/Makefile                    \

@@ -30,6 +30,9 @@ endif
 SUBDIRS += libvmtools
 SUBDIRS += libhgfs
 SUBDIRS += hgfsclient
+if BUILD_HGFSMOUNTER
+   SUBDIRS += hgfsmounter
+endif
 if ENABLE_VGAUTH
    SUBDIRS += vgauth
    SUBDIRS += vgauthImport
