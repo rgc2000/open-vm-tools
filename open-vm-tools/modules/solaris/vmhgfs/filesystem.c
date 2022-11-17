@@ -93,7 +93,7 @@ HgfsInit(struct vfssw *vfsswp,  // IN: VFS Switch table struct
       return EINVAL;
    }
 
-   DEBUG(VM_DEBUG_ENTRY, "HgfsInit().\n");
+   DEBUG(VM_DEBUG_ENTRY, "HgfsInit() V2.\n");
 
    /*
     * Hook VFS operations into switch table and save
@@ -162,7 +162,7 @@ HgfsInit(int fstype,    // IN: Filesystem type
       return EINVAL;
    }
 
-   DEBUG(VM_DEBUG_ENTRY, "HgfsInit: fstype=%d, name=\"%s\"\n", fstype, name);
+   DEBUG(VM_DEBUG_ENTRY, "HgfsInit V3+: fstype=%d, name=\"%s\"\n", fstype, name);
 
    /* Assign VFS operations to our filesystem. */
    ret = vfs_setfsops(fstype, vfsOpsArr, &hgfsVfsOpsP);
@@ -208,6 +208,8 @@ HgfsInit(int fstype,    // IN: Filesystem type
 void
 HgfsFreeVfsOps(void)
 {
+   DEBUG(VM_DEBUG_ENTRY, "HgfsFreeVfsOps().\n");
+
 #if HGFS_VFS_VERSION > 2
    if (hgfsVfsOpsP) {
       vfs_freevfsops_by_type(hgfsType);
@@ -855,6 +857,7 @@ int
 HgfsSuser(struct cred *cr)      // IN: Credentials of the caller
 {
    ASSERT(cr);
+   DEBUG(VM_DEBUG_ENTRY, "HgfsSuser: entry.\n");
 #if HGFS_VFS_VERSION == 2
    return suser(cr);
 #else

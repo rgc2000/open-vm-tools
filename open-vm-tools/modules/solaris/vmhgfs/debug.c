@@ -208,8 +208,7 @@ HgfsDebugPrintCred(char *str, struct cred *credp)
    DEBUG(VM_DEBUG_STRUCT, " cr_rgid   : %d\n", credp->cr_rgid);
    DEBUG(VM_DEBUG_STRUCT, " cr_suid   : %d\n", credp->cr_suid);
    DEBUG(VM_DEBUG_STRUCT, " cr_sgid   : %d\n", credp->cr_sgid);
-   DEBUG(VM_DEBUG_STRUCT, " cr_ngroups: %d\n", credp->cr_ngroups);
-   DEBUG(VM_DEBUG_STRUCT, " cr_groups : %p\n", credp->cr_groups);
+   DEBUG(VM_DEBUG_STRUCT, " cr_grps : %p\n", credp->cr_grps);
 }
 
 

@@ -64,6 +64,13 @@
 #define VM_DEBUG_STATE          (1 << 19)
 
 #ifdef VM_DEBUGGING_ON
+
+/*#define VM_DEBUG_LEV            ( VM_DEBUG_ALWAYS | VM_DEBUG_ENTRY | VM_DEBUG_DONE | VM_DEBUG_LOAD |    \
+                                  VM_DEBUG_INFO | VM_DEBUG_STRUCT | VM_DEBUG_LIST | VM_DEBUG_CHPOLL |   \
+                                  VM_DEBUG_RARE | VM_DEBUG_COMM | VM_DEBUG_REQUEST | VM_DEBUG_LOG |     \
+                                  VM_DEBUG_ATTR | VM_DEBUG_DEVENTRY | VM_DEBUG_DEVDONE | VM_DEBUG_SIG | \
+                                  VM_DEBUG_ERROR | VM_DEBUG_HSHTBL | VM_DEBUG_HANDLE | VM_DEBUG_STATE )
+*/
 /*#define VM_DEBUG_LEV    (VM_DEBUG_ALWAYS | VM_DEBUG_ENTRY | VM_DEBUG_DONE |     \
                          VM_DEBUG_LOAD | VM_DEBUG_COMM |                        \
                          VM_DEBUG_LOG | VM_DEBUG_ATTR)
@@ -71,7 +78,9 @@
 /*#define VM_DEBUG_LEV    (VM_DEBUG_ALWAYS | VM_DEBUG_FAIL | VM_DEBUG_ERROR |	\
 			 VM_DEBUG_COMM | VM_DEBUG_DONE)
 */
+
 #define VM_DEBUG_LEV    (VM_DEBUG_ALWAYS | VM_DEBUG_FAIL)
+
 #endif
 
 #ifdef VM_DEBUG_LEV

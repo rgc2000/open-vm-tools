@@ -47,6 +47,9 @@ CFLAGS   += $(CC_WARNINGS)
 CFLAGS   += -DVMX86_TOOLS
 CFLAGS   += -I.
 
+# Uncomment to enable debug messages
+# VMX86_LOG = 1
+
 ifdef VMX86_DEVEL
 CFLAGS   += -DVMX86_DEVEL
 endif
