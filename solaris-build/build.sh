@@ -39,12 +39,12 @@ case "${TARGETOS}" in
 
         export "PATH=$DESTDIR/opt/vmware/bin:$PATH"
 
-        cd open-vm-tools
+        cd ../open-vm-tools
         autoreconf -i
         ./configure --prefix=/opt/vmware --disable-static --without-x --enable-libappmonitor CFLAGS="-I$DESTDIR/opt/vmware/include -L$DESTDIR/opt/vmware/lib $OPTION -Wno-unused-variable"
         gmake -j 5
         gmake install
-        cd ..
+        cd ../solaris-build
 
         # =======  Clean files
 

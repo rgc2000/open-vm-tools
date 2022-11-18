@@ -11,9 +11,9 @@ cd ..
 
 # =======  Clean open-vm-tools
 
-cd open-vm-tools
+cd ../open-vm-tools
 gmake distclean
-cd ..
+cd ../solaris-build
 
 # =======  Clean files
 

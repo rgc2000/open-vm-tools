@@ -233,13 +233,13 @@ pkg install gnu-make autoconf automake libtool pkg-config gcc
 
 Then execute the commands
 ```
-cd open-vm-tools
+cd solaris-build
 ./build.sh
 ```
 
 To remove all the ganerated files execute command
 ```
-cd open-vm-tools
+cd solaris-build
 ./clean.sh
 ```
 
