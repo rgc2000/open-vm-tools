@@ -1,0 +1,79 @@
+#!/bin/sh
+# open-vm-tools
+
+# Load SMF shell support definitions
+. /lib/svc/share/smf_include.sh
+
+METHOD="$1"
+
+if [ -z $SMF_FMRI ]
+then
+    echo "SMF framework variables are not initialized."
+    exit $SMF_EXIT_ERR
+fi
+
+set -f
+
+
+function method_start
+{
+    BLOCK_MOUNTPOINT=$(svcprop -c -p config/block_mountpoint $SMF_FMRI)
+    HGFS_MOUNTPOINT=$(svcprop -c -p config/hgfs_mountpoint $SMF_FMRI)
+    mkdir -m 1777 /tmp/VMwareDnD
+    mkdir -p "$BLOCK_MOUNTPOINT"
+    mkdir -p "$HGFS_MOUNTPOINT"
+
+    /usr/sbin/modload -p drv/vmblock &&
+    /usr/sbin/modload -p drv/vmhgfs &&
+    mount -F vmblock /tmp/VMwareDnD "$BLOCK_MOUNTPOINT" &&
+    mount -F vmhgfs .host:/ "$HGFS_MOUNTPOINT" &&
+    return 0
+
+    return 1
+}
+
+function method_stop
+{
+    CURRENT_HGFS_MOUNTPOINT=$(mount -p | grep ' vmhgfs ' | cut -d' ' -f3)
+    CURRENT_BLOCK_MOUNTPOINT=$(mount -p | grep ' vmblock ' | cut -d' ' -f3)
+    test -f "$CURRENT_HGFS_MOUNTPOINT" &&
+    test -f "$CURRENT_BLOCK_MOUNTPOINT" &&
+    umount "$CURRENT_HGFS_MOUNTPOINT" &&
+    umount "$CURRENT_BLOCK_MOUNTPOINT" &&
+    rmdir -f "$CURRENT_HGFS_MOUNTPOINT" &&
+    rmdir -f "$CURRENT_BLOCK_MOUNTPOINT" &&
+    /usr/sbin/modunload -i $(modinfo | grep vmblock | cut -d' ' -f1) &&
+    /usr/sbin/modunload -i $(modinfo | grep vmhgfs | cut -d' ' -f1) &&
+    return 0
+
+    return 1
+}
+
+case "$METHOD" in
+    start)
+        # mount
+        method_start &&
+        exit $SMF_EXIT_OK
+        ;;
+
+    stop)
+        # unmount
+        method_stop &&
+        exit $SMF_EXIT_OK
+        ;;
+
+    restart|refresh)
+        # unmount and remount
+        method_stop &&
+        method_start &&
+        exit $SMF_EXIT_OK
+        ;;
+
+    *)
+        echo "Usage: $0 { start | stop | refresh | restart }" >&2
+        echo " unknow method $1" >&2
+        exit $SMF_EXIT_ERR_FATAL
+        ;;
+esac
+
+exit $SMF_EXIT_ERR_FATAL

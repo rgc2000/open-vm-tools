@@ -9,7 +9,19 @@ set name=info.classification value=\
 dir group=sys mode=0755 owner=root path=lib/svc/manifest/vmware
 file lib/svc/method/vmware-tools path=lib/svc/method/vmware-tools \
     owner=root group=sys mode=0555
+file lib/svc/method/vmware-ballooning path=lib/svc/method/vmware-ballooning \
+    owner=root group=sys mode=0555
+file lib/svc/method/vmware-shares path=lib/svc/method/vmware-shares \
+    owner=root group=sys mode=0555
 file lib/svc/manifest/vmware/vmware-tools.xml \
     path=lib/svc/manifest/vmware/vmware-tools.xml owner=root \
+    group=sys mode=0444 \
+    restart_fmri=svc:/system/manifest-import:default
+file lib/svc/manifest/vmware/ballooning.xml \
+    path=lib/svc/manifest/vmware/ballooning.xml owner=root \
+    group=sys mode=0444 \
+    restart_fmri=svc:/system/manifest-import:default
+file lib/svc/manifest/vmware/shares.xml \
+    path=lib/svc/manifest/vmware/shares.xml owner=root \
     group=sys mode=0444 \
     restart_fmri=svc:/system/manifest-import:default

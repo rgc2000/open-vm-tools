@@ -1,0 +1,51 @@
+#!/bin/sh
+# open-vm-tools
+
+# Load SMF shell support definitions
+. /lib/svc/share/smf_include.sh
+
+METHOD="$1"
+
+if [ -z $SMF_FMRI ]
+then
+    echo "SMF framework variables are not initialized."
+    exit $SMF_EXIT_ERR
+fi
+
+set -f
+
+case "$METHOD" in
+    start)
+        # load kernel module for vmware memory control
+        /usr/sbin/modload -p drv/vmmemctl
+        [ $? = 0 ] && exit $SMF_EXIT_OK
+        ;;
+
+    stop)
+        # unload kernel daemon
+        /usr/sbin/modunload -i $(modinfo | grep vmmemctl | cut -d' ' -f1)
+        [ $? = 0 ] && exit $SMF_EXIT_OK
+        ;;
+
+    status)
+        # check if kernel module is loaded
+        /usr/sbin/modinfo | grep -q vmmemctl
+        [ $? = 0 ] && exit $SMF_EXIT_OK
+        ;;
+
+    restart)
+        # reload kernel module
+        /usr/sbin/modunload -i $(modinfo | grep vmmemctl | cut -d' ' -f1)
+        sleep 5
+        /usr/sbin/modload -p drv/vmmemctl
+        [ $? = 0 ] && exit $SMF_EXIT_OK
+        ;;
+
+    *)
+        echo "Usage: $0 { start | stop | status | restart }" >&2
+        echo " unknow method $1" >&2
+        exit $SMF_EXIT_ERR_FATAL
+        ;;
+esac
+
+exit $SMF_EXIT_ERR_FATAL

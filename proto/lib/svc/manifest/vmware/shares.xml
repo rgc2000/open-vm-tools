@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<!--
+ VMware::Shares
+
+    Service manifest to declare and install the service that
+    will declare and mount the shares for VMware Workstation
+-->
+
+<service_bundle type='manifest' name='vmware:shares'>
+    <service version='1' type='service' name='vmware/shares'>
+
+        <!-- Instance -->
+
+        <create_default_instance enabled='false' />
+        <single_instance/>
+
+        <!-- Dependencies -->
+
+        <dependency restart_on="none" type="service"
+            name="multi_user_dependency" grouping="require_all">
+            <service_fmri value="svc:/milestone/multi-user"/>
+        </dependency>
+
+        <dependency restart_on="error" type="service"
+            name="filesystem_dependency" grouping="require_all">
+            <service_fmri value='svc:/system/filesystem/minimal' />
+        </dependency>
+
+        <!-- Methods -->
+
+        <exec_method timeout_seconds='30' type='method' name='start'
+            exec='/lib/svc/method/vmware-shares %m'/>
+
+        <exec_method timeout_seconds='30' type='method' name='restart'
+            exec='/lib/svc/method/vmware-shares %m'/>
+
+        <exec_method timeout_seconds='30' type='method' name='stop'
+            exec='/lib/svc/method/vmware-shares %m'/>
+
+        <exec_method timeout_seconds='30' type='method' name='refresh'
+            exec='/lib/svc/method/vmware-shares %m'/>
+
+        <!-- Properties -->
+
+        <property_group name='startd' type='framework'>
+            <propval name='duration' type='astring' value='transient' />
+        </property_group>
+
+        <property_group name='config' type='application'>
+            <!-- default property settings for vmware shares. -->
+            <propval name='hgfs_mountpoint' type='astring' value='/hgfs' />
+            <propval name='block_mountpoint' type='astring' value='/system/volatile/vmblock' />
+        </property_group>
+
+        <stability value='Unstable' />
+
+        <!-- Description -->
+
+        <template>
+            <common_name>
+                <loctext xml:lang='C'>
+                    Open VM Tools for VMWare
+                </loctext>
+            </common_name>
+            <description>
+                <loctext xml:lang='C'>
+Will start the vmware vmtoolsd daemon to monitor and communicate with
+the VM from the hypervisor. Only for VMware Workstation, not for ESXi
+                </loctext>
+            </description>
+            <pg_pattern name='startd' type='framework' target='this' required='false'>
+                <prop_pattern name='hgfs_mountpoint' type='astring' required='true'>
+                    <description>
+                        <loctext xml:lang='C'>
+The mountpoint directory that will be used to access the shares between
+VMware Workstation/Fusion and Solaris VM
+                        </loctext>
+                    </description>
+                    <cardinality min='1' max='1' />
+                </prop_pattern>
+                <prop_pattern name='block_mountpoint' type='astring' required='true'>
+                    <description>
+                        <loctext xml:lang='C'>
+The mountpoint directory that will be used for copy/paste between VMware
+Workstation/Fusion and Solaris VM
+                        </loctext>
+                    </description>
+                    <cardinality min='1' max='1' />
+                </prop_pattern>
+            </pg_pattern>
+        </template>
+    </service>
+</service_bundle>
