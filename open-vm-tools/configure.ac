@@ -1578,7 +1578,6 @@ if test "$os" = "linux"; then
    if test "$osVersion" -lt 300000; then
       MODULES="$MODULES vmblock vmsync"
    fi
-   buildHgfsmounter=yes
    if test "x$enable_resolutionkms" != "xno" && test "x$enable_vmwgfxctrl" != "xno"; then
       PKG_CHECK_MODULES(
          [LIBUDEV],
