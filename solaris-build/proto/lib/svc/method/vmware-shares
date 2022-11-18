@@ -40,8 +40,8 @@ function method_stop
     test -d "$CURRENT_BLOCK_MOUNTPOINT" &&
     umount "$CURRENT_HGFS_MOUNTPOINT" &&
     umount "$CURRENT_BLOCK_MOUNTPOINT" &&
-    rmdir -f "$CURRENT_HGFS_MOUNTPOINT" &&
-    rmdir -f "$CURRENT_BLOCK_MOUNTPOINT" &&
+    rmdir "$CURRENT_HGFS_MOUNTPOINT" &&
+    rmdir "$CURRENT_BLOCK_MOUNTPOINT" &&
     /usr/sbin/modunload -i $(modinfo | grep vmblock | cut -d' ' -f1) &&
     /usr/sbin/modunload -i $(modinfo | grep vmhgfs | cut -d' ' -f1) &&
     return 0
