@@ -36,8 +36,8 @@ function method_stop
 {
     CURRENT_HGFS_MOUNTPOINT=$(mount -p | grep ' vmhgfs ' | cut -d' ' -f3)
     CURRENT_BLOCK_MOUNTPOINT=$(mount -p | grep ' vmblock ' | cut -d' ' -f3)
-    test -f "$CURRENT_HGFS_MOUNTPOINT" &&
-    test -f "$CURRENT_BLOCK_MOUNTPOINT" &&
+    test -d "$CURRENT_HGFS_MOUNTPOINT" &&
+    test -d "$CURRENT_BLOCK_MOUNTPOINT" &&
     umount "$CURRENT_HGFS_MOUNTPOINT" &&
     umount "$CURRENT_BLOCK_MOUNTPOINT" &&
     rmdir -f "$CURRENT_HGFS_MOUNTPOINT" &&
