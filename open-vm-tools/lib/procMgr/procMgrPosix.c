@@ -27,10 +27,10 @@
 // pull in setresuid()/setresgid() if possible
 #define  _GNU_SOURCE
 #include <unistd.h>
-#if !defined(__FreeBSD__) && !defined(sun) && !defined(__APPLE__)
+#if !defined(__FreeBSD__) && !defined(__sun__) && !defined(__APPLE__)
 #include <asm/param.h>
 #endif
-#if !defined(sun) && !defined(__APPLE__)
+#if !defined(__sun__) && !defined(__APPLE__)
 #include <locale.h>
 #include <sys/stat.h>
 #endif
@@ -135,7 +135,7 @@ static int ProcMgrGetCommandLineArgs(long pid,
 Bool ProcMgr_PromoteEffectiveToReal(void);
 #endif
 
-#ifdef sun
+#ifdef __sun__
 #define  BASH_PATH "/usr/bin/bash"
 #else
 #define  BASH_PATH "/bin/bash"
@@ -1703,7 +1703,7 @@ ProcMgr_ExecAsync(char const *cmd,                 // IN: UTF-8 command line
       }
 
       if (Signal_SetGroupHandler(cSignals, olds, ARRAYSIZE(cSignals),
-#ifndef sun
+#ifndef __sun__
                                  SIG_DFL
 #else
                                  0

@@ -110,7 +110,7 @@ UsercheckLookupUser(const gchar *userName,
    struct passwd pw;
    struct passwd *ppw = &pw;
    char buffer[BUFSIZ];
-#ifndef sun
+#ifndef __sun__
    int ret;
    int retryCount = 0;
 
@@ -161,7 +161,7 @@ UsercheckLookupUid(uid_t uid,
    struct passwd pw;
    struct passwd *ppw = &pw;
    char buffer[BUFSIZ];
-#ifndef sun
+#ifndef __sun__
    int error;
    int retryCount = 0;
 

@@ -26,7 +26,7 @@
  *
  */
 
-#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(sun) && !defined(__APPLE__)
+#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(__sun__) && !defined(__APPLE__)
 #   error This file should not be compiled
 #endif
 
@@ -42,7 +42,7 @@
 #include <sys/time.h>
 #include <sys/times.h>
 #include <netdb.h>
-#ifdef sun
+#ifdef __sun__
 # include <sys/sockio.h>
 #endif
 
@@ -55,7 +55,7 @@
 #include <net/if.h>
 #include <sys/ioctl.h>
 
-#if defined sun || defined __APPLE__
+#if defined __sun__ || defined __APPLE__
 #   include <utmpx.h>
 #endif
 
@@ -162,7 +162,7 @@ System_GetTimeMonotonic(void)
 
    return base + (last = current);
 #else  // VM_64BIT
-#if defined sun || defined __APPLE__
+#if defined __sun__ || defined __APPLE__
    /*
     * PR 1710952 and PR 2136820
     * times() on Solaris & Mac can return a lower value than the
@@ -245,7 +245,7 @@ System_Uptime(void)
          fclose(procStream);
       }
    }
-#elif defined sun || defined __APPLE__
+#elif defined __sun__ || defined __APPLE__
    {
       struct utmpx *boot, tmp;
 
@@ -307,7 +307,7 @@ System_Shutdown(Bool reboot)  // IN: "reboot or shutdown" flag
    char *cmd;
 
    if (reboot) {
-#if defined(sun)
+#if defined(__sun__)
       cmd = "/usr/sbin/shutdown -g 0 -i 6 -y";
 #elif defined(USERWORLD)
       cmd = "/bin/reboot";
@@ -317,7 +317,7 @@ System_Shutdown(Bool reboot)  // IN: "reboot or shutdown" flag
    } else {
 #if __FreeBSD__
       cmd = "/sbin/shutdown -p now";
-#elif defined(sun)
+#elif defined(__sun__)
       cmd = "/usr/sbin/shutdown -g 0 -i 5 -y";
 #elif defined(USERWORLD)
       cmd = "/bin/halt";

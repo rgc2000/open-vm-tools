@@ -73,7 +73,7 @@ typedef long long unsigned int vga_uint64;
    #define VGAUTHERR_FMT64X "0x%llx"
    #define VGAUTHERR_FMT64  "%llu"
 #elif __GNUC__
-   #if defined(sun) || defined(__FreeBSD__)
+   #if defined(__sun__) || defined(__FreeBSD__)
       #define VGAUTHERR_FMT64X    "0x%llx"
       #define VGAUTHERR_FMT64     "%llu"
    #else

@@ -29,7 +29,7 @@
 #define  _GNU_SOURCE
 #include <unistd.h>
 
-#if !defined(__FreeBSD__) && !defined(sun) && !defined(__APPLE__)
+#if !defined(__FreeBSD__) && !defined(__sun__) && !defined(__APPLE__)
 #include <asm/param.h>
 #include <locale.h>
 #include <sys/stat.h>

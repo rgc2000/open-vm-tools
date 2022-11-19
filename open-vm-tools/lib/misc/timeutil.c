@@ -856,7 +856,7 @@ TimeUtil_GetTimeFormat(int64 utcTime,  // IN:
    char buf[26];
    const time_t t = (time_t) utcTime;  // Implicit narrowing on 32-bit
 
-#if defined sun && ! defined SOL114
+#if defined __sun__ && ! defined SOL114
    str = Util_SafeStrdup(ctime_r(&t, buf, sizeof buf));
 #else
    str = Util_SafeStrdup(ctime_r(&t, buf));
@@ -1118,7 +1118,7 @@ TimeUtil_GetLocalWindowsTimeZoneIndexAndName(char **ptzName)  // OUT: returning 
       struct tm tim;
       localtime_r(&now, &tim);
 
-      #if defined(sun)
+      #if defined(__sun__)
          /*
           * Offset is to standard (no need for DST adjustment).
           * Negative is east of prime meridian.

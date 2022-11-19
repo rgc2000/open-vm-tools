@@ -326,7 +326,7 @@ FileIO_Lock(FileIODescriptor *file,  // IN/OUT:
    FileIOResolveLockBits(&access);
    ASSERT((access & FILEIO_OPEN_LOCKED) == 0);
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
    if ((access & FILEIO_OPEN_LOCK_MANDATORY) != 0) {
       /* Mandatory file locks are available only when opening a file */
       ret = FILEIO_LOCK_FAILED;
@@ -365,7 +365,7 @@ FileIO_Lock(FileIODescriptor *file,  // IN/OUT:
          }
       }
    }
-#endif // !__FreeBSD__ && !sun
+#endif // !__FreeBSD__ && !__sun__
 
    return ret;
 }
@@ -395,7 +395,7 @@ FileIO_Unlock(FileIODescriptor *file)  // IN/OUT:
 
    ASSERT(file != NULL);
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
    if (file->lockToken != NULL) {
       int err = 0;
 
@@ -410,7 +410,7 @@ FileIO_Unlock(FileIODescriptor *file)  // IN/OUT:
    }
 #else
    ASSERT(file->lockToken == NULL);
-#endif // !__FreeBSD__ && !sun
+#endif // !__FreeBSD__ && !__sun__
 
    return ret;
 }
@@ -536,7 +536,7 @@ FileIO_CloseAndUnlink(FileIODescriptor *fd)  // IN:
 
 
 #if defined(_WIN32) || defined(__linux__) || defined(__APPLE__) || \
-    defined(__FreeBSD__) || defined(sun)
+    defined(__FreeBSD__) || defined(__sun__)
 /*
  *----------------------------------------------------------------------
  *
@@ -611,7 +611,7 @@ FileIO_Pwrite(FileIODescriptor *fd,  // IN: File descriptor
 #endif
 
 
-#if defined(sun) && __GNUC__ < 3
+#if defined(__sun__) && __GNUC__ < 3
 /*
  *-----------------------------------------------------------------------------
  *

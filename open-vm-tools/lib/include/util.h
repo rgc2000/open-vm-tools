@@ -97,7 +97,7 @@ Bool Util_IPv6AddrValid(const char *addr);
 Bool Util_IPAddrValid(const char *addr);
 #endif
 
-#if defined(__linux__) || defined(__FreeBSD__) || defined(sun)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__sun__)
 Bool Util_GetProcessName(pid_t pid, char *bufOut, size_t bufOutSize);
 #endif
 

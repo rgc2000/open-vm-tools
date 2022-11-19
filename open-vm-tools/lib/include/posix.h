@@ -72,7 +72,7 @@ struct statfs;
 struct utimbuf;
 struct timeval;
 struct passwd;
-#if !defined(sun)
+#if !defined(__sun__)
 struct mntent;
 #else
 struct mnttab;
@@ -188,7 +188,7 @@ struct group *Posix_Getgrnam(const char *name);
 int Posix_Getgrnam_r(const char *name, struct group *gr,
                  char *buf, size_t size, struct group **pgr);
 
-#if !defined(sun)
+#if !defined(__sun__)
 int Posix_Statfs(const char *pathName, struct statfs *statfsbuf);
 
 int Posix_GetGroupList(const char *user, gid_t group, gid_t *groups,
@@ -205,10 +205,10 @@ struct mntent *Posix_Getmntent_r(FILE *fp, struct mntent *m,
                                  char *buf, int size);
 
 #endif // !defined(__APPLE__) && !defined(__FreeBSD__)
-#else  // !defined(sun)
+#else  // !defined(__sun__)
 int Posix_Getmntent(FILE *fp, struct mnttab *mp);
 
-#endif // !defined(sun)
+#endif // !defined(__sun__)
 #if !defined(__APPLE__)
 
 
@@ -246,7 +246,7 @@ Posix_GetHostByName(const char *name)  // IN
    ASSERT(name);
 
    if ((gethostbyname_r(name, &he, buffer, sizeof buffer,
-#if !defined(sun) && !defined(SOLARIS) && !defined(SOL10)
+#if !defined(__sun__) && !defined(SOLARIS) && !defined(SOL10)
                         &phe,
 #endif
                         &error) == 0) && phe) {

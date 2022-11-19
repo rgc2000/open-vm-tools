@@ -40,7 +40,7 @@
 #include "util.h"
 #include "escape.h"
 #include "su.h"
-#if defined(__linux__) || defined(sun) || defined(__FreeBSD__)
+#if defined(__linux__) || defined(__sun__) || defined(__FreeBSD__)
 #include "vmblock_user.h"
 #include "mntinfo.h"
 #endif
@@ -53,7 +53,7 @@
 
 #define DND_ROOTDIR_PERMS     (S_IRWXU | S_IRWXG | S_IRWXO)
 #define DND_STAGINGDIR_PERMS  (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)
-#ifdef sun
+#ifdef __sun__
 #define ACCESSPERMS           (S_IRWXU | S_IRWXG | S_IRWXO)
 #endif
 #ifdef __ANDROID__
@@ -278,7 +278,7 @@ DnD_UriIsNonFileSchemes(const char *uri)
 
 
 /* We need to make this suck less. */
-#if defined(__linux__) || defined(sun) || defined(__FreeBSD__)
+#if defined(__linux__) || defined(__sun__) || defined(__FreeBSD__)
 
 /*
  *----------------------------------------------------------------------------

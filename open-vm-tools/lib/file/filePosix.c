@@ -33,7 +33,7 @@
 # endif
 # include <limits.h>
 # include <stdio.h>      /* Needed before sys/mnttab.h in Solaris */
-# if defined(sun)
+# if defined(__sun__)
 #  include <sys/mnttab.h>
 # elif __APPLE__
 #  include <sys/mount.h>
@@ -81,7 +81,7 @@
 
 #include "unicodeOperations.h"
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
 #if !defined(__APPLE__)
 static char *FilePosixLookupMountPoint(char const *canPath, Bool *bind);
 #endif
@@ -370,7 +370,7 @@ FileAttributes(const char *pathName,  // IN:
  *----------------------------------------------------------------------
  */
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
 Bool
 File_IsRemote(const char *pathName)  // IN: Path name
 {
@@ -626,7 +626,7 @@ File_FullPath(const char *pathName)  // IN:
       if (ret == NULL) {
          char *dir;
          char *file;
-#if defined(__FreeBSD__) || defined(sun)
+#if defined(__FreeBSD__) || defined(__sun__)
          char *realDir;
 #else
          char *ancestorPath;
@@ -634,7 +634,7 @@ File_FullPath(const char *pathName)  // IN:
 #endif
 
          File_GetPathName(path, &dir, &file);
-#if defined(__FreeBSD__) || defined(sun)
+#if defined(__FreeBSD__) || defined(__sun__)
          realDir = Posix_RealPath(dir);
          if (realDir == NULL) {
             realDir = File_StripFwdSlashes(dir);
@@ -967,7 +967,7 @@ File_SetFilePermissions(const char *pathName,  // IN:
 }
 
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
 /*
  *-----------------------------------------------------------------------------
  *
@@ -2130,7 +2130,7 @@ File_IsSameFile(const char *path1,  // IN:
 {
    struct stat st1;
    struct stat st2;
-#if !defined(sun)  // Solaris does not have statfs
+#if !defined(__sun__)  // Solaris does not have statfs
    struct statfs stfs1;
    struct statfs stfs2;
 #endif
@@ -2173,7 +2173,7 @@ File_IsSameFile(const char *path1,  // IN:
       return TRUE;
    }
 
-#if !defined(sun)  // Solaris does not have statfs
+#if !defined(__sun__)  // Solaris does not have statfs
    if (Posix_Statfs(path1, &stfs1) != 0) {
       return FALSE;
    }

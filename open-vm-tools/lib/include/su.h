@@ -55,7 +55,7 @@ Bool Id_AuthCheck(char const *right,
                   char const *localizedDescription,
                   Bool showDialogIfNeeded);
 
-#elif (defined(__linux__) || defined(sun) || defined(__FreeBSD__))
+#elif (defined(__linux__) || defined(__sun__) || defined(__FreeBSD__))
 
 #include <sys/types.h>
 #include <unistd.h>

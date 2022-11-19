@@ -53,7 +53,7 @@
 #   endif
 #elif defined __APPLE__ && defined KERNEL
 #  include <string.h>
-#elif !defined sun
+#elif !defined __sun__
 #  include <stdlib.h>
 #  include <string.h>
 #endif

@@ -30,7 +30,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-#if defined(sun)
+#if defined(__sun__)
 #include <sys/systeminfo.h>
 #endif
 
@@ -308,7 +308,7 @@ ServiceDaemonize(const char *path,
        * lock that is inherited by the child after fork(2). fcntl(2) locks do
        * not have this property. Solaris only supports fcntl(2) locks.
        */
-#ifndef sun
+#ifndef __sun__
       if ((flags & SERVICE_DAEMONIZE_LOCKPID) &&
           flock(pidPathFd, LOCK_EX | LOCK_NB) == -1) {
          err = errno;

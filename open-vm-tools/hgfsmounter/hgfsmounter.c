@@ -297,7 +297,7 @@ ParseShareName(const char *shareName,      // IN:  Share name to validate
  *
  *-----------------------------------------------------------------------------
  */
-#ifndef sun
+#ifndef __sun__
 static Bool
 ParseUid(const char *option,        // IN:  option string along with value
          HgfsMountInfo *mountInfo,  // OUT: mount data
@@ -375,7 +375,7 @@ out:
  *
  *-----------------------------------------------------------------------------
  */
-#ifndef sun
+#ifndef __sun__
 static Bool
 ParseGid(const char *option,        // IN:  option string along with value
          HgfsMountInfo *mountInfo,  // OUT: mount data
@@ -453,7 +453,7 @@ out:
  *
  *-----------------------------------------------------------------------------
  */
-#ifndef sun
+#ifndef __sun__
 static Bool
 ParseMask(const char *option,         // IN:  option string along with value
           unsigned short *pmask)      // OUT: parsed mask
@@ -508,7 +508,7 @@ out:
  *
  *-----------------------------------------------------------------------------
  */
-#ifndef sun
+#ifndef __sun__
 static Bool
 ParseFmask(const char *option,         // IN:  option string along with value
            HgfsMountInfo *mountInfo,   // OUT: mount data
@@ -544,7 +544,7 @@ ParseFmask(const char *option,         // IN:  option string along with value
  *
  *-----------------------------------------------------------------------------
  */
-#ifndef sun
+#ifndef __sun__
 static Bool
 ParseDmask(const char *option,         // IN:  option string along with value
            HgfsMountInfo *mountInfo,   // OUT: mount data
@@ -580,7 +580,7 @@ ParseDmask(const char *option,         // IN:  option string along with value
  *
  *-----------------------------------------------------------------------------
  */
-#ifndef sun
+#ifndef __sun__
 static Bool
 ParseTtl(const char *option,        // IN:  option string along with value
          HgfsMountInfo *mountInfo,  // OUT: mount data
@@ -683,7 +683,7 @@ static MountOptions mountOptions[] = {
    { "suid", MS_NOSUID, FALSE, "allow suid/sgid bits (default)",
       "Setting mount option for allowing suid/sgid bits on", NULL },
 
-#ifndef sun /* Solaris does not have any of these options */
+#ifndef __sun__ /* Solaris does not have any of these options */
 
    { "uid=<arg>", 0, TRUE, "mount owner (by uid or username)",
       NULL, ParseUid },
@@ -1138,7 +1138,7 @@ main(int argc,          // IN
    mountInfo.infoSize = sizeof mountInfo;
    mountInfo.version = HGFS_MOUNTINFO_VERSION_2;
 
-#ifndef sun
+#ifndef __sun__
    mountInfo.fmask = 0;
    mountInfo.dmask = 0;
    mountInfo.uidSet = FALSE;
@@ -1214,7 +1214,7 @@ main(int argc,          // IN
    }
 #elif defined(__APPLE__)
    mntRes = mount(HGFS_NAME, mountPoint, flags, &mountInfo);
-#elif defined(sun)
+#elif defined(__sun__)
    mntRes = mount(mountPoint, mountPoint, MS_DATA | flags, HGFS_NAME,
                   &mountInfo, sizeof mountInfo);
 #endif

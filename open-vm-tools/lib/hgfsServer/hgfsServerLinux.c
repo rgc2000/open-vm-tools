@@ -108,7 +108,7 @@ typedef struct DirectoryEntry {
  * ALLPERMS (mode 07777) and ACCESSPERMS (mode 0777) are not defined in the
  * Solaris version of <sys/stat.h>.
  */
-#ifdef sun
+#ifdef __sun__
 #   define ACCESSPERMS (S_IRWXU|S_IRWXG|S_IRWXO)
 #   define ALLPERMS (S_ISUID|S_ISGID|S_ISVTX|S_IRWXU|S_IRWXG|S_IRWXO)
 #endif
@@ -232,7 +232,7 @@ getdents_apple(DIR *fd,               // IN
 #endif
 
 
-#if defined(sun) || defined(__linux__) || \
+#if defined(__sun__) || defined(__linux__) || \
     (defined(__FreeBSD_version) && __FreeBSD_version < 490000)
 /*
  * Implements futimes(), which was introduced in glibc 2.3.3. FreeBSD 3.2
@@ -246,7 +246,7 @@ getdents_apple(DIR *fd,               // IN
 int
 futimes(int fd, const struct timeval times[2])
 {
-#ifndef sun
+#ifndef __sun__
    /*
     * Hack to allow the timevals in futimes() to be const even when utimes()
     * expects non-const timevals. This is the case on glibc up to 2.3 or
@@ -381,7 +381,7 @@ static HgfsInternalStatus HgfsEffectivePermissions(char *fileName,
                                                    uint32 *permissions);
 static uint64 HgfsGetCreationTime(const struct stat *stats);
 
-#if !defined(sun)
+#if !defined(__sun__)
 static HgfsInternalStatus HgfsWriteCheckIORange(off_t offset,
                                                 uint32 bytesToWrite);
 #endif
@@ -3997,7 +3997,7 @@ HgfsPlatformScanvdir(HgfsServerResEnumGetFunc enumNamesGet,   // IN: Function to
          break;
       }
 
-#if defined(sun)
+#if defined(__sun__)
       /*
        * Solaris lacks a single definition of NAME_MAX and using pathconf(), to
        * determine NAME_MAX for the current directory, is too cumbersome for
@@ -4271,7 +4271,7 @@ HgfsPlatformWriteFile(fileDesc writeFd,            // IN: file descriptor
    LOG(4, "%s: write fh %u offset %"FMT64"u, count %u\n",
        __FUNCTION__, writeFd, writeOffset, writeDataSize);
 
-#if !defined(sun)
+#if !defined(__sun__)
    if (!writeSequential) {
       status = HgfsWriteCheckIORange(writeOffset, writeDataSize);
       if (status != 0) {
@@ -5269,7 +5269,7 @@ HgfsSetHiddenXAttr(char const *fileName,   // IN: File name
 #endif // __APPLE__
 
 
-#if !defined(sun)
+#if !defined(__sun__)
 /*
  *-----------------------------------------------------------------------------
  *

@@ -23,7 +23,7 @@
  *     VM. All access is allowed.
  */
 
-#ifdef sun
+#ifdef __sun__
 #   include <stdlib.h>
 #   include <strings.h>
 #elif defined(__FreeBSD__)

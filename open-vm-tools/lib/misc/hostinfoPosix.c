@@ -37,7 +37,7 @@
 #include <pthread.h>
 #include <time.h>
 #include <sys/resource.h>
-#if defined(sun)
+#if defined(__sun__)
 #include <sys/systeminfo.h>
 #endif
 #include <sys/socket.h>
@@ -72,7 +72,7 @@
 #if !defined(USING_AUTOCONF) || defined(HAVE_SYS_VFS_H)
 #include <sys/vfs.h>
 #endif
-#if !defined(sun) && !defined __ANDROID__ && (!defined(USING_AUTOCONF) || \
+#if !defined(__sun__) && !defined __ANDROID__ && (!defined(USING_AUTOCONF) || \
                                               (defined(HAVE_SYS_IO_H) && \
                                                defined(HAVE_SYS_SYSINFO_H)))
 #if defined(__i386__) || defined(__x86_64__)
@@ -484,7 +484,7 @@ Hostinfo_GetSystemBitness(void)
    if (sysctl(mib, ARRAYSIZE(mib), buf, &len, NULL, 0) == -1) {
       return -1;
    }
-#   elif defined sun
+#   elif defined __sun__
 #      if !defined SOL10
    /*
     * XXX: This is bad.  We define SI_ARCHITECTURE_K to what it is on Solaris
@@ -2294,7 +2294,7 @@ HostinfoOSData(void)
 uint32
 Hostinfo_NumCPUs(void)
 {
-#if defined(sun)
+#if defined(__sun__)
    static int count = 0;
 
    if (count <= 0) {
@@ -3001,7 +3001,7 @@ Hostinfo_Daemonize(const char *path,             // IN: NUL-terminated UTF-8
        * lock that is inherited by the child after fork(2). fcntl(2) locks do
        * not have this property. Solaris only supports fcntl(2) locks.
        */
-#ifndef sun
+#ifndef __sun__
       if ((flags & HOSTINFO_DAEMONIZE_LOCKPID) &&
           flock(pidPathFd, LOCK_EX | LOCK_NB) == -1) {
          err = errno;
@@ -4071,7 +4071,7 @@ HostinfoSysinfo(uint64 *totalRam,  // OUT: Total RAM in bytes
 #endif // ifndef __APPLE__
 
 
-#if defined(__linux__) || defined(__FreeBSD__) || defined(sun)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__sun__)
 /*
  *-----------------------------------------------------------------------------
  *

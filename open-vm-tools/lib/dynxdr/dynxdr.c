@@ -45,7 +45,7 @@ typedef struct DynXdrData {
 /*
  * FreeBSD < 5.0 and Solaris do not declare some parameters as "const".
  */
-#if defined(sun) || (defined(__FreeBSD__) && __FreeBSD_version < 500000)
+#if defined(__sun__) || (defined(__FreeBSD__) && __FreeBSD_version < 500000)
 #  define DYNXDR_CONST
 #else
 #  define DYNXDR_CONST const
@@ -55,7 +55,7 @@ typedef struct DynXdrData {
  * Mac OS X, FreeBSD and Solaris don't take a const parameter to the
  * "x_getpostn" function.
  */
-#if defined(__APPLE__) || defined(__FreeBSD__) || defined(sun) || defined(USE_TIRPC)
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__sun__) || defined(USE_TIRPC)
 #  define DYNXDR_GETPOS_CONST
 #else
 #  define DYNXDR_GETPOS_CONST const
@@ -64,7 +64,7 @@ typedef struct DynXdrData {
 /*
  * Solaris defines the parameter to "x_putbytes" as an int.
  */
-#if defined(sun)
+#if defined(__sun__)
 #  define DYNXDR_SIZE_T int
 #else
 #  define DYNXDR_SIZE_T u_int
@@ -79,7 +79,7 @@ typedef struct DynXdrData {
 #  define DYNXDR_LONG long
 #endif
 
-#if defined(sun)
+#if defined(__sun__)
 #   define DYNXDR_INLINE_T rpc_inline_t
 #   define DYNXDR_INLINE_LEN_T int
 #else
@@ -174,7 +174,7 @@ DynXdrSetPos(XDR *xdrs, // IN
 
 #if !defined(USE_TIRPC) &&    \
      defined(__GLIBC__) ||    \
-     (defined(sun) &&         \
+     (defined(__sun__) &&         \
         (defined(_LP64) ||    \
            defined(_KERNEL)))
 /*
@@ -316,7 +316,7 @@ DynXdr_Create(XDR *in)  // IN
        * Yes, these macros are a little redundant, but I figure it helps with
        * readability to group the sun/_KERNEL bits together.
        */
-#if !defined(sun) || (defined(sun) && !defined(_KERNEL))
+#if !defined(__sun__) || (defined(__sun__) && !defined(_KERNEL))
       NULL,             /* x_getlong */
       DynXdrPutLong,    /* x_putlong */
 #endif
@@ -331,7 +331,7 @@ DynXdr_Create(XDR *in)  // IN
 #elif defined(__GLIBC__)
       NULL,             /* x_getint32 */
       DynXdrPutInt32,   /* x_putint32 */
-#elif defined(sun) && (defined(_LP64) || defined(_KERNEL))
+#elif defined(__sun__) && (defined(_LP64) || defined(_KERNEL))
       NULL,             /* x_control */
       NULL,             /* x_getint32 */
       DynXdrPutInt32,   /* x_putint32 */

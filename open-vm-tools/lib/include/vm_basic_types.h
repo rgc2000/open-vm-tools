@@ -329,7 +329,7 @@ typedef char           Bool;
 #endif
 
 #if !defined(USING_AUTOCONF)
-#   if defined(__FreeBSD__) || defined(sun)
+#   if defined(__FreeBSD__) || defined(__sun__)
 #      ifndef KLD_MODULE
 #         if __FreeBSD_version >= 500043
 #            if !defined(VMKERNEL)
@@ -977,7 +977,7 @@ typedef void * UserVA;
  * Linux it's an int.
  * Use this like this: printf("The pid is %" FMTPID ".\n", pid);
  */
-#ifdef sun
+#ifdef __sun__
 #   ifdef VM_X86_64
 #      define FMTPID "d"
 #   else
@@ -992,7 +992,7 @@ typedef void * UserVA;
  * is a ulong, but on other platforms it's an unsigned int.
  * Use this like this: printf("The uid is %" FMTUID ".\n", uid);
  */
-#if defined(sun) && !defined(SOL11)
+#if defined(__sun__) && !defined(SOL11)
 #   ifdef VM_X86_64
 #      define FMTUID "u"
 #   else
@@ -1007,7 +1007,7 @@ typedef void * UserVA;
  * Linux it's an int.
  * Use this like this: printf("The mode is %" FMTMODE ".\n", mode);
  */
-#ifdef sun
+#ifdef __sun__
 #   ifdef VM_X86_64
 #      define FMTMODE "o"
 #   else

@@ -50,7 +50,7 @@
 #   define memmove(s1,s2,n) bcopy(s2,s1,n)
 #elif defined __APPLE__ && defined KERNEL
 #  include <string.h>
-#elif !defined sun
+#elif !defined __sun__
 #  include <stdlib.h>
 #  include <string.h>
 #else

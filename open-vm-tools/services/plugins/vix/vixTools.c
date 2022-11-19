@@ -66,7 +66,7 @@
 #include <unistd.h>
 #endif
 
-#if defined(sun) || defined(__FreeBSD__) || defined(__APPLE__)
+#if defined(__sun__) || defined(__FreeBSD__) || defined(__APPLE__)
 #include <sys/stat.h>
 #endif
 
@@ -1761,7 +1761,7 @@ VixToolsStartProgramImpl(const char *requestName,            // IN
     * For non-Windows, we use the user's $HOME if workingDir isn't supplied.
     */
    if (NULL == workingDir) {
-#if defined(__linux__) || defined(sun) || defined(__FreeBSD__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__sun__) || defined(__FreeBSD__) || defined(__APPLE__)
       char *username = NULL;
 
       if (!ProcMgr_GetImpersonatedUserInfo(&username, &workingDirectory)) {
@@ -4783,7 +4783,7 @@ VixToolsMoveObject(VixCommandRequestHeader *requestMsg)        // IN
     * Be careful. Renaming a file to itself can cause it to be deleted.
     * This should be a no-op anyway.
     */
-#if !defined(sun) && !defined(__FreeBSD__)
+#if !defined(__sun__) && !defined(__FreeBSD__)
    if (File_IsSameFile(srcFilePathName, destFilePathName)) {
       err = VIX_OK;
       goto quit;
@@ -6871,7 +6871,7 @@ VixToolsGetFileExtendedInfoLength(const char *filePathName,   // IN
    fileExtendedInfoBufferSize += 10 * 3;            // uid, gid, perms
 #endif
 
-#if defined(__linux__) || defined(sun) || defined(__FreeBSD__)
+#if defined(__linux__) || defined(__sun__) || defined(__FreeBSD__)
    if (File_IsSymLink(filePathName)) {
       char *symlinkTarget;
       symlinkTarget = Posix_ReadLink(filePathName);

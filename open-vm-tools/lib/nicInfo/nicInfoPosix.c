@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
-#ifdef sun
+#ifdef __sun__
 # include <sys/systeminfo.h>
 #endif
 #include <unistd.h>

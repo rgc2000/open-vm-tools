@@ -31,7 +31,7 @@
 #endif
 
 
-#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(sun) && !defined(__APPLE__)
+#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(__sun__) && !defined(__APPLE__)
 #   error This file should not be compiled
 #endif
 
@@ -45,7 +45,7 @@
 #include <sys/time.h>
 #include <sys/times.h>
 #include <netdb.h>
-#ifdef sun
+#ifdef __sun__
 # include <sys/sockio.h>
 #endif
 

@@ -32,7 +32,7 @@
 #include <dirent.h>
 #include <ctype.h>
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
 #   include <pwd.h>
 #endif
 
@@ -172,7 +172,7 @@ FileGetTmpDir(Bool useConf)  // IN: Use the config file?
 #undef HOSTINFO_TRYDIR
 
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
 /*
  *-----------------------------------------------------------------------------
  *
@@ -496,7 +496,7 @@ FileGetSafeTmpDir(Bool useConf,  // IN: Use configuration variables?
 {
    char *tmpDir = NULL;
 
-#if defined(__FreeBSD__) || defined(sun)
+#if defined(__FreeBSD__) || defined(__sun__)
    tmpDir = FileGetTmpDir(useConf);
 #else
    static Atomic_Ptr lckStorage;
@@ -688,7 +688,7 @@ char *
 File_MakeSafeTempSubdir(const char *safeDir,     // IN
                         const char *subdirName)  // IN
 {
-#if defined(__FreeBSD__) || defined(sun)
+#if defined(__FreeBSD__) || defined(__sun__)
    if (!File_Exists(safeDir)) {
       return NULL;
    }

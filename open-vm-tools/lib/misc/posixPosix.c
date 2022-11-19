@@ -55,7 +55,7 @@ extern char **environ;
 #elif defined(__FreeBSD__)
 #include <sys/param.h>
 #include <sys/mount.h>
-#elif defined(sun)
+#elif defined(__sun__)
 #include <alloca.h>
 #include <sys/mnttab.h>
 #else
@@ -78,7 +78,7 @@ extern char **environ;
 
 #include "vmware.h"
 #include "posixInt.h"
-#if defined(sun)
+#if defined(__sun__)
 #include "hashTable.h" // For setenv emulation
 #endif
 
@@ -1635,7 +1635,7 @@ Posix_Putenv(char *name)  // IN:
 }
 
 
-#if !defined(sun) // {
+#if !defined(__sun__) // {
 
 /*
  *----------------------------------------------------------------------
@@ -1671,7 +1671,7 @@ Posix_Statfs(const char *pathName,      // IN:
 
    return ret;
 }
-#endif // } !defined(sun)
+#endif // } !defined(__sun__)
 
 
 /*
@@ -1707,7 +1707,7 @@ Posix_Setenv(const char *name,   // IN:
       goto exit;
    }
 
-#if defined(sun)
+#if defined(__sun__)
    if (overWrite || !getenv(rawName)) {
       static HashTable *trackEnv = NULL; // Tracks values to avoid leaks.
       char *keyStr;
@@ -1786,7 +1786,7 @@ Posix_Unsetenv(const char *name)  // IN:
       return -1;
    }
 
-#if defined(sun)
+#if defined(__sun__)
    ret = putenv(rawName);
 #elif defined(__FreeBSD__)
    /*
@@ -1804,7 +1804,7 @@ Posix_Unsetenv(const char *name)  // IN:
 }
 
 
-#if !defined(sun) // {
+#if !defined(__sun__) // {
 
 #if !defined(__APPLE__) && !defined(__FreeBSD__) // {
 /*
@@ -2220,7 +2220,7 @@ Posix_Fprintf(FILE *stream,        // IN:
 #endif // } !defined(__APPLE__) && !defined(__FreeBSD)
 
 
-#else  // } !defined(sun) {
+#else  // } !defined(__sun__) {
 /*
  *----------------------------------------------------------------------
  *
@@ -2267,7 +2267,7 @@ Posix_Getmntent(FILE *fp,           // IN:
 
    return ret;
 }
-#endif // } !defined(sun)
+#endif // } !defined(__sun__)
 
 
 /*

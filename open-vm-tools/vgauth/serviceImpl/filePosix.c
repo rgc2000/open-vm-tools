@@ -33,7 +33,7 @@
 #include "serviceInt.h"
 
 
-#if defined(sun) && defined(__i386__)
+#if defined(__sun__) && defined(__i386__)
 #define FMTUID "l"
 #define FMTGID "l"
 #define FMTMODE "l"

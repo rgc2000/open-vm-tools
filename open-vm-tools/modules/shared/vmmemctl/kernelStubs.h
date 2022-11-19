@@ -152,7 +152,7 @@
 #   endif
 #   include <stdarg.h>
 #   include <string.h>
-# elif defined(sun)
+# elif defined(__sun__)
 #   include "vm_basic_types.h"
 #   include <sys/types.h>
 #   include <sys/varargs.h>
@@ -163,7 +163,7 @@
  * Function Prototypes
  */
 
-#if defined(__linux__) || defined(__APPLE__) || defined (sun)
+#if defined(__linux__) || defined(__APPLE__) || defined (__sun__)
 
 #  ifdef __linux__                           /* if (__linux__) { */
 #  define atoi(s) simple_strtol(((s != NULL) ? s : ""), NULL, 10)

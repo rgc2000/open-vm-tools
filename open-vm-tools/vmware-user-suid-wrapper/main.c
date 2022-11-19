@@ -30,7 +30,7 @@
  *        vmware-user.
  */
 
-#if !defined(sun) && !defined(__FreeBSD__) && !defined(__linux__)
+#if !defined(__sun__) && !defined(__FreeBSD__) && !defined(__linux__)
 # error This program is not supported on your platform.
 #endif
 

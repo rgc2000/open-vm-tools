@@ -26,7 +26,7 @@
  *----------------------------------------------------------------------
  */
 
-#ifdef sun
+#ifdef __sun__
 #include "vmware.h"
 #include <unistd.h>
 #include <iso/stdlib_iso.h>

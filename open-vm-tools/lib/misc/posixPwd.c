@@ -16,7 +16,7 @@
  *
  *********************************************************/
 
-#if !defined(_POSIX_PTHREAD_SEMANTICS) && defined(sun)
+#if !defined(_POSIX_PTHREAD_SEMANTICS) && defined(__sun__)
 #define _POSIX_PTHREAD_SEMANTICS 1 // Needed to get POSIX-correct getpw*_r() on Solaris
 #endif
 
@@ -156,7 +156,7 @@ GetpwInternal(struct passwd *pw)  // IN:
    spw.pw_fields = pw->pw_fields;
 #endif
 
-#if !defined(sun)
+#if !defined(__sun__)
    ret = ENOMEM;
 #else
    ret = EIO;
@@ -872,7 +872,7 @@ exit:
 }
 
 
-#if !defined(sun) // {
+#if !defined(__sun__) // {
 /*
  *----------------------------------------------------------------------
  *

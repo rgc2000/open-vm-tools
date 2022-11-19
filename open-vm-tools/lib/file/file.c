@@ -1408,7 +1408,7 @@ File_MoveTree(const char *srcName,    // IN:
          }
       }
 
-#if !defined(__FreeBSD__) && !defined(sun)
+#if !defined(__FreeBSD__) && !defined(__sun__)
       /*
        * File_GetFreeSpace is not defined for FreeBSD
        */

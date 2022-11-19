@@ -78,7 +78,7 @@ struct HgfsMountInfo {
    HgfsMountInfoVersion version; // HgfsMountInfo structure version
    uint32 fd;                 // file descriptor of client file
    uint32 flags;              // hgfs specific mount flags
-#ifndef sun
+#ifndef __sun__
    uid_t uid;                 // desired owner of files
    Bool uidSet;               // is the owner actually set?
    gid_t gid;                 // desired group of files
@@ -112,7 +112,7 @@ struct HgfsMountInfoV1 {
    uint32 magicNumber;        // hgfs magic number
    uint32 version;            // protocol version
    uint32 fd;                 // file descriptor of client file
-#ifndef sun
+#ifndef __sun__
    uid_t uid;                 // desired owner of files
    Bool uidSet;               // is the owner actually set?
    gid_t gid;                 // desired group of files

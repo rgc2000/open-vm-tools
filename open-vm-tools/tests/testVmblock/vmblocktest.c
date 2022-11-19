@@ -24,7 +24,7 @@
  *
  */
 
-#if !defined(__linux__) && !defined(sun) && !defined(__FreeBSD__) && !defined(vmblock_fuse)
+#if !defined(__linux__) && !defined(__sun__) && !defined(__FreeBSD__) && !defined(vmblock_fuse)
 # error "vmblocktest.c needs to be ported to your OS."
 #endif
 
@@ -41,7 +41,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <semaphore.h>
-#ifdef sun
+#ifdef __sun__
 # include <stropts.h>
 #endif
 
@@ -78,7 +78,7 @@
 
 #if defined (__linux__) || defined(__FreeBSD__)
 # define os_thread_yield()      sched_yield()
-#elif defined(sun)
+#elif defined(__sun__)
 # define os_thread_yield()      yield()
 #endif
 

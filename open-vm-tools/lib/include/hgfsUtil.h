@@ -56,7 +56,7 @@
 #   if !defined _STRUCT_TIMESPEC &&   \
        !defined _TIMESPEC_DECLARED && \
        !defined __timespec_defined && \
-       !defined sun && \
+       !defined __sun__ && \
        !defined __FreeBSD__ && \
        !__APPLE__ && \
        !defined _WIN32
@@ -73,7 +73,7 @@ struct timespec {
 #   if defined __KERNEL__ || defined _KERNEL || defined KERNEL
 #      if defined __linux__
 #         include <linux/errno.h>
-#      elif defined sun || defined __FreeBSD__ || defined __APPLE__
+#      elif defined __sun__ || defined __FreeBSD__ || defined __APPLE__
 #         include <sys/errno.h>
 #      endif
 #   else

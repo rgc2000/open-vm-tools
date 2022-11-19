@@ -39,7 +39,7 @@ extern "C" {
  * slightly different names than all other platforms. Provide macros to
  * translate the names to the more common ones.
  */
-#if defined(__GLIBC__) || defined(sun)
+#if defined(__GLIBC__) || defined(__sun__)
 #  define xdr_u_int16_t(x, i)    xdr_uint16_t(x, i)
 #  define xdr_u_int32_t(x, i)    xdr_uint32_t(x, i)
 #  define xdr_u_int64_t(x, i)    xdr_uint64_t(x, i)

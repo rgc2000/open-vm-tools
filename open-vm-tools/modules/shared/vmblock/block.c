@@ -67,7 +67,7 @@
 #if defined(vmblock_fuse)
 #elif defined(__linux__)
 # include "vmblockInt.h"
-#elif defined(sun)
+#elif defined(__sun__)
 # include "module.h"
 #elif defined(__FreeBSD__)
 # include "vmblock_k.h"

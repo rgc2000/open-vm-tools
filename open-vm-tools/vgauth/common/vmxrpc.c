@@ -74,7 +74,7 @@ typedef __uint64_t uint64;
 
 #define SOCKET int
 #endif
-#ifdef sun
+#ifdef __sun__
 typedef uint32_t uint32;
 typedef uint64_t uint64;
 

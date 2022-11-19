@@ -83,7 +83,7 @@
 #ifndef _VMBLOCK_H_
 #define _VMBLOCK_H_
 
-#if defined(sun) || defined(__FreeBSD__)
+#if defined(__sun__) || defined(__FreeBSD__)
 # include <sys/ioccom.h>
 #endif
 
@@ -169,13 +169,13 @@ extern "C" {
                                        "/" VMBLOCK_CONTROL_DEVNAME
 # define VMBLOCK_DEVICE_MODE            O_WRONLY
 
-#elif defined(sun) || defined(__FreeBSD__)
+#elif defined(__sun__) || defined(__FreeBSD__)
 # define VMBLOCK_FS_NAME                "vmblock"
 # define VMBLOCK_MOUNT_POINT            "/var/run/" VMBLOCK_FS_NAME
 # define VMBLOCK_FS_ROOT                VMBLOCK_MOUNT_POINT
 # define VMBLOCK_DEVICE                 VMBLOCK_MOUNT_POINT
 # define VMBLOCK_DEVICE_MODE            O_RDONLY
-# if defined(sun)                       /* if (sun) { */
+# if defined(__sun__)                       /* if (__sun__) { */
    /*
     * Construct ioctl(2) commands for blocks.  _IO() is a helper macro to
     * construct unique command values more easily.  I chose 'v' because I

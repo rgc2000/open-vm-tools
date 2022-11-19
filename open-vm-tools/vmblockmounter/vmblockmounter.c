@@ -221,7 +221,7 @@ main(int argc,          // IN
    }
 
    /* Go! */
-#if defined(sun)
+#if defined(__sun__)
    mntRes = mount(sourceDir, mountPoint, MS_DATA, VMBLOCK_FS_NAME);
 #elif defined(__FreeBSD__)
    {

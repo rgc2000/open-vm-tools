@@ -4950,7 +4950,7 @@ HgfsStatusConvertToSolaris(HgfsStatus hgfsStatus) // IN: Status code to convert
 static int
 HgfsGetOpenMode(uint32 flags) // IN: Open flags
 {
-#ifdef sun
+#ifdef __sun__
    /*
     * Sun uses different values in the kernel.  These are defined in
     * <sys/file.h>.
@@ -4967,7 +4967,7 @@ HgfsGetOpenMode(uint32 flags) // IN: Open flags
    uint32 mask = O_RDONLY|O_WRONLY|O_RDWR;
    int result = -1;
 
-#ifndef sun
+#ifndef __sun__
    LOG(4, (KERN_DEBUG "VMware hgfs: HgfsGetOpenMode: entered\n"));
 #else
    DEBUG(VM_DEBUG_LOG, "HgfsGetOpenMode: entered\n");
@@ -4999,7 +4999,7 @@ HgfsGetOpenMode(uint32 flags) // IN: Open flags
    default:
       /* This should never happen. */
       NOT_REACHED();
-#ifndef sun
+#ifndef __sun__
       LOG(4, (KERN_DEBUG "VMware hgfs: HgfsGetOpenMode: invalid open flags %o\n",
              flags));
 #else
@@ -5035,7 +5035,7 @@ HgfsGetOpenMode(uint32 flags) // IN: Open flags
 static int
 HgfsGetOpenFlags(uint32 flags) // IN: Open flags
 {
-#ifdef sun
+#ifdef __sun__
    /*
     * Sun uses different values inside the kernel.  These are defined in
     * <sys/file.h>.
@@ -5052,7 +5052,7 @@ HgfsGetOpenFlags(uint32 flags) // IN: Open flags
    uint32 mask = O_CREAT | O_TRUNC | O_EXCL;
    int result = -1;
 
-#ifndef sun
+#ifndef __sun__
    LOG(4, (KERN_DEBUG "VMware hgfs: HgfsGetOpenFlags: entered\n"));
 #else
    DEBUG(VM_DEBUG_INFO, "HgfsGetOpenFlags: entered\n");
@@ -5114,7 +5114,7 @@ HgfsGetOpenFlags(uint32 flags) // IN: Open flags
        * O_TRUNC flag on the assumption that it's safer to honor
        * O_EXCL.
        */
-#ifndef sun
+#ifndef __sun__
       LOG(4, (KERN_DEBUG "VMware hgfs: HgfsGetOpenFlags: invalid open "
               "flags %o. Ignoring the O_TRUNC flag.\n", flags));
 #else

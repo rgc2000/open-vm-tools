@@ -144,7 +144,7 @@
 #endif
 
 /* The Solaris 9 cross-compiler complains about these not being used */
-#ifndef sun
+#ifndef __sun__
 static INLINE int
 Min(int a, int b)
 {
@@ -156,7 +156,7 @@ Min(int a, int b)
 #define MAX(_a, _b)   (((_a) > (_b)) ? (_a) : (_b))
 #endif
 
-#ifndef sun
+#ifndef __sun__
 static INLINE int
 Max(int a, int b)
 {

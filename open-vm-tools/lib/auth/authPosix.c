@@ -41,7 +41,7 @@
 #   include <dlfcn.h>
 #endif
 
-#if defined(HAVE_CONFIG_H) || defined(sun)
+#if defined(HAVE_CONFIG_H) || defined(__sun__)
 #  include <crypt.h>
 #endif
 
@@ -55,7 +55,7 @@ typedef struct {
 } AuthTokenInternal;
 
 #ifdef USE_PAM
-#if defined(sun)
+#if defined(__sun__)
 #define CURRENT_PAM_LIBRARY	"libpam.so.1"
 #elif defined(__FreeBSD__)
 #define CURRENT_PAM_LIBRARY	"libpam.so"
@@ -181,7 +181,7 @@ AuthLoadPAM(void)
 static const char *PAM_username;
 static const char *PAM_password;
 
-#if defined(sun)
+#if defined(__sun__)
 static int PAM_conv (int num_msg,                     // IN:
 		     struct pam_message **msg,        // IN:
 		     struct pam_response **resp,      // OUT:

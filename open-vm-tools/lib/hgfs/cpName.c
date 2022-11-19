@@ -38,7 +38,7 @@
  *
  */
 
-#ifdef sun
+#ifdef __sun__
 #include <string.h>
 #endif
 

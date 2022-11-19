@@ -24,7 +24,7 @@
  *
  */
 
-#if !defined __linux__ && !defined __FreeBSD__ && !defined sun && !defined __APPLE__
+#if !defined __linux__ && !defined __FreeBSD__ && !defined __sun__ && !defined __APPLE__
 #   error This file should not be compiled
 #endif
 
@@ -35,7 +35,7 @@
 
 #if defined __linux__
 #define HGFSHLPR_DEFAULT_MOUNT_PATH      "/mnt/hgfs"
-#elif defined sun
+#elif defined __sun__
 #define HGFSHLPR_DEFAULT_MOUNT_PATH      "/hgfs"
 #elif defined __APPLE__
 #define HGFSHLPR_DEFAULT_MOUNT_PATH      "/Volumes/VMware Shared Folders"

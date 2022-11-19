@@ -23,13 +23,13 @@
  *
  */
 
-#if !defined(__linux__) && !defined(sun) && !defined(__FreeBSD__) && !defined(__APPLE__)
+#if !defined(__linux__) && !defined(__sun__) && !defined(__FreeBSD__) && !defined(__APPLE__)
 #error This file should not be compiled on this platform.
 #endif
 
 #include <stdio.h>
 #include <sys/stat.h>
-#if defined(__linux__) || defined(sun)
+#if defined(__linux__) || defined(__sun__)
 # if defined(__linux__)
 #  include <sys/sysmacros.h>
 # endif
@@ -72,7 +72,7 @@
 /* Number of device numbers to store for device-mapper */
 #define WIPER_MAX_DM_NUMBERS 8
 
-#if defined(sun) || defined(__linux__)
+#if defined(__sun__) || defined(__linux__)
 # define PROCFS "proc"
 #elif defined(__FreeBSD__) || defined(__APPLE__)
 # define PROCFS "procfs"
@@ -108,7 +108,7 @@ typedef struct WiperState {
    uid_t euid;
 } WiperState;
 
-#ifdef sun
+#ifdef __sun__
 typedef struct WiperDiskString {
    char *name;
    size_t nameLen;
@@ -272,7 +272,7 @@ WiperCollectDiskMajors(void)
  *-----------------------------------------------------------------------------
  */
 
-#if defined(sun) /* SunOS { */
+#if defined(__sun__) /* SunOS { */
 static Bool
 WiperIsDiskDevice(MNTINFO *mnt,         // IN: file system being considered
                   struct stat *s)       // IN: stat(2) info of fs source
@@ -459,7 +459,7 @@ WiperPartitionFilter(WiperPartition *item,         // IN/OUT
       if (info->diskBacked) {
          if (Posix_Stat(MNTINFO_NAME(mnt), &s) < 0) {
             comment = "Unknown device.";
-#if defined(sun) || defined(__linux__)
+#if defined(__sun__) || defined(__linux__)
          } else if (!S_ISBLK(s.st_mode)) {
             comment = "Not a block device.";
 #endif
@@ -626,7 +626,7 @@ WiperSinglePartition_GetSpace(const WiperPartition *p, // IN
                               uint64 *free,            // OUT/OPT
                               uint64 *total)           // OUT
 {
-#ifdef sun
+#ifdef __sun__
    struct statvfs statfsbuf;
 #else
    struct statfs statfsbuf;
@@ -635,7 +635,7 @@ WiperSinglePartition_GetSpace(const WiperPartition *p, // IN
 
    ASSERT(p);
 
-#ifdef sun
+#ifdef __sun__
    if (statvfs(p->mountPoint, &statfsbuf) < 0) {
 #else
    if (Posix_Statfs(p->mountPoint, &statfsbuf) < 0) {
@@ -643,7 +643,7 @@ WiperSinglePartition_GetSpace(const WiperPartition *p, // IN
       return "Unable to statfs() the mount point";
    }
 
-#ifdef sun
+#ifdef __sun__
    blockSize = statfsbuf.f_frsize;
 #else
    blockSize = statfsbuf.f_bsize;

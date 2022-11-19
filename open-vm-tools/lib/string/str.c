@@ -69,7 +69,7 @@ extern int vasprintf(char **ptr, const char *f, va_list arg);
  */
 #   if !(defined(__linux__) ||                                          \
          (defined(__FreeBSD__) && (__FreeBSD_version >= 500000)) ||     \
-         defined(sun))
+         defined(__sun__))
 extern int vswprintf(wchar_t *wcs, size_t maxlen, const wchar_t *format, va_list args);
 #   endif
 #endif // _WIN32
@@ -621,7 +621,7 @@ StrVasprintfInternal(size_t *length,       // OUT/OPT:
 #if defined HAS_BSD_PRINTF
    ret = bsd_vsnprintf(&buf, 0, format, arguments);
 
-#elif !defined sun && !defined STR_NO_WIN32_LIBS
+#elif !defined __sun__ && !defined STR_NO_WIN32_LIBS
    ret = vasprintf(&buf, format, arguments);
 
 #else

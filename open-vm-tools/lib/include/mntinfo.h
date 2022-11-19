@@ -28,7 +28,7 @@
 #ifndef __MNTINFO_H__
 #define __MNTINFO_H__
 
-#ifdef sun
+#ifdef __sun__
 # include <sys/mnttab.h>
 # include <libgen.h>
 # include <limits.h>
@@ -81,7 +81,7 @@
  *----------------------------------------------------------------------------
  */
 
-#ifdef sun
+#ifdef __sun__
 # define MNTFILE                        MNTTAB
 # define MNTHANDLE                      FILE *
 # define MNTINFO                        struct mnttab

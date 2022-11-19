@@ -70,7 +70,7 @@
 #endif
 
 
-#if defined(__FreeBSD__) || defined(sun)
+#if defined(__FreeBSD__) || defined(__sun__)
 static const char nul[] = {'\0', '\0'};
 #else
 static const wchar_t nul = L'\0';
@@ -670,7 +670,7 @@ CodeSetOldGetCodeSetFromLocale(void)
    codeset = Util_SafeStrdup(nl_langinfo_l(CODESET, new));
    freelocale(new);
 
-#elif defined(sun)
+#elif defined(__sun__)
 
    char *locale = setlocale(LC_CTYPE, NULL);
 

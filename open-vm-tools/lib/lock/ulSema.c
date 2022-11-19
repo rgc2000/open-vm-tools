@@ -22,7 +22,7 @@
 #if defined(__APPLE__)
 #include <dispatch/dispatch.h>
 #else
-#if (_XOPEN_SOURCE < 600) && !defined(__FreeBSD__) && !defined(sun)
+#if (_XOPEN_SOURCE < 600) && !defined(__FreeBSD__) && !defined(__sun__)
 #undef _XOPEN_SOURCE
 #define _XOPEN_SOURCE 600
 #endif

@@ -48,7 +48,7 @@
 
 #include <pwd.h>
 
-#if defined(sun)
+#if defined(__sun__)
 #  include <crypt.h>
 #endif
 
@@ -56,7 +56,7 @@
 
 
 #ifdef USE_PAM
-#if defined(sun)
+#if defined(__sun__)
 #define CURRENT_PAM_LIBRARY	"libpam.so.1"
 #else
 #define CURRENT_PAM_LIBRARY	"libpam.so.0"
@@ -168,7 +168,7 @@ typedef struct PamData {
  ******************************************************************************
  */
 
-#if defined(sun)
+#if defined(__sun__)
 static int
 PAM_conv(int num_msg,
          struct pam_message **msg,
@@ -304,7 +304,7 @@ VGAuthValidateUsernamePasswordImpl(VGAuthContext *ctx,
          case PAM_NO_MODULE_DATA:
          case PAM_CONV_ERR:
          case PAM_ABORT:
-#ifndef sun   /* The following error codes are undefined on Solaris. */
+#ifndef __sun__   /* The following error codes are undefined on Solaris. */
          case PAM_BAD_ITEM:
          case PAM_CONV_AGAIN:
          case PAM_INCOMPLETE:

@@ -153,7 +153,7 @@ VMBLOCK_CONTROL(int fd, int cmd, const char *path)
    return ioctl(fd, cmd, tpath);
 }
 
-#elif defined(sun)
+#elif defined(__sun__)
 
 static INLINE int
 VMBLOCK_CONTROL(int fd, int cmd, const char *path)
