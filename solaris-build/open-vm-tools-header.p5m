@@ -1,11 +1,13 @@
 set name=pkg.fmri value=vmware/open-vm-tools@12.1.0,12320-1
+set name=pkg.human-version value="12.1.0-1"
 set name=org.opensolaris.smf.fmri value=svc:/vmware/vmware-tools value=svc:/vmware/vmware-tools:default
-set name=pkg.summary value="VMWare tools for Solaris 11"
-set name=pkg.description value="Drivers and tools for virtual machines running Solaris under a VMWare hypervisor"
+set name=pkg.summary value="VMware tools for Solaris 11"
+set name=pkg.description value="Drivers and tools for virtual machines running Solaris under a VMware hypervisor"
 set name=variant.variant.arch value=i386
 set name=variant.opensolaris.zone value=global
 set name=info.classification value=\
     "org.opensolaris.category.2008:System/Administration and Configuration"
+depend fmri=pkg://solaris/entire@0.5.11,5.11-0.175.3.20.0.5.0 type=require
 dir group=sys mode=0755 owner=root path=lib/svc/manifest/vmware
 file lib/svc/method/vmware-tools path=lib/svc/method/vmware-tools \
     owner=root group=sys mode=0555
@@ -13,8 +15,8 @@ file lib/svc/method/vmware-ballooning path=lib/svc/method/vmware-ballooning \
     owner=root group=sys mode=0555
 file lib/svc/method/vmware-shares path=lib/svc/method/vmware-shares \
     owner=root group=sys mode=0555
-file lib/svc/manifest/vmware/vmware-tools.xml \
-    path=lib/svc/manifest/vmware/vmware-tools.xml owner=root \
+file lib/svc/manifest/vmware/tools.xml \
+    path=lib/svc/manifest/vmware/tools.xml owner=root \
     group=sys mode=0444 \
     restart_fmri=svc:/system/manifest-import:default
 file lib/svc/manifest/vmware/ballooning.xml \
