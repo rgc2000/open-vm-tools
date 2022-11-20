@@ -29,7 +29,7 @@
 
         <dependency restart_on="error" type="service"
             name="vmware-tools_dependency" grouping="require_all">
-            <service_fmri value='svc:/vmware/vmware-tools' />
+            <service_fmri value='svc:/vmware/tools' />
         </dependency>
 
         <!-- Methods -->
@@ -65,7 +65,7 @@
         <template>
             <common_name>
                 <loctext xml:lang='C'>
-                    Open VM Tools for VMWare
+                    Open VM Tools for VMware
                 </loctext>
             </common_name>
             <description>

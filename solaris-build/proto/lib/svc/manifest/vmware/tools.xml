@@ -8,8 +8,8 @@
     the virtual machine from the hypervisor
 -->
 
-<service_bundle type='manifest' name='vmware:vmware-tools'>
-    <service version='1' type='service' name='vmware/vmware-tools'>
+<service_bundle type='manifest' name='vmware:tools'>
+    <service version='1' type='service' name='vmware/tools'>
 
         <!-- Dependencies -->
 
@@ -47,7 +47,7 @@
         <template>
             <common_name>
                 <loctext xml:lang='C'>
-                    Open VM Tools for VMWare
+                    Open VM Tools for VMware
                 </loctext>
             </common_name>
             <description>

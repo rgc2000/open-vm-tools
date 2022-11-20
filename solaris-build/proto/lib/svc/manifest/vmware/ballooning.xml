@@ -54,7 +54,7 @@
         <template>
             <common_name>
                 <loctext xml:lang='C'>
-                    Memory ballooning control service for VMWare
+                    Memory ballooning control service for VMware
                 </loctext>
             </common_name>
             <description>
