@@ -237,7 +237,7 @@ cd solaris-build
 ./build.sh
 ```
 
-To remove all the ganerated files execute command
+To remove all the generated files execute command
 ```
 cd solaris-build
 ./clean.sh
