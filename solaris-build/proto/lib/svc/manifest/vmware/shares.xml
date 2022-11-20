@@ -27,6 +27,11 @@
             <service_fmri value='svc:/system/filesystem/minimal' />
         </dependency>
 
+        <dependency restart_on="error" type="service"
+            name="vmware-tools_dependency" grouping="require_all">
+            <service_fmri value='svc:/vmware/vmware-tools' />
+        </dependency>
+
         <!-- Methods -->
 
         <exec_method timeout_seconds='30' type='method' name='start'
