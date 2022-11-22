@@ -15,37 +15,19 @@ case "${TARGETOS}" in
         export MAKE="gmake"
 
         case "${SOLARIS_VERSION}" in
-            11.3)
-                CFLAGS_OPTION="-DSOL113"
-                CONFIG_OPTION=""
-                ;;
             11.4|11.5)
-                CFLAGS_OPTION="-DSOL114"
-                CONFIG_OPTION=""
                 ;;
             *)
-                CFLAGS_OPTION=""
-                CONFIG_OPTION=""
+                echo "Solaris ${SOLARIS_VERSION} not supported, aborting"
+                exit 1
                 ;;
         esac
 
-        # =======  Compile libdnet
-
-        cd libdnet-1.11
-        ./configure --prefix=/opt/vmware --disable-static
-        /usr/gnu/bin/sed -i 's/eth-linux\$U/eth-none$U/g' src/Makefile
-        gmake -j 5
-        gmake install
-        ln -fs libdnet $DESTDIR/opt/vmware/lib/libdnet.so
-        cd ..
-
         # =======  Compile open-vm-tools
-
-        export "PATH=$DESTDIR/opt/vmware/bin:$PATH"
 
         cd ../open-vm-tools
         autoreconf -i
-	./configure --prefix=/opt/vmware --disable-static --enable-libappmonitor $CONFIG_OPTION CFLAGS="-I$DESTDIR/opt/vmware/include -L$DESTDIR/opt/vmware/lib $CFLAGS_OPTION -Wno-unused-variable"
+	./configure --prefix=/opt/vmware --disable-static --enable-libappmonitor CFLAGS="-Wno-unused-variable"
         gmake -j 5
         gmake install
         cd ../solaris-build

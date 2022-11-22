@@ -3,12 +3,6 @@
 
 export DESTDIR=/tmp/vmtools-build
 
-# =======  Clean libdnet
-
-cd libdnet-1.11
-gmake distclean
-cd ..
-
 # =======  Clean open-vm-tools
 
 cd ../open-vm-tools
