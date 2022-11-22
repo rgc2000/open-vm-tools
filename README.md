@@ -218,6 +218,7 @@ Use the appropriate generic Linux designation when configuring a VM for your Lin
 The [Guest OS Customization Support Matrix](http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf) provides details about the guest operating systems supported for customization.
 
 ## Solaris 11
+For Solaris 11.4 you can build a pkg file that will include the open-vm-tools services and drivers. For previous Solaris 11 versions (11.0-11.3) use the legacy vmware-tools 10.3.10 provided by VMware
 To compile this product for Solaris 11 x86 you will need the following packages installed on your developpement environment :
 - gnu-make
 - autoconf
@@ -225,10 +226,11 @@ To compile this product for Solaris 11 x86 you will need the following packages 
 - libtool
 - pkg-config
 - gcc
+- libdnet
 
-Execute the following command to install the needed packages for compilation (not needed for runtime)
+Execute the following command to install the needed packages for compilation (not needed for runtime except libdnet that will be pulled from IPS repository if not installed when you will install the open-vm-tools pkg)
 ```
-pkg install gnu-make autoconf automake libtool pkg-config gcc
+pkg install gnu-make autoconf automake libtool pkg-config gcc libdnet
 ```
 
 Then execute the commands
