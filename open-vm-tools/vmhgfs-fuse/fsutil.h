@@ -32,7 +32,7 @@
 #include "hgfsProto.h"
 #include <fuse.h>
 
-#if defined(__FreeBSD__) || defined(__SOLARIS__) || defined(__APPLE__)
+#if defined(__FreeBSD__) || defined(__sun__) || defined(__APPLE__)
 typedef long long loff_t;
 #endif
 

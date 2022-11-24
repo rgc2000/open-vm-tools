@@ -22,7 +22,9 @@
  */
 
 #include "module.h"
+#ifndef __sun__
 #include <fuse_lowlevel.h>
+#endif
 #include <sys/utsname.h>
 
 #ifdef VMX86_DEVEL

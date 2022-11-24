@@ -63,7 +63,7 @@
 #include <sys/xattr.h>
 #endif
 #include <sys/stat.h>
-#ifndef __SOLARIS__
+#ifndef __sun__
 #include <sys/types.h>
 #endif
 
@@ -71,7 +71,7 @@
 #include "session.h"
 #include "config.h"
 
-#if defined(__SOLARIS__) || defined(__APPLE__)
+#if defined(__sun__) || defined(__APPLE__)
 #define DT_UNKNOWN      0
 #define DT_FIFO         1
 #define DT_CHR          2

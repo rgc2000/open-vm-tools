@@ -22,7 +22,7 @@
  * Module-specific components of the vmhgfs driver.
  */
 #include "module.h"
-#if !defined(__FreeBSD__) && !defined(__SOLARIS__)
+#if !defined(__FreeBSD__) && !defined(__sun__)
 #include <glib.h>
 #endif
 
@@ -56,7 +56,7 @@ struct HgfsAttrCache attrList;
 /*Lock for accessing the attribute cache*/
 static pthread_mutex_t HgfsAttrCacheLock = PTHREAD_MUTEX_INITIALIZER;
 
-#if !defined(__FreeBSD__) && !defined(__SOLARIS__)
+#if !defined(__FreeBSD__) && !defined(__sun__)
 static void HgfsInvalidateParentsChildren(const char* parent);
 #endif
 
@@ -67,7 +67,7 @@ static void HgfsInvalidateParentsChildren(const char* parent);
  * and FreeBSD, this section will go away.
  */
 
-#if defined(__FreeBSD__) || defined(__SOLARIS__)
+#if defined(__FreeBSD__) || defined(__sun__)
 
 /*
  *----------------------------------------------------------------------
