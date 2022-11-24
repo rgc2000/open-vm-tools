@@ -1632,7 +1632,7 @@ if test "$os" = "solaris"; then
       CPPFLAGS="$CPPFLAGS -DSOL11"
    fi
 
-   RPCGENFLAGS="$RGCGENFLAGS -C"
+   RPCGENFLAGS="$RGCGENFLAGS -C -i 0"
    MODULES="$MODULES vmxnet vmmemctl"
 
    # HGFS and vmblock need Solaris 10 at least.

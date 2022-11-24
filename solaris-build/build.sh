@@ -27,7 +27,7 @@ case "${TARGETOS}" in
 
         cd ../open-vm-tools
         autoreconf -i
-	./configure --prefix=/opt/vmware --disable-static --enable-libappmonitor CFLAGS="-Wno-unused-variable"
+        ./configure --prefix=/opt/vmware --disable-static --enable-libappmonitor
         gmake -j 5
         gmake install
         cd ../solaris-build
