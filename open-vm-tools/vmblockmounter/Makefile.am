@@ -33,10 +33,27 @@ install-exec-hook:
 uninstall-hook:
 	rm -f $(DESTDIR)$(sbindir)/mount_vmblock
 else
+if SOLARIS
+install-exec-hook:
+	$(MKDIR_P) $(DESTDIR)$(libdir)/fs/vmblock
+	mv $(DESTDIR)$(sbindir)/mount.vmblock \
+		$(DESTDIR)$(libdir)/fs/vmblock/mount
+	-rmdir $(DESTDIR)$(sbindir)
+	-$(MKDIR_P) $(DESTDIR)/etc/fs/vmblock
+	-$(LN_S) $(DESTDIR)$(libdir)/fs/vmblock/mount \
+		$(DESTDIR)/etc/fs/vmblock/mount &> /dev/null
+uninstall-hook:
+	rm -f $(DESTDIR)$(libdir)/fs/vmblock/mount
+	rmdir $(DESTDIR)$(libdir)/fs/vmblock
+	rm -f $(DESTDIR)/etc/fs/vmblock/mount
+	rmdir $(DESTDIR)/etc/fs/vmblock
+else
 install-exec-hook:
 	-$(MKDIR_P) $(DESTDIR)/sbin
 	-$(LN_S) $(DESTDIR)$(sbindir)/mount.vmblock \
 		$(DESTDIR)/sbin/mount.vmblock &> /dev/null
 uninstall-hook:
 	rm -f $(DESTDIR)/sbin/mount.vmblock
+endif !SOLARIS
 endif !FREEBSD
+

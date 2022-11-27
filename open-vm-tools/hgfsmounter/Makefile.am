@@ -38,10 +38,26 @@ install-exec-hook:
 uninstall-hook:
 	rm -f $(DESTDIR)$(sbindir)/mount_vmhgfs
 else
+if SOLARIS
+install-exec-hook:
+	$(MKDIR_P) $(DESTDIR)$(libdir)/fs/vmhgfs
+	mv $(DESTDIR)$(sbindir)/mount.vmhgfs \
+		$(DESTDIR)$(libdir)/fs/vmhgfs/mount
+	-rmdir $(DESTDIR)$(sbindir)
+	-$(MKDIR_P) $(DESTDIR)/etc/fs/vmhgfs
+	-$(LN_S) $(DESTDIR)$(libdir)/fs/vmhgfs/mount \
+	$(DESTDIR)/etc/fs/vmhgfs/mount &> /dev/null
+uninstall-hook:
+	rm -f $(DESTDIR)$(libdir)/fs/vmhgfs/mount
+	rmdir $(DESTDIR)$(libdir)/fs/vmhgfs
+	rm -f $(DESTDIR)/etc/fs/vmhgfs/mount
+	rmdir $(DESTDIR)/etc/fs/vmhgfs
+else
 install-exec-hook:
 	-$(MKDIR_P) $(DESTDIR)/sbin
 	-$(LN_S) $(DESTDIR)$(sbindir)/mount.vmhgfs \
 		$(DESTDIR)/sbin/mount.vmhgfs &> /dev/null
 uninstall-hook:
 	rm -f $(DESTDIR)/sbin/mount.vmhgfs
+endif !SOLARIS
 endif !FREEBSD
