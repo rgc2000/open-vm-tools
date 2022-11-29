@@ -45,7 +45,7 @@ install-exec-hook:
 		$(DESTDIR)$(libdir)/fs/vmhgfs/mount
 	-rmdir $(DESTDIR)$(sbindir)
 	-$(MKDIR_P) $(DESTDIR)/etc/fs/vmhgfs
-	-$(LN_S) $(DESTDIR)$(libdir)/fs/vmhgfs/mount \
+	-$(LN_S) `/usr/bin/realpath --relative-to=$(DESTDIR)/etc/fs/vmhgfs $(DESTDIR)$(libdir)/fs/vmhgfs/mount` \
 	$(DESTDIR)/etc/fs/vmhgfs/mount &> /dev/null
 uninstall-hook:
 	rm -f $(DESTDIR)$(libdir)/fs/vmhgfs/mount

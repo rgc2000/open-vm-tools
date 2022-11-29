@@ -40,7 +40,7 @@ install-exec-hook:
 		$(DESTDIR)$(libdir)/fs/vmblock/mount
 	-rmdir $(DESTDIR)$(sbindir)
 	-$(MKDIR_P) $(DESTDIR)/etc/fs/vmblock
-	-$(LN_S) $(DESTDIR)$(libdir)/fs/vmblock/mount \
+	-$(LN_S) `/usr/bin/realpath --relative-to=$(DESTDIR)/etc/fs/vmblock $(DESTDIR)$(libdir)/fs/vmblock/mount` \
 		$(DESTDIR)/etc/fs/vmblock/mount &> /dev/null
 uninstall-hook:
 	rm -f $(DESTDIR)$(libdir)/fs/vmblock/mount
