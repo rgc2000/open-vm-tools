@@ -35,7 +35,7 @@ case "${TARGETOS}" in
         # =======  Clean files
 
         find $DESTDIR -type f -exec file {} \; | grep 'not stripped' | cut -d: -f1 | xargs -t -L 1 strip
-        mv $DESTDIR/sbin $DESTDIR/usr/sbin
+        mkdir -p $DESTDIR/usr/sbin
         mkdir -p $DESTDIR/usr/lib/fs/vmblock
         mkdir -p $DESTDIR/usr/lib/fs/vmhgfs
         mkdir -p $DESTDIR/etc/fs
