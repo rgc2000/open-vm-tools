@@ -3,12 +3,12 @@
 
 umask 022
 
-export PREFIX=/opt/vmware
-export SYSCONFDIR=${PREFIX}/etc
+export PREFIX=/usr
+export SYSCONFDIR=/etc
 export LIBDIR=${PREFIX}/lib
 export DESTDIR=/tmp/vmtools-build
 export LD_RUN_PATH=${LIBDIR}
-export PKG_CONFIG_PATH=/usr/lib/64/pkgconfig
+export PKG_CONFIG_PATH=/usr/lib/amd64/pkgconfig
 
 TARGETOS=$(uname -s)
 
@@ -48,13 +48,13 @@ case "${TARGETOS}" in
 
         if [ "${SYSCONFDIR}" != "/etc" ]
         then
+            [ -d "${DESTDIR}/etc/fs" ] || mkdir -p "${DESTDIR}/etc/fs"
             [ -d "${DESTDIR}/etc/xdg/autostart" ] || mkdir -p "${DESTDIR}/etc/xdg/autostart"
             ln -fs $(realpath --relative-to=/etc/xdg/autostart "${SYSCONFDIR}/xdg/autostart/vmware-user.desktop") "${DESTDIR}/etc/xdg/autostart/vmware-user.desktop"
+            ln -fs $(realpath --relative-to=/etc/fs "${LIBDIR}/fs/vmblock") "${DESTDIR}/etc/fs/vmblock"
+            ln -fs $(realpath --relative-to=/etc/fs "${LIBDIR}/fs/vmhgfs") "${DESTDIR}/etc/fs/vmhgfs"
         fi
 
-        [ -d "${DESTDIR}/etc/fs" ] || mkdir -p "${DESTDIR}/etc/fs"
-        ln -fs $(realpath --relative-to=/etc/fs "${LIBDIR}/fs/vmblock") "${DESTDIR}/etc/fs/vmblock"
-        ln -fs $(realpath --relative-to=/etc/fs "${LIBDIR}/fs/vmhgfs") "${DESTDIR}/etc/fs/vmhgfs"
         [ -f "${DESTDIR}/etc/pam.d/vmtoolsd" ] && chmod -x "${DESTDIR}/etc/pam.d/vmtoolsd"
         [ -f "${DESTDIR}${PREFIX}/bin/vmware-user-suid-wrapper" ] && chmod u+s "${DESTDIR}${PREFIX}/bin/vmware-user-suid-wrapper"
         chmod -x ${DESTDIR}${LIBDIR}/lib*
@@ -83,10 +83,16 @@ case "${TARGETOS}" in
 
         cat open-vm-tools-header.p5m open-vm-tools.p5m.1 open-vm-tools-footer.p5m > open-vm-tools.p5m
 
-        for dir in etc etc/certs etc/certs/elfsign etc/fs etc/pam.d etc/xdg etc/xdg/autostart kernel kernel/drv kernel/drv/amd64 opt usr usr/lib/fs
+        for dir in etc etc/certs etc/certs/elfsign etc/fs etc/pam.d etc/xdg etc/xdg/autostart kernel kernel/drv kernel/drv/amd64 opt usr usr/share usr/lib/fs
         do
             sed "s,path=$dir owner=root group=bin,path=$dir owner=root group=sys," open-vm-tools.p5m > open-vm-tools.p5m.a &&
 	    mv open-vm-tools.p5m.a open-vm-tools.p5m
+        done
+
+        for dir in usr/lib/pkgconfig
+        do
+            sed "s,path=$dir owner=root group=bin,path=$dir owner=root group=other," open-vm-tools.p5m > open-vm-tools.p5m.a &&
+            mv open-vm-tools.p5m.a open-vm-tools.p5m
         done
 
         rm -rf my-repository open-vm-tools.p5p

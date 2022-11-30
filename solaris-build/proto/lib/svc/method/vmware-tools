@@ -18,7 +18,7 @@ set -- --pidfile /var/run/vmtoolsd.pid
 case "$METHOD" in
     start)
         # Enable or disable shares depending if running on ESXi Server
-        /opt/vmware/bin/vmware-checkvm -p | grep -q ESX
+        /usr/bin/vmware-checkvm -p | grep -q ESX
         if [ $? = 0 ]
         then
             svcadm disable svc:/vmware/shares:default
@@ -26,7 +26,7 @@ case "$METHOD" in
             svcadm enable svc:/vmware/shares:default
         fi
         # start daemon
-        /opt/vmware/bin/vmtoolsd -b /var/run/vmtoolsd.pid
+        /usr/bin/vmtoolsd -b /var/run/vmtoolsd.pid
         [ $? = 0 ] && exit $SMF_EXIT_OK
         ;;
 
@@ -39,7 +39,7 @@ case "$METHOD" in
     restart)
         # stop daemon
         [ -f /var/run/vmtoolsd.pid ] && kill `cat /var/run/vmtoolsd.pid`
-        /opt/vmware/bin/vmtoolsd -b /var/run/vmtoolsd.pid
+        /usr/bin/vmtoolsd -b /var/run/vmtoolsd.pid
         [ $? = 0 ] && exit $SMF_EXIT_OK
         ;;
 
