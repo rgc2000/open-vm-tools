@@ -237,6 +237,11 @@ collectNetworkDetails()
     if which ip >/dev/null; then
         runcmd "/tmp/ip-addr.txt" ip addr
         runcmd "/tmp/ip-route.txt" ip route
+    elif which ipadm >/dev/null; then
+        runcmd "/tmp/ipadm.txt" ipadm
+        runcmd "/tmp/dladm-showphys.txt" dladm show-phys
+        runcmd "/tmp/netstat-rn.txt" netstat -rn
+        runcmd "/tmp/route-pshow.txt" route -p show
     else
         runcmd "/tmp/ifconfig.txt" ifconfig -a
         runcmd "/tmp/route.txt" route
@@ -244,8 +249,10 @@ collectNetworkDetails()
 
     if which ss >/dev/null; then
         runcmd "/tmp/ss-lan.txt" ss -lan
-    else
+    elif netstat -lan >/dev/null 2>&1; then
         runcmd "/tmp/netstat-lan.txt" netstat -lan
+    else
+        runcmd "/tmp/netstat-an.txt" netstat -an
     fi
 }
 
