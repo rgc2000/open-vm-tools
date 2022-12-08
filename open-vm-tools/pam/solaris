@@ -1,0 +1,6 @@
+# PAM configuration for vmtoolsd
+
+auth definitive		pam_user_policy.so.1
+auth requisite		pam_authtok_get.so.1
+auth required		pam_unix_auth.so.1
+auth required		pam_unix_cred.so.1
