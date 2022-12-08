@@ -468,6 +468,9 @@ ServiceDaemonize(const char *path,
       if (pidStringLen <= 0) {
          err = EINVAL;
 
+         Warning("%s: pidStringLen <= 0 "
+                 "error: %u.\n", __FUNCTION__, err);
+
          if (write(pipeFds[1], &err, sizeof err) == -1) {
             Warning("%s: Couldn't write to parent pipe: %u, original "
                     "error: %u.\n", __FUNCTION__, errno, err);

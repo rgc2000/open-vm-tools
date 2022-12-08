@@ -110,7 +110,6 @@ UsercheckLookupUser(const gchar *userName,
    struct passwd pw;
    struct passwd *ppw = &pw;
    char buffer[BUFSIZ];
-#ifndef __sun__
    int ret;
    int retryCount = 0;
 
@@ -127,11 +126,6 @@ retry:
       }
       return VGAUTH_E_NO_SUCH_USER;
    }
-#else
-   if ((ppw = getpwnam_r(userName, &pw, buffer, sizeof buffer)) == NULL) {
-      return VGAUTH_E_NO_SUCH_USER;
-   }
-#endif
 
    *uid = ppw->pw_uid;
    *gid = ppw->pw_gid;
@@ -161,7 +155,6 @@ UsercheckLookupUid(uid_t uid,
    struct passwd pw;
    struct passwd *ppw = &pw;
    char buffer[BUFSIZ];
-#ifndef __sun__
    int error;
    int retryCount = 0;
 
@@ -183,11 +176,6 @@ retry:
       }
       return VGAUTH_E_NO_SUCH_USER;
    }
-#else
-   if ((ppw = getpwuid_r(uid, &pw, buffer, sizeof buffer)) == NULL) {
-      return VGAUTH_E_NO_SUCH_USER;
-   }
-#endif
 
    // XXX locale issue lurking here
    *userName = g_strdup(ppw->pw_name);
