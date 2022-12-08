@@ -1748,7 +1748,7 @@ ExtractZipPackage(const char* pkgName,
 {
    ProcessHandle h;
    char* args[32];
-   const char* stderr;
+   const char* strderr;
 
    int pkgFd, zipFd;
    char zipName[1024];
@@ -1808,10 +1808,10 @@ ExtractZipPackage(const char* pkgName,
 
    sLog(log_info, "unzip output: '%s'.", Process_GetStdout(h));
 
-   // Assume zip failed if it wrote to stderr
-   stderr = Process_GetStderr(h);
-   if (strlen(stderr) > 0) {
-      sLog(log_error, "Package unzip failed: '%s'.", stderr);
+   // Assume zip failed if it wrote to strderr
+   strderr = Process_GetStderr(h);
+   if (strlen(strderr) > 0) {
+      sLog(log_error, "Package unzip failed: '%s'.", strderr);
       ret = FALSE;
    }
 
