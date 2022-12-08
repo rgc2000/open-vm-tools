@@ -29,6 +29,9 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 #include <stdlib.h>
+#if defined(__sun__)
+#include <signal.h>
+#endif
 
 #include "util.h"
 

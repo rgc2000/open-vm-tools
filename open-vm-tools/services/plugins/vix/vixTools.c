@@ -133,7 +133,7 @@
  * No support for userworld.  Enable support for open vm tools when
  * USE_VGAUTH is defined.
  */
-#if ((defined(__linux__) && !defined(USERWORLD)) || defined(_WIN32)) && \
+#if ((defined(__linux__) && !defined(USERWORLD)) || defined(__sun__) || defined(_WIN32)) && \
      (!defined(OPEN_VM_TOOLS) || defined(USE_VGAUTH))
 #define SUPPORT_VGAUTH 1
 #else
