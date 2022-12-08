@@ -30,7 +30,7 @@ case "${TARGETOS}" in
 
         cd ../open-vm-tools
         autoreconf -i
-        ./configure --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor
+        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --enable-vgauth
         gmake -j 5
         gmake install
         cd ../solaris-build
