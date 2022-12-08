@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<!--
+ VMware::WMware-VGAuth
+
+    Service manifest to declare and install the service that
+    will allow vmware user registration in the guest OS
+-->
+
+<service_bundle type='manifest' name='vmware:vgauth'>
+    <service version='1' type='service' name='vmware/vgauth'>
+
+        <!-- Dependencies -->
+
+        <dependency restart_on="none" type="service"
+            name="vmware_tools_dependency" grouping="require_all">
+            <service_fmri value="svc:/vmware/tools"/>
+        </dependency>
+
+        <!-- Methods -->
+
+        <exec_method timeout_seconds='30' type='method' name='start'
+            exec='/lib/svc/method/vmware-vgauth %m'/>
+
+        <exec_method timeout_seconds='30' type='method' name='restart'
+            exec='/lib/svc/method/vmware-vgauth %m'/>
+
+        <exec_method timeout_seconds='30' type='method' name='stop'
+            exec=':kill'/>
+
+        <exec_method timeout_seconds='30' type='method' name='refresh'
+            exec=':true'/>
+
+        <!-- Instance -->
+
+        <instance enabled="true" name="default"/>
+        <stability value='Unstable' />
+
+        <!-- Description -->
+
+        <template>
+            <common_name>
+                <loctext xml:lang='C'>
+                    Open VM Tools for VMware
+                </loctext>
+            </common_name>
+            <description>
+                <loctext xml:lang='C'>
+                    Will start the vmware vgauth service to allow vmware user registration in guest OS.
+                </loctext>
+            </description>
+        </template>
+    </service>
+</service_bundle>

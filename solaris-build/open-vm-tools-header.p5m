@@ -16,6 +16,8 @@ file lib/svc/method/vmware-ballooning path=lib/svc/method/vmware-ballooning \
     owner=root group=sys mode=0555
 file lib/svc/method/vmware-shares path=lib/svc/method/vmware-shares \
     owner=root group=sys mode=0555
+file lib/svc/method/vmware-vgauth path=lib/svc/method/vmware-vgauth \
+    owner=root group=sys mode=0555
 file lib/svc/manifest/vmware/tools.xml \
     path=lib/svc/manifest/vmware/tools.xml owner=root \
     group=sys mode=0444 \
@@ -26,5 +28,9 @@ file lib/svc/manifest/vmware/ballooning.xml \
     restart_fmri=svc:/system/manifest-import:default
 file lib/svc/manifest/vmware/shares.xml \
     path=lib/svc/manifest/vmware/shares.xml owner=root \
+    group=sys mode=0444 \
+    restart_fmri=svc:/system/manifest-import:default
+file lib/svc/manifest/vmware/vgauth.xml \
+    path=lib/svc/manifest/vmware/vgauth.xml owner=root \
     group=sys mode=0444 \
     restart_fmri=svc:/system/manifest-import:default
