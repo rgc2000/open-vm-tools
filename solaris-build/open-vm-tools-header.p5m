@@ -9,6 +9,7 @@ set name=info.classification value=\
     "org.opensolaris.category.2008:System/Administration and Configuration"
 depend fmri=pkg://solaris/entire@11.4 type=require
 depend fmri=pkg://solaris/system/library/libdnet type=require
+depend fmri=pkg://solaris/library/xmlsec type=require
 dir group=sys mode=0755 owner=root path=lib/svc/manifest/vmware
 file lib/svc/method/vmware-tools path=lib/svc/method/vmware-tools \
     owner=root group=sys mode=0555
