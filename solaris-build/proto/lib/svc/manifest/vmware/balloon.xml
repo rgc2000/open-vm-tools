@@ -4,11 +4,11 @@
  WMware::Ballooning
 
     Service manifest to declare and install the service that
-    will namage the memory monitor for VMware ballooning
+    will namage the memory monitor for VMware balloon
 -->
 
-<service_bundle type='manifest' name='vmware:ballooning'>
-    <service version='1' type='service' name='vmware/ballooning'>
+<service_bundle type='manifest' name='vmware:balloon'>
+    <service version='1' type='service' name='vmware/balloon'>
 
         <!-- Instance -->
 
@@ -30,13 +30,13 @@
         <!-- Methods -->
 
         <exec_method timeout_seconds='30' type='method' name='start'
-            exec='/lib/svc/method/vmware-ballooning %m'/>
+            exec='/lib/svc/method/vmware-balloon %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='restart'
-            exec='/lib/svc/method/vmware-ballooning %m'/>
+            exec='/lib/svc/method/vmware-balloon %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='stop'
-            exec='/lib/svc/method/vmware-ballooning %m'/>
+            exec='/lib/svc/method/vmware-balloon %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='refresh'
             exec=':true'/>
@@ -54,12 +54,12 @@
         <template>
             <common_name>
                 <loctext xml:lang='C'>
-                    Memory ballooning control service for VMware
+                    Memory balloon control service for VMware
                 </loctext>
             </common_name>
             <description>
                 <loctext xml:lang='C'>
-                    Will enable the memory ballooning support if requested by the hypervisor.
+                    Will enable the memory balloon support if requested by the hypervisor.
                 </loctext>
             </description>
         </template>
