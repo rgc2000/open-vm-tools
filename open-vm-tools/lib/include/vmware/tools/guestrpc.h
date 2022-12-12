@@ -208,7 +208,7 @@ RpcChannel_SendOneRaw(const char *data,
                       char **result,
                       size_t *resultLen);
 
-#if defined(__linux__) || defined(_WIN32)
+#if defined(__linux__) || defined(_WIN32) || defined (__sun__)
 gboolean
 RpcChannel_SendOneRawPriv(const char *data,
                           size_t dataLen,
@@ -222,7 +222,7 @@ RpcChannel_SendOne(char **reply,
                    const char *reqFmt,
                    ...);
 
-#if defined(__linux__) || defined(_WIN32)
+#if defined(__linux__) || defined(_WIN32) || defined (__sun__)
 gboolean
 RpcChannel_SendOnePriv(char **reply,
                        size_t *repLen,
@@ -233,7 +233,7 @@ RpcChannel_SendOnePriv(char **reply,
 RpcChannel *
 RpcChannel_New(void);
 
-#if defined(__linux__) || defined(_WIN32)
+#if defined(__linux__) || defined(_WIN32) || defined (__sun__)
 RpcChannel *
 VSockChannel_New(int flags);
 #endif
