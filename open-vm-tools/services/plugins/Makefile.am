@@ -22,6 +22,9 @@ if LINUX
    SUBDIRS += guestStore
    SUBDIRS += componentMgr
 endif
+if SOLARIS
+   SUBDIRS += appInfo
+endif
 if ENABLE_CONTAINERINFO
    SUBDIRS += containerInfo
 endif

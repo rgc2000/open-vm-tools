@@ -24,7 +24,7 @@
  *
  */
 
-#ifndef __linux__
+#if !defined(__linux__) && !defined(__sun__)
 #   error This file should not be compiled.
 #endif
 
