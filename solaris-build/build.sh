@@ -75,8 +75,6 @@ case "${TARGETOS}" in
 
         # =======  Create pkg files manifest
 
-        cp -pr proto/etc "${DESTDIR}"
-
         pkgsend generate ${DESTDIR} | pkgfmt > open-vm-tools.p5m.1
 
         cp -pr proto/lib "${DESTDIR}"
