@@ -4,10 +4,51 @@ This document will describe how to install and use the vmware-tools on Solaris 1
 
 You should get the solaris package from the githup page, name should be like open-vm-tools-X.XX.XX.p5p
 
+Status
+------
+This is the status of the open-vm-tools features supported on Solaris
+| Feature | Type | Status | Comments |
+|:-------:|:----:|:------:|:--------:|
+| vmtoolsd | daemon | working | Main service, will load the plugins |
+| vgauthd | daemon | working | Authentication service from host RPC |
+| appInfo | plugin | working | needs more tests |
+| componentMgr | plugin | unavailable | unknown status |
+| containerInfo | plugin | unavailable | unknown status |
+| deployPkg | plugin | unavailable | can be compiled if you provide libmspack but host will not allow you to use this feature is GuestOS is set to Solaris |
+| desktopEvents | plugin | working | for gfx desktop |
+| dndcp | plugin | working | Drag'n drop on desktop for wmware workstation/fusion |
+| gdp | plugin | unavailable | unknown status |
+| guestInfo | plugin | working | needs more tests |
+| guestStore | plugin | unavailable | needs VMCI not available on Solaris |
+| hgfsServer | plugin | working | how to test this ? |
+| powerOps | plugin | working | confirmed ok |
+| resolutionKMS | plugin | unavailable | can be compiled but will not work |
+| resolutionSet | plugin | working | change desktop resolutionn on resize |
+| serviceDiscovery | plugin | unavailable | not tested |
+| timeSync | pkugin | working | tested ok |
+| vix | plugin | working | tested ok |
+| vmbackup | plugin | working | tested ok called on quiesce on snapshot |
+| vmblock | filesystem | working | sharing mecanism for drag'n drop on or from desktop |
+| vmhgfs | filesystem | working | file sharing on vmware workstation/fusion |
+| vmmemctl | driver | working | memory controller for ballooning |
+| vmxnet | driver | working | deprecated network driver |
+| vmxnet3s | driver | working | paravirtualized network interface driver, need to be updated to latest kernel API |
+
 Requirements
 ------------
 Minimum Solaris version has to be Solaris 11.4
 open-vm-tools cannot run or be compiled on previous versions of Solaris due to libraries not available or too old.
+
+## Solaris 11.4 installed packages requirements
+| Build Dependencies | Runtime |
+|:------------------:|:-------:|
+| `gnu-make` | `libdnet` |
+| `autoconf` | `xmlsec` |
+| `automake` |
+| `libtool` |
+| `pkg-config` | 
+| `gcc` |
+| `solaris-desktop` |
 
 Installation
 ------------
