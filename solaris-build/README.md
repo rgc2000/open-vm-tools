@@ -56,15 +56,14 @@ Execute this command with root privileges :
 ```
 pkg install -g ./open-vm-tools-X.XX.XX.p5p open-vm-tools
 ```
-Package is installed under /opt/vmware
-Some symbolic links are added in /usr/bin and /usr/sbin to call commands vmware-toolbox-cmd and vmtoolsd
+Package is installed under standards system directories (/usr/bin /etc /lib).
 
 Configuration is located in /etc/vmware-tools/ directory
-Default configuration should be fine for most people but you can edit it to match your needs.
+Default configuration should be fine for most people but you can create your own /etc/vmware-tools/tools.conf to match your needs.
 
 SMF Services
 ------------
-There will be 3 SMF services defined :
+There will be 4 SMF services defined :
 
 * svc:/vmware/tools:default
 This service will be enabled and started. It is the main service that will start the vmtoolsd daemon to
@@ -88,6 +87,10 @@ between the host and the VM. Default mountpoint is /hgfs but this can be configu
 property of this service.
 This service will also allow the copy/paste and drag'n drop feature between host and VM if VM is running the
 graphical Solaris desktop.
+
+* svcs:/vmware/vgauth
+This service will be enabled and started. It will be used to provide user authentification for systems with pix
+enabled plugin to run commands in the guest from the host gor example.
 
 Drivers
 -------
