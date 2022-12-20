@@ -22,6 +22,9 @@
  *   Miscellaneous time related utility functions.
  */
 
+#if defined(__sun__)
+#define _POSIX_PTHREAD_SEMANTICS 1
+#endif
 
 #include <stdio.h>
 #include <time.h>
