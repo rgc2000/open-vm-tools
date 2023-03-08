@@ -1,5 +1,5 @@
-set name=pkg.fmri value=vmware/open-vm-tools@12.1.5,12325-1
-set name=pkg.human-version value="12.1.5-1"
+set name=pkg.fmri value=vmware/open-vm-tools@12.2.0,12352-0
+set name=pkg.human-version value="12.2.0-0"
 set name=org.opensolaris.smf.fmri value=svc:/vmware/vmware-tools value=svc:/vmware/vmware-tools:default
 set name=pkg.summary value="VMware tools for Solaris 11.4"
 set name=pkg.description value="Drivers and tools for virtual machines running Solaris under a VMware hypervisor"
