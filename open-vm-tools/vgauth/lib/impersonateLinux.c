@@ -27,10 +27,6 @@
  * be sure we don't get unistd.h w/o _GNU_SOURCE defined.
  */
 
-#if defined(__sun__)
-#define _POSIX_PTHREAD_SEMANTICS 1
-#endif
-
 #define  _GNU_SOURCE
 #include <unistd.h>
 

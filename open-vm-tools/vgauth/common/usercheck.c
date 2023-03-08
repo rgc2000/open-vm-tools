@@ -22,10 +22,6 @@
  *    Helper functions to check user existence.
  */
 
-#if defined(__sun__)
-#define _POSIX_PTHREAD_SEMANTICS 1
-#endif
-
 #include "usercheck.h"
 #include "VGAuthLog.h"
 
