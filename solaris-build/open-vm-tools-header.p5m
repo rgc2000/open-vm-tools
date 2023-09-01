@@ -12,13 +12,17 @@ depend fmri=pkg://solaris/system/library/libdnet type=require
 depend fmri=pkg://solaris/library/xmlsec type=require
 dir group=sys mode=0755 owner=root path=lib/svc/manifest/vmware
 file lib/svc/method/vmware-tools path=lib/svc/method/vmware-tools \
-    owner=root group=sys mode=0555
+    owner=root group=sys mode=0555 \
+    restart_fmri=svc:/vmware/tools:default
 file lib/svc/method/vmware-balloon path=lib/svc/method/vmware-balloon \
-    owner=root group=sys mode=0555
+    owner=root group=sys mode=0555 \
+    restart_fmri=svc:/vmware/balloon:default
 file lib/svc/method/vmware-shares path=lib/svc/method/vmware-shares \
-    owner=root group=sys mode=0555
+    owner=root group=sys mode=0555 \
+    restart_fmri=svc:/vmware/shares:default
 file lib/svc/method/vmware-vgauth path=lib/svc/method/vmware-vgauth \
-    owner=root group=sys mode=0555
+    owner=root group=sys mode=0555 \
+    restart_fmri=svc:/vmware/vgauth:default
 file lib/svc/manifest/vmware/tools.xml \
     path=lib/svc/manifest/vmware/tools.xml owner=root \
     group=sys mode=0444 \
