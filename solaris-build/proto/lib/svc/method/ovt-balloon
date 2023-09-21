@@ -1,5 +1,5 @@
 #!/bin/sh
-# open-vm-tools
+# open-vm-tools balloon
 
 # Load SMF shell support definitions
 . /lib/svc/share/smf_include.sh

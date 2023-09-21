@@ -1,35 +1,29 @@
 <?xml version="1.0" ?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
 <!--
- VMware::WMware-Tools
+ Open-VM-Tools::WMware-VGAuth
 
     Service manifest to declare and install the service that
-    will manage the vmware daemon to monitor and administrate
-    the virtual machine from the hypervisor
+    will allow vmware user registration in the guest OS
 -->
 
-<service_bundle type='manifest' name='vmware:tools'>
-    <service version='1' type='service' name='vmware/tools'>
+<service_bundle type='manifest' name='open-vm-tools:vgauth'>
+    <service version='1' type='service' name='open-vm-tools/vgauth'>
 
         <!-- Dependencies -->
 
         <dependency restart_on="none" type="service"
-            name="multi_user_dependency" grouping="require_all">
-            <service_fmri value="svc:/milestone/multi-user"/>
-        </dependency>
-
-        <dependency restart_on="error" type="service"
-            name="filesystem_dependency" grouping="require_all">
-            <service_fmri value='svc:/system/filesystem/minimal' />
+            name="open-vm-tools_tools_dependency" grouping="require_all">
+            <service_fmri value="svc:/open-vm-tools/vmtoolsd"/>
         </dependency>
 
         <!-- Methods -->
 
         <exec_method timeout_seconds='30' type='method' name='start'
-            exec='/lib/svc/method/vmware-tools %m'/>
+            exec='/lib/svc/method/ovt-vgauth %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='restart'
-            exec='/lib/svc/method/vmware-tools %m'/>
+            exec='/lib/svc/method/ovt-vgauth %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='stop'
             exec=':kill'/>
@@ -47,12 +41,12 @@
         <template>
             <common_name>
                 <loctext xml:lang='C'>
-                    Open VM Tools for VMware
+                    Open VM Tools user registration agent for VMware
                 </loctext>
             </common_name>
             <description>
                 <loctext xml:lang='C'>
-                    Will start the vmware vmtoolsd daemon to monitor and communicate with the VM from the hypervisor.
+                    Will start the open-vm-tools vgauth service to allow open-vm-tools user registration in guest OS.
                 </loctext>
             </description>
         </template>

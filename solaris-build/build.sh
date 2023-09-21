@@ -98,8 +98,8 @@ case "${TARGETOS}" in
         pkgrepo create my-repository
         pkgrepo -s my-repository add-publisher community
         pkgsend publish -d "${DESTDIR}" -s ./my-repository open-vm-tools.p5m
-        pkgrecv -s my-repository -a -d open-vm-tools.p5p vmware/open-vm-tools
-
+        pkgsend publish -d "${DESTDIR}" -s ./my-repository renamed-ovt.p5m
+        pkgrecv -s my-repository -a -d open-vm-tools.p5p pkg://community/vmware/open-vm-tools pkg://community/open-vm-tools
         echo "Compilation for Solaris finished, pkg is open-vm-tools.p5p"
         ;;
 

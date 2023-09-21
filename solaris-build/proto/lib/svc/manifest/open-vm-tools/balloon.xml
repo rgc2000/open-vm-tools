@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
 <!--
- WMware::Ballooning
+ Open-VM-Tools::Ballooning
 
     Service manifest to declare and install the service that
     will namage the memory monitor for VMware balloon
 -->
 
-<service_bundle type='manifest' name='vmware:balloon'>
-    <service version='1' type='service' name='vmware/balloon'>
+<service_bundle type='manifest' name='open-vm-tools:balloon'>
+    <service version='1' type='service' name='open-vm-tools/balloon'>
 
         <!-- Instance -->
 
@@ -30,13 +30,13 @@
         <!-- Methods -->
 
         <exec_method timeout_seconds='30' type='method' name='start'
-            exec='/lib/svc/method/vmware-balloon %m'/>
+            exec='/lib/svc/method/ovt-balloon %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='restart'
-            exec='/lib/svc/method/vmware-balloon %m'/>
+            exec='/lib/svc/method/ovt-balloon %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='stop'
-            exec='/lib/svc/method/vmware-balloon %m'/>
+            exec='/lib/svc/method/ovt-balloon %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='refresh'
             exec=':true'/>
@@ -59,7 +59,7 @@
             </common_name>
             <description>
                 <loctext xml:lang='C'>
-                    Will enable the memory balloon support if requested by the hypervisor.
+                    Will load the memory balloon driver and enable memory management from the hypervisor.
                 </loctext>
             </description>
         </template>

@@ -1,7 +1,10 @@
-set name=pkg.fmri value=vmware/open-vm-tools@12.3.0,12384-0
+set name=pkg.fmri value=open-vm-tools@12.3.0,12384-0
 set name=pkg.human-version value="12.3.0-0"
-set name=org.opensolaris.smf.fmri value=svc:/vmware/vmware-tools value=svc:/vmware/vmware-tools:default
-set name=pkg.summary value="VMware tools for Solaris 11.4"
+set name=org.opensolaris.smf.fmri value=svc:/open-vm-tools/vmtoolsd value=svc:/open-vm-tools/vmtoolsd:default \
+    value=svc:/open-vm-tools/balloon value=svc:/open-vm-tools/balloon:default \
+    value=svc:/open-vm-tools/shares value=svc:/open-vm-tools/shares:default \
+    value=svc:/open-vm-tools/vgauth value=svc:/open-vm-tools/vgauth:default
+set name=pkg.summary value="Open VM Tools for Solaris 11.4"
 set name=pkg.description value="Drivers and tools for virtual machines running Solaris under a VMware hypervisor"
 set name=variant.variant.arch value=i386
 set name=variant.opensolaris.zone value=global
@@ -10,32 +13,32 @@ set name=info.classification value=\
 depend fmri=pkg://solaris/entire@11.4 type=require
 depend fmri=pkg://solaris/system/library/libdnet type=require
 depend fmri=pkg://solaris/library/xmlsec type=require
-dir group=sys mode=0755 owner=root path=lib/svc/manifest/vmware
-file lib/svc/method/vmware-tools path=lib/svc/method/vmware-tools \
+dir group=sys mode=0755 owner=root path=lib/svc/manifest/open-vm-tools
+file lib/svc/method/ovt-vmtoolsd path=lib/svc/method/ovt-vmtoolsd \
     owner=root group=sys mode=0555 \
-    restart_fmri=svc:/vmware/tools:default
-file lib/svc/method/vmware-balloon path=lib/svc/method/vmware-balloon \
+    restart_fmri=svc:/open-vm-tools/vmtoolsd:default
+file lib/svc/method/ovt-balloon path=lib/svc/method/ovt-balloon \
     owner=root group=sys mode=0555 \
-    restart_fmri=svc:/vmware/balloon:default
-file lib/svc/method/vmware-shares path=lib/svc/method/vmware-shares \
+    restart_fmri=svc:/open-vm-tools/balloon:default
+file lib/svc/method/ovt-shares path=lib/svc/method/ovt-shares \
     owner=root group=sys mode=0555 \
-    restart_fmri=svc:/vmware/shares:default
-file lib/svc/method/vmware-vgauth path=lib/svc/method/vmware-vgauth \
+    restart_fmri=svc:/open-vm-tools/shares:default
+file lib/svc/method/ovt-vgauth path=lib/svc/method/ovt-vgauth \
     owner=root group=sys mode=0555 \
-    restart_fmri=svc:/vmware/vgauth:default
-file lib/svc/manifest/vmware/tools.xml \
-    path=lib/svc/manifest/vmware/tools.xml owner=root \
+    restart_fmri=svc:/open-vm-tools/vgauth:default
+file lib/svc/manifest/open-vm-tools/vmtoolsd.xml \
+    path=lib/svc/manifest/open-vm-tools/vmtoolsd.xml owner=root \
     group=sys mode=0444 \
     restart_fmri=svc:/system/manifest-import:default
-file lib/svc/manifest/vmware/balloon.xml \
-    path=lib/svc/manifest/vmware/balloon.xml owner=root \
+file lib/svc/manifest/open-vm-tools/balloon.xml \
+    path=lib/svc/manifest/open-vm-tools/balloon.xml owner=root \
     group=sys mode=0444 \
     restart_fmri=svc:/system/manifest-import:default
-file lib/svc/manifest/vmware/shares.xml \
-    path=lib/svc/manifest/vmware/shares.xml owner=root \
+file lib/svc/manifest/open-vm-tools/shares.xml \
+    path=lib/svc/manifest/open-vm-tools/shares.xml owner=root \
     group=sys mode=0444 \
     restart_fmri=svc:/system/manifest-import:default
-file lib/svc/manifest/vmware/vgauth.xml \
-    path=lib/svc/manifest/vmware/vgauth.xml owner=root \
+file lib/svc/manifest/open-vm-tools/vgauth.xml \
+    path=lib/svc/manifest/open-vm-tools/vgauth.xml owner=root \
     group=sys mode=0444 \
     restart_fmri=svc:/system/manifest-import:default

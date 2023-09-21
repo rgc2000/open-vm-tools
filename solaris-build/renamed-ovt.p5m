@@ -1,0 +1,9 @@
+set name=pkg.fmri value=vmware/open-vm-tools@12.3.0,12384-0
+set name=pkg.human-version value="12.3.0-0"
+set name=pkg.summary value="Open VM Tools for Solaris 11.4"
+set name=pkg.description value="Drivers and tools for virtual machines running Solaris under a VMware hypervisor"
+set name=variant.variant.arch value=i386
+set name=variant.opensolaris.zone value=global
+set name=pkg.renamed value=true
+depend fmri=pkg://solaris/entire@11.4 type=require
+depend fmri=pkg://community/open-vm-tools@12.3.0,12384-0 type=require

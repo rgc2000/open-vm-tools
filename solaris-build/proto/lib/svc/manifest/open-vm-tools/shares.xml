@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
 <!--
- VMware::Shares
+ Open-VM-Tools::Shares
 
     Service manifest to declare and install the service that
     will declare and mount the shares for VMware Workstation
 -->
 
-<service_bundle type='manifest' name='vmware:shares'>
-    <service version='1' type='service' name='vmware/shares'>
+<service_bundle type='manifest' name='open-vm-tools:shares'>
+    <service version='1' type='service' name='open-vm-tools/shares'>
 
         <!-- Instance -->
 
@@ -28,23 +28,23 @@
         </dependency>
 
         <dependency restart_on="error" type="service"
-            name="vmware-tools_dependency" grouping="require_all">
-            <service_fmri value='svc:/vmware/tools' />
+            name="open-vm-tools-tools_dependency" grouping="require_all">
+            <service_fmri value='svc:/open-vm-tools/vmtoolsd' />
         </dependency>
 
         <!-- Methods -->
 
         <exec_method timeout_seconds='30' type='method' name='start'
-            exec='/lib/svc/method/vmware-shares %m'/>
+            exec='/lib/svc/method/ovt-shares %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='restart'
-            exec='/lib/svc/method/vmware-shares %m'/>
+            exec='/lib/svc/method/ovt-shares %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='stop'
-            exec='/lib/svc/method/vmware-shares %m'/>
+            exec='/lib/svc/method/ovt-shares %m'/>
 
         <exec_method timeout_seconds='30' type='method' name='refresh'
-            exec='/lib/svc/method/vmware-shares %m'/>
+            exec='/lib/svc/method/ovt-shares %m'/>
 
         <!-- Properties -->
 
@@ -53,7 +53,7 @@
         </property_group>
 
         <property_group name='config' type='application'>
-            <!-- default property settings for vmware shares. -->
+            <!-- default property settings for open-vm-tools shares. -->
             <propval name='hgfs_mountpoint' type='astring' value='/hgfs' />
             <propval name='block_mountpoint' type='astring' value='/system/volatile/vmblock' />
         </property_group>
@@ -65,12 +65,12 @@
         <template>
             <common_name>
                 <loctext xml:lang='C'>
-                    Open VM Tools for VMware
+                    Open VM Tools filesystem share for VMware
                 </loctext>
             </common_name>
             <description>
                 <loctext xml:lang='C'>
-Will start the vmware vmtoolsd daemon to monitor and communicate with
+Will load the open-vm-tools driver to lmount the shared filesystems in
 the VM from the hypervisor. Only for VMware Workstation, not for ESXi
                 </loctext>
             </description>
