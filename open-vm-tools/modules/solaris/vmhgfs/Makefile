@@ -20,8 +20,8 @@
 ##
 
 MODULE   := vmhgfs
-CFLAGS   :=
-LDFLAGS  :=
+CFLAGS   := -fno-common
+LDFLAGS  := -ztype=kmod -znodefs
 
 # Solaris version defines for in-code #ifdefs (default to Solaris 9)
 ifeq ($(shell echo "$(VM_UNAME)" | cut -c-4),5.11)
@@ -158,7 +158,7 @@ prepare_dirs:
 # Build just the module for 32 bits kernel
 $(MODULE_32): $(SOLHGFS_32_OBJS)
 	@echo "Linking          $(MODULE_32)"
-	$(LD) $(LDFLAGS_32) -r -o $(MODULE_32) $(SOLHGFS_32_OBJS)
+	$(LD) $(LDFLAGS_32) -o $(MODULE_32) $(SOLHGFS_32_OBJS)
 
 $(SOLHGFS_32_KRN_OBJS): i386/%.o: %.c
 	@echo "Compiling        $(<F)"
@@ -171,7 +171,7 @@ $(SOLHGFS_32_LIB_OBJS): i386/%.o: %.c
 # Now the same for 64 bits kernel
 $(MODULE_64): $(SOLHGFS_64_OBJS)
 	@echo "Linking          $(MODULE_64)"
-	$(LD) $(LDFLAGS_64) -r -o $(MODULE_64) $(SOLHGFS_64_OBJS)
+	$(LD) $(LDFLAGS_64) -o $(MODULE_64) $(SOLHGFS_64_OBJS)
 
 $(SOLHGFS_64_KRN_OBJS): amd64/%.o: %.c
 	@echo "Compiling        $(<F)"

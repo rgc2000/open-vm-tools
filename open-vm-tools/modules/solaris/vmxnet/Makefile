@@ -23,8 +23,8 @@ MODULE    := vmxnet
 MODULE_32 := i386/$(MODULE)
 MODULE_64 := amd64/$(MODULE)
 
-CFLAGS    :=
-LDFLAGS   := -dy -Nmisc/gld
+CFLAGS    := -fno-common
+LDFLAGS   := -ztype=kmod -znodefs -Nmisc/gld
 
 CFLAGS    += -O2
 CFLAGS    += -Wall -Werror -Wno-unused-but-set-variable
@@ -94,7 +94,7 @@ prepare_dirs:
 
 $(MODULE_32): $(VMXNET_32_OBJS)
 	@echo "Linking          $@"
-	$(LD) $(LDFLAGS_32) -r $(VMXNET_32_OBJS) -o $@
+	$(LD) $(LDFLAGS_32) $(VMXNET_32_OBJS) -o $@
 
 $(VMXNET_32_OBJS): i386/%.o: %.c
 	@echo "Compiling        $(<F)"
@@ -102,7 +102,7 @@ $(VMXNET_32_OBJS): i386/%.o: %.c
 
 $(MODULE_64): $(VMXNET_64_OBJS)
 	@echo "Linking          $@"
-	$(LD) $(LDFLAGS_64) -r $(VMXNET_64_OBJS) -o $@
+	$(LD) $(LDFLAGS_64) $(VMXNET_64_OBJS) -o $@
 
 $(VMXNET_64_OBJS): amd64/%.o: %.c
 	@echo "Compiling        $(<F)"

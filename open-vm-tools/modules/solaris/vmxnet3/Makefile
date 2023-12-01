@@ -30,8 +30,8 @@ $(if $(SUPPORTED),,$(error "Unsupported Solaris version: $(VM_UNAME)"))
 ##
 
 MODULE    := vmxnet3s
-CFLAGS    :=
-LDFLAGS   := -dy -Nmisc/mac
+CFLAGS    := -fno-common
+LDFLAGS   := -ztype=kmod -znodefs -Nmisc/mac
 
 CFLAGS    += -O2
 CFLAGS    += -Wall -Werror -Wno-unknown-pragmas
@@ -104,7 +104,7 @@ prepare_dirs:
 
 $(MODULE_32): $(VMXNET3_32_OBJS)
 	@echo "Linking          $@"
-	$(LD) $(LDFLAGS_32) -r $(VMXNET3_32_OBJS) -o $@
+	$(LD) $(LDFLAGS_32) $(VMXNET3_32_OBJS) -o $@
 
 $(VMXNET3_32_OBJS): i386/%.o: %.c
 	@echo "Compiling        $(<F)"
@@ -112,7 +112,7 @@ $(VMXNET3_32_OBJS): i386/%.o: %.c
 
 $(MODULE_64): $(VMXNET3_64_OBJS)
 	@echo "Linking          $@"
-	$(LD) $(LDFLAGS_64) -r $(VMXNET3_64_OBJS) -o $@
+	$(LD) $(LDFLAGS_64) $(VMXNET3_64_OBJS) -o $@
 
 $(VMXNET3_64_OBJS): amd64/%.o: %.c
 	@echo "Compiling        $(<F)"

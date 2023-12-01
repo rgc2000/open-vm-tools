@@ -23,9 +23,9 @@ MODULE    := vmmemctl
 MODULE_32 := i386/$(MODULE)
 MODULE_64 := amd64/$(MODULE)
 
-CFLAGS    :=
+CFLAGS    := -fno-common
 KFLAGS    :=
-LDFLAGS   :=
+LDFLAGS   := -ztype=kmod -znodefs
 
 CFLAGS    += -O
 CFLAGS    += -Wall -Wno-unknown-pragmas -Werror
@@ -113,7 +113,7 @@ prepare_dirs:
 
 $(MODULE_32): $(VMMCTL_32_OBJS)
 	@echo "Linking          $@"
-	$(LD) $(LDFLAGS_32) -r $(VMMCTL_32_OBJS) -o $@
+	$(LD) $(LDFLAGS_32) $(VMMCTL_32_OBJS) -o $@
 
 $(VMMCTL_32_OBJS): i386/%.o: %.c
 	@echo "Compiling        $(<F)"
@@ -121,7 +121,7 @@ $(VMMCTL_32_OBJS): i386/%.o: %.c
 
 $(MODULE_64): $(VMMCTL_64_OBJS)
 	@echo "Linking          $@"
-	$(LD) $(LDFLAGS_64) -r $(VMMCTL_64_OBJS) -o $@
+	$(LD) $(LDFLAGS_64) $(VMMCTL_64_OBJS) -o $@
 
 $(VMMCTL_64_OBJS): amd64/%.o: %.c
 	@echo "Compiling        $(<F)"
