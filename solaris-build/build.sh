@@ -104,6 +104,6 @@ case "${TARGETOS}" in
         ;;
 
     *)
-        echo "Don't know hox to compile for ${TARGETOS}, aborting"
+        echo "Don't know how to compile for ${TARGETOS}, aborting"
 esac
 
