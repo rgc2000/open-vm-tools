@@ -36,8 +36,8 @@ This is the status of the open-vm-tools features supported on Solaris
 
 Requirements
 ------------
-Minimum Solaris version has to be Solaris 11.4
-open-vm-tools cannot run or be compiled on previous versions of Solaris due to libraries not available or too old.
+Minimum Solaris version has to be Solaris CBE 11.4.42 (public available release) or Solaris 11.4 SRU21 (support subscription required)
+open-vm-tools cannot run or be compiled on previous versions of Solaris due to required libraries not available or too old.
 
 ## Solaris 11.4 installed packages requirements
 | Build Dependencies | Runtime |
@@ -100,7 +100,7 @@ Drivers
 * `vmmemctl` : VMware Memory Control (ballooning)
 * `vmhgfs`   : Host/Guest Filesystem
 
-Only network drivers will be loaded if corresponding virtual hardware is detected.
+Network drivers will be loaded only if corresponding virtual hardware is detected.
 Other drivers are loaded by the SMF services that need them.
 
 Libraries
