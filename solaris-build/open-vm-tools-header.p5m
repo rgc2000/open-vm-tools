@@ -10,7 +10,7 @@ set name=variant.variant.arch value=i386
 set name=variant.opensolaris.zone value=global
 set name=info.classification value=\
     "org.opensolaris.category.2008:System/Administration and Configuration"
-depend fmri=pkg://solaris/entire@11.4 type=require
+depend fmri=pkg://solaris/entire@11.4-11.4.21 type=require
 depend fmri=pkg://solaris/system/library/libdnet type=require
 depend fmri=pkg://solaris/library/xmlsec type=require
 dir group=sys mode=0755 owner=root path=lib/svc/manifest/open-vm-tools

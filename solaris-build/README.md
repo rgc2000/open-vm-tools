@@ -36,7 +36,7 @@ This is the status of the open-vm-tools features supported on Solaris
 
 Requirements
 ------------
-Minimum Solaris version has to be Solaris CBE 11.4.42 (public available release) or Solaris 11.4 SRU21 (support subscription required)
+Minimum Solaris version has to be Solaris 11.4.42 CBE (public available release) or Solaris 11.4.21 SRU (support subscription required)
 open-vm-tools cannot run or be compiled on previous versions of Solaris due to required libraries not available or too old.
 
 ## Solaris 11.4 installed packages requirements
