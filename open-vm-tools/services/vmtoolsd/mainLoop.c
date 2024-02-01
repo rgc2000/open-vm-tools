@@ -544,9 +544,9 @@ ToolsCoreRunLoop(ToolsServiceState *state)
                                              ToolsCoreConfFileCb,
                                              state);
 
-#if defined(__APPLE__)
-      ToolsCore_CFRunLoop(state);
-#else
+//#if defined(__APPLE__)
+//      ToolsCore_CFRunLoop(state);
+//#else
       /*
        * For now exclude the MAC due to limited testing.
        */
@@ -566,7 +566,7 @@ ToolsCoreRunLoop(ToolsServiceState *state)
 #endif
 
       g_main_loop_run(state->ctx.mainLoop);
-#endif
+//#endif
    }
 
    ToolsCoreCleanup(state);

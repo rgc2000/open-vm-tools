@@ -129,7 +129,7 @@ UtilLogWrapper(void *ignored,    // IN:
    Log("%s", thisLine);
 }
 
-
+#if !defined(__APPLE__)
 #ifdef UTIL_BACKTRACE_USE_UNWIND
 /*
  *-----------------------------------------------------------------------------
@@ -187,7 +187,7 @@ UtilBacktraceFromPointerCallback(struct _Unwind_Context *ctx, // IN: Unwind cont
    }
    return _URC_END_OF_STACK;
 }
-
+#endif // !defined(__APPLE__)
 
 #if !defined(_WIN32) && !defined(VMX86_TOOLS)
 /*
@@ -262,6 +262,7 @@ UtilSymbolBacktraceFromPointerCallback(struct _Unwind_Context *ctx, // IN: Unwin
 #endif
 
 
+#if !defined(__APPLE__)
 /*
  *-----------------------------------------------------------------------------
  *
@@ -351,7 +352,7 @@ UtilBacktraceFromPointerWithFunc(uintptr_t *basePtr,       // IN:
 #endif
 #endif
 }
-
+#endif // !defined(__APPLE__)
 
 /*
  *----------------------------------------------------------------------

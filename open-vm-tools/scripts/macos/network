@@ -1,0 +1,64 @@
+#!/bin/sh
+##########################################################################
+# Copyright 2010 VMware, Inc.  All rights reserved. -- VMware Confidential
+##########################################################################
+
+##########################################################################
+# DO NOT modify this file directly as it will be overwritten the next
+# time the VMware Tools are installed.
+##########################################################################
+
+#
+# network (Mac OS X - Leopard, Snow Leopard)
+#
+# This script uses a custom helper application to "reboot" networking in
+# response to resume events.  Users shall only observe instant DHCP lease
+# refreshes upon resume.
+#
+
+
+echo `date` ": Executing '$0'"
+echo
+
+if [ -z "$TOOLS_CONFDIR" ]; then
+   echo >&2 "\$TOOLS_CONFDIR is unset.  This script is not intended to be run directly."
+   exit 1
+fi
+
+# Pull in subroutines like Panic.
+. "$TOOLS_CONFDIR"/statechange.subr
+
+
+#
+# main --
+#
+#    Main entry point.  Perform some sanity checking, then map state change
+#    events to relevant networking operations.
+#
+# Results:
+#    See comment at top of file.
+#
+# Side effects:
+#    None.
+#
+
+main() {
+   helperExec="$TOOLS_CONFDIR/vmware-softpowerop-helper"
+   exitCode=0
+
+   if [ ! -x "$helperExec" ]; then
+      Panic "Cannot execute $helperExec"
+   fi
+
+   case "$1" in
+      resume-vm)
+         "$helperExec" resume
+         exitCode=$?
+         ;;
+      *) ;;
+   esac
+
+   return $exitCode
+}
+
+main "$@"

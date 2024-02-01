@@ -271,10 +271,15 @@ main(int argc,
     */
    if (TOOLS_IS_USER_SERVICE(&gState)) {
       uid_t uid = getuid();
+#if !defined(__APPLE__)
       gid_t gid = getgid();
+#endif
 
-      if ((Id_SetREUid(uid, uid) != 0) ||
-          (Id_SetREGid(gid, gid) != 0)) {
+      if ((Id_SetREUid(uid, uid) != 0) 
+#if !defined(__APPLE__)
+          || (Id_SetREGid(gid, gid) != 0)
+#endif
+         ) {
          g_printerr("could not drop privileges: %s", strerror(errno));
          ToolsCloseFds();
          goto exit;

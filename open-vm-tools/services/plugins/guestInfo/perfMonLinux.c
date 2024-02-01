@@ -30,6 +30,10 @@
 #include <locale.h>
 #include <string.h>
 
+#if defined(__APPLE__)
+#include <xlocale.h>
+#endif
+
 #include "vm_basic_defs.h"
 #include "vmware.h"
 #include "str.h"

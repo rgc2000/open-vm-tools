@@ -36,10 +36,7 @@
 ###
 
 TOOLS_VERSION="12.3.5"
-AC_INIT(
-   [open-vm-tools],
-   [12.3.5],
-   [open-vm-tools-devel@lists.sourceforge.net])
+AC_INIT([open-vm-tools],[12.3.5],[open-vm-tools-devel@lists.sourceforge.net])
 
 # In order to make this configure script auto-detect situations where
 # people have a 32-bit userland running with a 64-bit kernel, we try to ask
@@ -128,6 +125,9 @@ case "$host_os" in
       ;;
    [solaris*])
       os="solaris"
+      ;;
+   [darwin*])
+      os="macos"
       ;;
    [*])
       AC_MSG_WARN([This is an untested and unsupported Operating System. Proceed at your own peril.])
@@ -1146,12 +1146,14 @@ else
    fi
 fi # End of checks for X libraries
 
+if test "x$os" != "xmacos" ; then
 AC_CHECK_LIB(
    [crypt],
    [crypt],
    [HAVE_CRYPT="yes"],
    [AC_MSG_ERROR(
       [libcrypt not found. Please install the libc/libcrypt devel package(s).])])
+fi
 
 AC_CHECK_FUNCS(
    dlopen,
@@ -1284,16 +1286,13 @@ if test "$with_icu" = "yes"; then
    AC_MSG_CHECKING([for ucasemap_utf8ToTitle in ICU])
    ORIGINAL_CPPFLAGS="$CPPFLAGS"
    CPPFLAGS="$CPPFLAGS $ICU_CPPFLAGS"
-   AC_TRY_COMPILE([#include <unicode/ucasemap.h>],
-                  [
+   AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <unicode/ucasemap.h>]], [[
                      (void) &ucasemap_utf8ToTitle;
                      return 0;
-                  ],
-                  [
+                  ]])],[
                      ICU_CPPFLAGS="$ICU_CPPFLAGS -DHAVE_ICU_38"
                      AC_MSG_RESULT([yes])
-                  ],
-                  [AC_MSG_RESULT([no])])
+                  ],[AC_MSG_RESULT([no])])
    CPPFLAGS="$ORIGINAL_CPPFLAGS"
    AC_LANG_POP([C++])
 
@@ -1441,7 +1440,20 @@ AC_TYPE_OFF_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 AC_CHECK_MEMBERS([struct stat.st_rdev])
-AC_HEADER_TIME
+m4_warn([obsolete],
+[Update your code to rely only on HAVE_SYS_TIME_H,
+then remove this warning and the obsolete code below it.
+All current systems provide time.h; it need not be checked for.
+Not all systems provide sys/time.h, but those that do, all allow
+you to include it and time.h simultaneously.])dnl
+AC_CHECK_HEADERS_ONCE([sys/time.h])
+# Obsolete code to be removed.
+if test $ac_cv_header_sys_time_h = yes; then
+  AC_DEFINE([TIME_WITH_SYS_TIME],[1],[Define to 1 if you can safely include both <sys/time.h>
+	     and <time.h>.  This macro is obsolete.])
+fi
+# End of obsolete code.
+
 AC_STRUCT_TM
 AC_C_VOLATILE
 
@@ -1464,14 +1476,10 @@ for TEST_CFLAG in -Wno-pointer-sign -Wno-unused-value -fno-strict-aliasing \
     ORIGINAL_CFLAGS="$CFLAGS"
     CFLAGS="$CFLAGS $TEST_CFLAG"
     NEW_CFLAG=""
-    AC_TRY_COMPILE(
-       [],
-       [
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
 	return 0;
-       ],
-   [NEW_CFLAG=" $TEST_CFLAG"
-    AC_MSG_RESULT(yes)],
-   [AC_MSG_RESULT(no)])
+       ]])],[NEW_CFLAG=" $TEST_CFLAG"
+    AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
    CFLAGS="$ORIGINAL_CFLAGS$NEW_CFLAG"
 done
 CPPFLAGS="$CPPFLAGS -DVMX86_TOOLS"
@@ -1481,22 +1489,16 @@ CPPFLAGS="$CPPFLAGS"
 ORIGINAL_CFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -fvisibility=hidden"
 AC_MSG_CHECKING([for GCC flag -fvisibility])
-AC_TRY_COMPILE([],
-               [return 0;],
-               [PLUGIN_CPPFLAGS="-fvisibility=hidden -DGCC_EXPLICIT_EXPORT";
-                AC_MSG_RESULT(yes)],
-               [AC_MSG_RESULT(no)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[return 0;]])],[PLUGIN_CPPFLAGS="-fvisibility=hidden -DGCC_EXPLICIT_EXPORT";
+                AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
 CFLAGS="$ORIGINAL_CFLAGS"
 
 # Detect "unused-but-set-variable" gcc warning and disable it.
 ORIGINAL_CFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -Wno-unused-but-set-variable"
 AC_MSG_CHECKING([for GCC flag -Wno-unused-but-set-variable])
-AC_TRY_COMPILE([],
-               [return 0;],
-               [ORIGINAL_CFLAGS="$ORIGINAL_CFLAGS -Wno-unused-but-set-variable";
-                AC_MSG_RESULT(yes)],
-               [AC_MSG_RESULT(no)])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[return 0;]])],[ORIGINAL_CFLAGS="$ORIGINAL_CFLAGS -Wno-unused-but-set-variable";
+                AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
 CFLAGS="$ORIGINAL_CFLAGS"
 
 
@@ -1692,6 +1694,7 @@ AM_CONDITIONAL(BUILD_HGFSMOUNTER, test "$buildHgfsmounter" = "yes")
 AM_CONDITIONAL(LINUX, test "$os" = "linux")
 AM_CONDITIONAL(SOLARIS, test "$os" = "solaris")
 AM_CONDITIONAL(FREEBSD, test "$os" = "freebsd" -o "$os" = "kfreebsd-gnu")
+AM_CONDITIONAL(MACOS, test "$os" = "macos")
 AM_CONDITIONAL(FREEBSD_CUSTOM_SYSDIR,
                test \( "$os" = "freebsd" -o "$os" = "kfreebsd-gnu" \) -a -n "$SYSDIR")
 AM_CONDITIONAL(ARCH_X32, test "$arch" = "x32")
@@ -1763,7 +1766,11 @@ VMTOOLS_LIBS="$BUILDDIR/libvmtools/libvmtools.la $GLIB2_LIBS"
 VMTOOLS_CPPFLAGS="-DVMTOOLS_USE_GLIB $GLIB2_CPPFLAGS"
 
 PLUGIN_CPPFLAGS="$VMTOOLS_CPPFLAGS $PLUGIN_CPPFLAGS"
+if test "$os"="macos"; then
+PLUGIN_LDFLAGS="-Wl,-lc -shared -module -avoid-version"
+else
 PLUGIN_LDFLAGS="-Wl,-z,defs -Wl,-lc -Wl,--as-needed -shared -module -avoid-version"
+fi
 
 # Installation directories for core services plugins.
 TEST_PLUGIN_INSTALLDIR=$datadir/open-vm-tools/tests

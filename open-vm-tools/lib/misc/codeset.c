@@ -87,7 +87,7 @@
 #include "str.h"
 #if defined __APPLE__
 #   define LOCATION_WEAK
-#   include "location.h"
+//#   include "location.h"
 #endif
 
 /*

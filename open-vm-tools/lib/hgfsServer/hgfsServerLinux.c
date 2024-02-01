@@ -1139,7 +1139,7 @@ HgfsGetattrResolveAlias(char const *fileName,       // IN:  Input filename
 
    *targetName = NULL;
 
-   if (CFURLCreateBookmarkDataFromFile != NULL) {
+   if (&CFURLCreateBookmarkDataFromFile != NULL) {
       /* We are running on Mac OS 10.6 or later. */
 
       CFURLRef fileURL;
