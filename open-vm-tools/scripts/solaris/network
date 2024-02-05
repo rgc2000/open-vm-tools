@@ -1,6 +1,6 @@
 #!/bin/sh
 ##########################################################
-# Copyright (C) 2006-2016 VMware, Inc. All rights reserved.
+# Copyright (C) 2006-2024 VMware, Inc. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -23,10 +23,10 @@
 ##########################################################################
 
 #
-# network (Solaris 10+)
+# network (Solaris 11.4)
 #
-# Solaris's ifconfig conveniently handles DHCP arguments directly, so we
-# may use it to release and renew DHCP leases upon receipt of suspend
+# Solaris's ipadm handles DHCP arguments directly, so we
+# may use it to suspend and renew DHCP leases upon receipt of suspend
 # and resume events, respectively.
 #
 
@@ -58,26 +58,18 @@ main() {
 
          # Release DHCP addresses and note each interface in our active list
          # so it can be brought back up on resume
-         for nic in `ifconfig -a | awk -F: '/DHCP/ { print $1; }'`; do
-            # Sometimes interfaces will claim DHCP and not actually be "under
-            # DHCP control".  Let's double check the status to ensure this
-            # isn't the case.
-            if ifconfig "$nic" dhcp status > /dev/null 2>&1; then
-               echo "$0: releasing DHCP address for $nic"
-               echo "$nic" >> $activeList
-               ifconfig "$nic" dhcp release
-            fi
+         for addr in `ipadm show-addr -p -o addrobj,type,state | grep ':dhcp:ok' | cut -d: -f1`; do
+            echo "$0: disabling DHCP address for $addr"
+            echo "$addr" >> $activeList
+            ipadm disable-addr -t "$addr"
          done
       ;;
       resume-vm)
          if [ -s $activeList ]; then
-            while read nic; do
-               echo "$0: bringing up DHCP on $nic"
-               ifconfig "$nic" dhcp
-               # Can safely ignore the error from the previous command if we
-               # know the interface is managed by the DHCP agent and is working
-               # properly.
-               rc=$? && [[ $rc != 0 ]] && { ifconfig "$nic" dhcp ping; rc=$?; }
+            while read addr; do
+               echo "$0: bringing up DHCP on $addr"
+               ipadm enable-addr -t "$addr"
+               rc=$? && [[ $rc != 0 ]] && { ipadm refresh-addr "$addr"; rc=$?; }
                exitCode=`expr $exitCode \| $rc`
             done < $activeList
          fi
