@@ -51,7 +51,7 @@
 #  if defined(G_MODULE_SUFFIX)
 #     undef G_MODULE_SUFFIX
 #  endif
-#  define G_MODULE_SUFFIX "dylib"
+#  define G_MODULE_SUFFIX "so"
 #endif
 
 #define VMTOOLS_APP_NAME "vmtools"
