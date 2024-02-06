@@ -304,7 +304,7 @@ VGAuthValidateUsernamePasswordImpl(VGAuthContext *ctx,
          case PAM_NO_MODULE_DATA:
          case PAM_CONV_ERR:
          case PAM_ABORT:
-#ifndef __sun__   /* The following error codes are undefined on Solaris. */
+#if !defined(__sun__) && !defined(__APPLE__)   /* The following error codes are undefined on Solaris. */
          case PAM_BAD_ITEM:
          case PAM_CONV_AGAIN:
          case PAM_INCOMPLETE:

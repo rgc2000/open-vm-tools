@@ -56,7 +56,9 @@ libvgauth_la_CPPFLAGS += -I$(top_srcdir)/vgauth/common
 
 libvgauth_la_LDFLAGS =
 # We require GCC, so we're fine passing compiler-specific flags.
+if !MACOS
 libvgauth_la_LDFLAGS += -Wl,-z,defs
+endif
 # Needed for OS's that don't link shared libraries against libc by
 #default, e.g. FreeBSD
 libvgauth_la_LIBADD += -lc

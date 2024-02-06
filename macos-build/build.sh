@@ -19,7 +19,7 @@ case "${TARGETOS}" in
 
         cd ../open-vm-tools
         autoreconf -i
-        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --without-x --disable-resolutionkms --disable-vmwgfxctrl
+        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --without-x --disable-resolutionkms --enable-vmwgfxctrl --enable-vgauth
         make -j 5
         make install
         cd ../macos-build
