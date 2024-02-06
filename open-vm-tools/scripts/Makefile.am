@@ -25,7 +25,11 @@ confdir = /etc/vmware-tools
 conf_SCRIPTS = ./common/statechange.subr
 conf_SCRIPTS += $(defaultscripts)
 
+if MACOS
+vmsupportdir = /usr/local/bin
+else
 vmsupportdir = /usr/bin
+endif
 
 vmsupport_SCRIPTS = ./common/vm-support
 
