@@ -9,8 +9,8 @@ Status
 This is the status of the open-vm-tools features supported on Solaris
 | Feature | Type | Status | Comments |
 |:-------:|:----:|:------:|:--------:|
-| vmtoolsd | daemon | unknown | Main service, will load the plugins |
-| vgauthd | daemon | unknown | Authentication service from host RPC |
+| vmtoolsd | daemon | working | Main service, will load the plugins |
+| vgauthd | daemon | compiling | Authentication service from host RPC |
 | appInfo | plugin | unknown | not tested |
 | componentMgr | plugin | unknown | unknown status |
 | containerInfo | plugin | unknown | unknown status |
@@ -18,16 +18,16 @@ This is the status of the open-vm-tools features supported on Solaris
 | desktopEvents | plugin | unknown | for gfx desktop |
 | dndcp | plugin | unknown | Drag'n drop on desktop for wmware workstation/fusion |
 | gdp | plugin | unknown | unknown status |
-| guestInfo | plugin | unknown | not tested |
+| guestInfo | plugin | working | retreive guest configuration |
 | guestStore | plugin | unknown | not tested |
-| hgfsServer | plugin | unknown | not tested |
-| powerOps | plugin | unknown | not tested |
+| hgfsServer | plugin | compiling | not tested |
+| powerOps | plugin | working | call start/stop/suspend/resume scripts |
 | resolutionKMS | plugin | unknown | not tested |
 | resolutionSet | plugin | unknown | change desktop resolutionn on resize |
 | serviceDiscovery | plugin | unknown | not tested |
-| timeSync | pkugin | unknown | not tested |
-| vix | plugin | unknown | not tested |
-| vmbackup | plugin | unknown | not tested |
+| timeSync | pkugin | compiling | not tested |
+| vix | plugin | compiling | not tested |
+| vmbackup | plugin | compiling | not tested |
 | vmblock | filesystem | unknown | sharing mecanism for drag'n drop on or from desktop |
 | vmhgfs | filesystem | unknown | file sharing on vmware workstation/fusion |
 | vmmemctl | driver | unknown | memory controller for ballooning |
