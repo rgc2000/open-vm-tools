@@ -28,13 +28,6 @@ case "${TARGETOS}" in
 
         find ${DESTDIR} -type f -exec file {} \; | grep 'not stripped' | cut -d: -f1 | xargs -t -L 1 strip
 
-        if [ "${PREFIX}" != "/usr" ]
-        then
-            [ -d "${DESTDIR}/usr/bin" ] || mkdir -p "${DESTDIR}/usr/bin"
-            ln -fs $(realpath --relative-to=/usr/bin "${PREFIX}/bin/vmtoolsd") "${DESTDIR}/usr/bin/vmtoolsd"
-            ln -fs $(realpath --relative-to=/usr/bin "${PREFIX}/bin/vmware-toolbox-cmd") "${DESTDIR}/usr/bin/vmware-toolbox-cmd"
-        fi
-
         if [ "${SYSCONFDIR}" != "/etc" ]
         then
             [ -d "${DESTDIR}/etc/fs" ] || mkdir -p "${DESTDIR}/etc/fs"
