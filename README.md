@@ -217,34 +217,6 @@ Use the appropriate generic Linux designation when configuring a VM for your Lin
 ## What Operating Systems are supported for customization?
 The [Guest OS Customization Support Matrix](http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf) provides details about the guest operating systems supported for customization.
 
-## Solaris 11
-For Solaris 11.4 you can build a pkg file that will include the open-vm-tools services and drivers. For previous Solaris 11 versions (11.0-11.3) use the legacy vmware-tools 10.3.10 provided by VMware
-To compile this product for Solaris 11 x86 you will need the following packages installed on your developpement environment :
-- gnu-make
-- autoconf
-- automake
-- libtool
-- pkg-config
-- gcc
-- libdnet
-
-Execute the following command to install the needed packages for compilation (not needed for runtime except libdnet that will be pulled from IPS repository if not installed when you will install the open-vm-tools pkg)
-```
-pkg install gnu-make autoconf automake libtool pkg-config gcc libdnet
-```
-
-Then execute the commands
-```
-cd solaris-build
-./build.sh
-```
-
-To remove all the generated files execute command
-```
-cd solaris-build
-./clean.sh
-```
-
 ## Which versions of open-vm-tools are compatible with other VMware products?
 
 The [VMware Product Interoperability Matrix](http://partnerweb.vmware.com/comp_guide2/sim/interop_matrix.php) provides details about the compatibility of different versions of VMware Tools (includes open-vm-tools) and other VMware Products.
@@ -269,4 +241,3 @@ Please send an email to one of these mailing lists based on the nature of your q
 - Development related questions : open-vm-tools-devel@lists.sourceforge.net
 - Miscellaneous questions: open-vm-tools-discuss@lists.sourceforge.net
 - General project announcements: open-vm-tools-announce@lists.sourceforge.net
-

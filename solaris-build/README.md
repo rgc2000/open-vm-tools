@@ -1,8 +1,8 @@
 Solaris operating instructions
 ==============================
-This document will describe how to install and use the open-vm-tools on Solaris 11.4
+This document will describe how to compile, install and use the open-vm-tools on Solaris 11.4
 
-You should get the solaris package from the githup page, name should be like open-vm-tools-X.XX.XX.p5p
+You should get the solaris binary package from the githup page, name should be like open-vm-tools-X.X.X-Y.p5p where X.X.X is the open-vm-tools source version as released by the vmware team and Y is the package revision as released by this git project branch.
 
 Status
 ------
@@ -14,7 +14,7 @@ This is the status of the open-vm-tools features supported on Solaris
 | appInfo | plugin | working | needs more tests |
 | componentMgr | plugin | unavailable | unknown status |
 | containerInfo | plugin | unavailable | unknown status |
-| deployPkg | plugin | unavailable | can be compiled if you provide libmspack but host will not allow you to use this feature is GuestOS is set to Solaris |
+| deployPkg | plugin | unavailable | can be compiled if you provide libmspack but host will not allow you to use this feature when GuestOS is set to Solaris |
 | desktopEvents | plugin | working | for gfx desktop |
 | dndcp | plugin | working | Drag'n drop on desktop for wmware workstation/fusion |
 | gdp | plugin | unavailable | unknown status |
@@ -23,16 +23,16 @@ This is the status of the open-vm-tools features supported on Solaris
 | hgfsServer | plugin | working | how to test this ? |
 | powerOps | plugin | working | confirmed ok |
 | resolutionKMS | plugin | unavailable | can be compiled but will not work |
-| resolutionSet | plugin | working | change desktop resolutionn on resize |
+| resolutionSet | plugin | working | change desktop resolutionn on display resize |
 | serviceDiscovery | plugin | unavailable | not tested |
 | timeSync | pkugin | working | tested ok |
 | vix | plugin | working | tested ok |
-| vmbackup | plugin | working | tested ok called on quiesce on snapshot |
+| vmbackup | plugin | working | tested ok called for quiesce on snapshot |
 | vmblock | filesystem | working | sharing mecanism for drag'n drop on or from desktop |
 | vmhgfs | filesystem | working | file sharing on vmware workstation/fusion |
 | vmmemctl | driver | working | memory controller for ballooning |
 | vmxnet | driver | working | deprecated network driver |
-| vmxnet3s | driver | working | paravirtualized network interface driver, need to be updated to latest kernel API |
+| vmxnet3s | driver | working | paravirtualized network interface driver, needs to be updated to latest kernel API |
 
 Requirements
 ------------
@@ -50,11 +50,33 @@ open-vm-tools cannot run or be compiled on previous versions of Solaris due to r
 | `gcc` |
 | `solaris-desktop` |
 
+Build
+-----
+* Required packages installation for compilation
+Execute the following command to install the needed packages for compilation (not needed for runtime except libdnet and xmlsec). Packages will be pulled from IPS repository, so be sure to have configured the IPS publishers according to your Solaris version.
+```
+pkg install gnu-make autoconf automake libtool pkg-config gcc libdnet xmlsec solaris-desktop
+```
+
+* Compilation
+If you prefer to compile and build your own package execute this command with a non privileged account :
+```
+cd solaris-build
+./build.sh
+```
+Generated package file name will be open-vm-tools.p5p
+* Clean
+To remove all the generated files execute command
+```
+cd solaris-build
+./clean.sh
+```
+ 
 Installation
 ------------
-Execute this command with root privileges :
+Execute this command with root privileges, required packages will be pulled from IPS publisher if needed (libdnet and xmlsec):
 ```
-pkg install -g ./open-vm-tools-X.XX.XX.p5p open-vm-tools
+pkg install -g open-vm-tools-X.X.X-Y.p5p open-vm-tools
 ```
 Package is installed under standards system directories (/usr/bin /etc /lib).
 
@@ -66,8 +88,8 @@ SMF Services
 There will be 4 SMF services defined :
 
 * svc:/open-vm-tools/vmtoolsd:default
-This service will be enabled and started. It is the main service that will start the vmtoolsd daemon to
-allow OS control from the VMware hypervisor
+This service will be enabled and started by default. It is the main service that will start the vmtoolsd daemon to
+allow OS monitoring and control from the VMware hypervisor
 ```
 # svcs -xv svc:/open-vm-tools/vmtoolsd:default
 svc:/open-vm-tools/vmtoolsd:default (Open VM Tools main agent for VMware)
@@ -75,12 +97,12 @@ svc:/open-vm-tools/vmtoolsd:default (Open VM Tools main agent for VMware)
    See: /var/svc/log/open-vm-tools-vmtoolsd:default.log
 Impact: None.
 ```
-* svc:/open-vm-tools/balooning:default
+* svc:/open-vm-tools/balloon:default
 This service is not enabled by default. It will load the vmmemctl kernel driver. Its goal is to allow VMware
 to reduce memory usage in the virtual machine in situations where the total physical memory is exhausted on
-hypervisor. This may have a serious impact on applications running on the VM.
+hypervisor. This may have a serious impact on application performances running on the VM.
 
-* svc:/open-vm-tools/shares
+* svc:/open-vm-tools/shares:default
 This service will be automatically enabled on VMware Worksation or VMware Fusion only and it makes no sense
 to use it under ESXi. It will load the kernel drivers needed to mount the hgfs share needed to transfer files
 between the host and the VM. Default mountpoint is /hgfs but this can be configured with the hgfs_mountpoint 
@@ -88,9 +110,9 @@ property of this service.
 This service will also allow the copy/paste and drag'n drop feature between host and VM if VM is running the
 graphical Solaris desktop.
 
-* svcs:/open-vm-tools/vgauth
-This service will be enabled and started. It will be used to provide user authentification for systems with pix
-enabled plugin to run commands in the guest from the host gor example.
+* svc:/open-vm-tools/vgauth:default
+This service will be enabled and started by default. It will be used to provide user authentification for systems with pix
+enabled plugin to run commands in the guest from the host for example.
 
 Drivers
 -------
