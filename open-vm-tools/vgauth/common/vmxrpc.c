@@ -82,7 +82,7 @@ typedef __uint64_t uint64;
 
 #define SOCKET int
 #endif
-#ifdef __sun__
+#if defined(__sun__) || defined(__APPLE__)
 typedef uint32_t uint32;
 typedef uint64_t uint64;
 

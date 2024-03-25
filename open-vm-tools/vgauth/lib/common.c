@@ -451,7 +451,7 @@ done:
 
    return err;
    }
-#elif defined(__sun__)
+#elif defined(__sun__) || defined(__APPLE__)
    return VGAUTH_E_OK;
 #else
 #error VGAuth_InstallClient unsupported on this platform.
@@ -531,7 +531,7 @@ done:
    g_free(lowAppName);
    return err;
    }
-#elif defined(__sun__)
+#elif defined(__sun__) || defined(__APPLE__)
    return VGAUTH_E_OK;
 #else
 #error VGAuth_UninstallClient unsupported on this platform.

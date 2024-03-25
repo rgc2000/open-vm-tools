@@ -69,7 +69,7 @@ setresgid(gid_t ruid,
 }
 #endif
 
-#if defined(__sun__)
+#if defined(__sun__) || defined(__APPLE__)
 #define setresuid(a,b,c) setreuid(a,-1)
 #define setresgid(a,b,c) setregid(a,-1)
 #endif

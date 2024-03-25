@@ -272,7 +272,7 @@ ToolsCoreRpcCapReg(RpcInData *data)
          if (type == TOOLS_TYPE_OVT && gerror != NULL) {
             g_debug("gerror->code = %d when checking for %s\n", gerror->code, CONFNAME_DISABLETOOLSVERSION);
             g_clear_error(&gerror);
-#if defined(__sun__)
+#if defined(__sun__) || defined(__APPLE__)
             disableVersion = FALSE;
 #else
             disableVersion = TRUE;

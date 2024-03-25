@@ -37,8 +37,10 @@ libhgfs_la_CPPFLAGS =
 libhgfs_la_CPPFLAGS += -I$(top_srcdir)/libvmtools
 
 libhgfs_la_LDFLAGS =
+if !MACOS
 # We require GCC, so we're fine passing compiler-specific flags.
 libhgfs_la_LDFLAGS += -Wl,-z,defs
+endif
 # Needed for OS's that don't link shared libraries against libc by
 #default, e.g. FreeBSD
 libhgfs_la_LIBADD += -lc

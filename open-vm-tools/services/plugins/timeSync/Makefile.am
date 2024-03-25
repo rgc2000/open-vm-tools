@@ -45,4 +45,8 @@ libtimeSync_la_SOURCES += slewLinux.c
 libtimeSync_la_SOURCES += pllLinux.c
 libtimeSync_la_SOURCES += timeInfo.c
 endif
+if MACOS
+libtimeSync_la_SOURCES += slewAdjtime.c
+libtimeSync_la_SOURCES += pllNone.c
+endif
 

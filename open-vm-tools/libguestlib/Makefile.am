@@ -50,7 +50,11 @@ libguestlib_la_SOURCES += $(libguestlib_rpcchanneldir)/vsockChannel.c
 libguestlib_la_SOURCES += $(libguestlib_rpcchanneldir)/simpleSocket.c
 endif
 
+if MACOS
+libguestlib_la_LIBADD += -ldl
+else
 libguestlib_la_LIBADD += -ldl -lrt
+endif
 # We require GCC, so we're fine passing compiler-specific flags.
 # Needed for OS's that don't link shared libraries against libc by default, e.g. FreeBSD
 libguestlib_la_LIBADD += -lc

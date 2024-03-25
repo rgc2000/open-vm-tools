@@ -61,8 +61,8 @@
 
 #if defined _WIN32
 #   define GUESTAPP_TOOLS_INSTALL_PATH ""
-#elif defined __APPLE__
-#   define GUESTAPP_TOOLS_INSTALL_PATH "/Library/Application Support/VMware Tools"
+//#elif defined __APPLE__
+//#   define GUESTAPP_TOOLS_INSTALL_PATH "/Library/Application Support/VMware Tools"
 #else
 #   define GUESTAPP_TOOLS_INSTALL_PATH "/etc/vmware-tools"
 #endif

@@ -84,11 +84,18 @@ install-exec-hook:
 	$(INSTALL) -d $(DESTDIR)/$(PAM_PREFIX)/pam.d/
 	$(INSTALL) $(top_srcdir)/pam/solaris $(DESTDIR)/$(PAM_PREFIX)/pam.d/vmtoolsd
 else
+if MACOS
+install-exec-hook:
+	$(INSTALL) -d $(DESTDIR)/etc/vmware-tools
+	$(INSTALL) -d $(DESTDIR)/$(PAM_PREFIX)/pam.d/
+	$(INSTALL) $(top_srcdir)/pam/macos $(DESTDIR)/$(PAM_PREFIX)/pam.d/vmtoolsd
+else
 install-exec-hook:
 	$(INSTALL) -d $(DESTDIR)/etc/vmware-tools
 	$(INSTALL) -d $(DESTDIR)/$(PAM_PREFIX)/pam.d/
 	$(INSTALL) $(top_srcdir)/pam/generic $(DESTDIR)/$(PAM_PREFIX)/pam.d/vmtoolsd
-endif !SOLARIS
+endif
+endif
 
 uninstall-hook:
 	rm -f $(DESTDIR)/$(PAM_PREFIX)/pam.d/vmtoolsd

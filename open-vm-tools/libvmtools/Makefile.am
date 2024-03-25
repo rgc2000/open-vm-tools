@@ -86,7 +86,9 @@ libvmtools_la_CPPFLAGS += @GLIB2_CPPFLAGS@
 
 libvmtools_la_LDFLAGS =
 # We require GCC, so we're fine passing compiler-specific flags.
+if !MACOS
 libvmtools_la_LDFLAGS += -Wl,-z,defs
+endif
 # Needed for OS's that don't link shared libraries against libc by
 #default, e.g. FreeBSD
 libvmtools_la_LIBADD += -lc
