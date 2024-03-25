@@ -93,7 +93,7 @@
 #include <paths.h>
 #endif
 
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__sun__)
 #include <dlfcn.h>
 #endif
 
