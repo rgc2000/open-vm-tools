@@ -93,6 +93,14 @@ case "${TARGETOS}" in
             mv open-vm-tools.p5m.a open-vm-tools.p5m
         done
 
+        sed -e 's!path=usr/bin/vmtoolsd !path=usr/bin/vmtoolsd restart_fmri=svc:/open-vm-tools/vmtoolsd:default !' \
+            -e 's!path=usr/bin/VGAuthService !path=usr/bin/VGAuthService restart_fmri=svc:/open-vm-tools/vgauth:default !' \
+            -e 's!path=kernel/drv/amd64/vmmemctl !path=kernel/drv/amd64/vmmemctl restart_fmri=svc:/open-vm-tools/balloon:default !' \
+            -e 's!path=kernel/drv/amd64/vmblock !path=kernel/drv/amd64/vmblock restart_fmri=svc:/open-vm-tools/shares:default !' \
+            -e 's!path=kernel/drv/amd64/vmhgfs !path=kernel/drv/amd64/vmhgfs restart_fmri=svc:/open-vm-tools/shares:default !' \
+            open-vm-tools.p5m > open-vm-tools.p5m.a &&
+        mv open-vm-tools.p5m.a open-vm-tools.p5m
+
         rm -rf my-repository open-vm-tools.p5p
         mkdir my-repository
         pkgrepo create my-repository
