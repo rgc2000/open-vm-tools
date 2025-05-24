@@ -6,9 +6,10 @@ umask 022
 export PREFIX=/usr
 export SYSCONFDIR=/etc
 export LIBDIR=${PREFIX}/lib
-export DESTDIR=/tmp/vmtools-build
 export LD_RUN_PATH=${LIBDIR}
 export PKG_CONFIG_PATH=/usr/lib/amd64/pkgconfig
+export LIBRESSL_VERSION=4.1.0
+export CURDIR=${PWD}
 
 TARGETOS=$(uname -s)
 
@@ -26,11 +27,24 @@ case "${TARGETOS}" in
                 ;;
         esac
 
+        # =======  Compile LibreSSL
+
+        [ ! -f libressl-${LIBRESSL_VERSION}.tar.gz ] && wget --no-check-certificate http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${LIBRESSL_VERSION}.tar.gz
+        rm -rf libressl-${LIBRESSL_VERSION}
+        tar -xf libressl-${LIBRESSL_VERSION}.tar.gz
+        cd libressl-${LIBRESSL_VERSION}
+        ./configure --prefix=${CURDIR}/libressl-bin --enable-shared=no --enable-static=yes --disable-hardening CFLAGS="-fPIC"
+        gmake -j 5
+        gmake install
+        cd ..
+
         # =======  Compile open-vm-tools
+
+        export DESTDIR=/tmp/vmtools-build
 
         cd ../open-vm-tools
         autoreconf -i
-        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --enable-vgauth
+        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --enable-vgauth LDGLAGS="-I${CURDIR}/libressl-bin/include" LDFLAGS="-L${CURDIR}/libressl-bin/lib"
         gmake -j 5
         gmake install
         cd ../solaris-build

@@ -16,3 +16,4 @@ rm -f open-vm-tools.p5m.1 open-vm-tools.p5m
 rm -rf my-repository
 rm -f open-vm-tools.p5p
 rm -f open-vm-tools.crt open-vm-tools.key
+rm -rf libressl-*
