@@ -41,10 +41,11 @@ case "${TARGETOS}" in
         # =======  Compile open-vm-tools
 
         export DESTDIR=/tmp/vmtools-build
+        export INCLUDES="-I${CURDIR}/libressl-bin/include"
 
         cd ../open-vm-tools
         autoreconf -i
-        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --enable-vgauth LDGLAGS="-I${CURDIR}/libressl-bin/include" LDFLAGS="-L${CURDIR}/libressl-bin/lib"
+        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --enable-vgauth CFLAGS="${INCLUDES}" LDFLAGS="-L${CURDIR}/libressl-bin/lib"
         gmake -j 5
         gmake install
         cd ../solaris-build
