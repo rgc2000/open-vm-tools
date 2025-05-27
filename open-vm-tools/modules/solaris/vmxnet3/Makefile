@@ -33,7 +33,7 @@ MODULE    := vmxnet3s
 CFLAGS    := -fno-common
 LDFLAGS   := -ztype=kmod -znodefs -Nmisc/mac
 
-CFLAGS    += -O2
+CFLAGS    += -O1
 CFLAGS    += -Wall -Werror -Wno-unknown-pragmas
 CFLAGS    += -U_NO_LONGLONG
 CFLAGS    += -D_KERNEL
