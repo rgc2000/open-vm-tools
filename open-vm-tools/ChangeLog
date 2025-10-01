@@ -1,3 +1,90 @@
+commit 4c7899b1d241dad1259eedbc999b4f25041c4fca
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:37:12 2025 -0700
+
+    =================================================
+      open-vm-tools 13.0.5 released at this point.
+    =================================================
+    
+    Update of the ChangeLog with the final changes in preparation for
+    the open-vm-tools 13.0.5 release.
+
+commit d3e111e46db3acc56ac592fe8d695dc63f9b4c11
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:30:35 2025 -0700
+
+    Update the ReleaseNotes.md for the 13.0.5 open-vm-tools release.
+
+commit ae3ca4ef23348a9a883fd3c63d4bcbc79f615c59
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:23:35 2025 -0700
+
+    Prepare for the open-vm-tools 13.0.5 release.
+    
+    - Update the tools version in the configure.ac.
+    - Update the build numbers in the buldNumber.h.
+
+commit 3ab0685c1cf7981c84898d546a73d6db6dcd3823
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:03:43 2025 -0700
+
+    Address CVE-2025-41244
+     - Disable (default) the execution of the SDMP get-versions.sh script.
+    
+    With the Linux SDMP get-versions.sh script disabled, version information
+    of installed services will not be made available to VMware Aria
+
+commit 1de3f643df26c37a477d717254be95d414bd0c39
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:03:43 2025 -0700
+
+    Change to common source files not applicable to open-vm-tools.
+
+commit f0e624d1ae33cee7e66aaed17d82242272383c9a
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:03:43 2025 -0700
+
+    Change to common source files not applicable to open-vm-tools.
+
+commit 7ff34bef69c7252fb0ceb628f64103b0fa4f56f2
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:03:43 2025 -0700
+
+    Use different command to reboot linux VM, depending on the init system type
+    
+    We currently use the "telinit 6" command to reboot linux VMs.
+    However, the "telinit" command will be unavailable in the future as SysVinit
+    will be deprecated on some modern linux systems.
+    
+    For example: In SUSE, "telinit" command is part of systemd-sysvcompat
+    (15 SP6 and newer) or systemd-sysvinit (older than 15 SP6), whereas in some
+    SUSE images or templates such as SUSE minimal VM has no such packages installed.
+    See SUSE KB: https://www.suse.com/support/kb/doc/?id=000021564
+    
+    This change detects the init system of a linux and uses different command
+    to trigger reboot. If the modern init system, systemd, is available, then
+    "systemctl reboot" command will be used to trigger reboot. Otherwise, continue
+    using "telinit 6" command as SysVinit, the traditional init system, is still
+    available.
+
+commit 7e8d6f072381e606c0c211069c3ba14582e9b30e
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:03:43 2025 -0700
+
+    Set the tools version for open-vm-tools 13.0.5 release
+
+commit 248d01bdd92371cd868c5486ab48ce2f845d208f
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Mon Sep 29 23:03:43 2025 -0700
+
+    Change to common header file not applicable to open-vm-tools.
+
+commit 3c28b6f4d9af2df2027a9df9c82e2f0196bd8bf7
+Author: Kruti Pendharkar <kp025370@broadcom.com>
+Date:   Wed Jun 18 21:05:18 2025 -0700
+
+    Update ChangeLog with the open-vm-tools 13.0.0 release marker.
+
 commit 01d8ecaee6b85a897c281dcaf5c080acc6ccf576
 Author: Kruti Pendharkar <kp025370@broadcom.com>
 Date:   Wed Jun 18 20:59:50 2025 -0700

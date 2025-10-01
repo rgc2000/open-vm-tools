@@ -1,8 +1,8 @@
-#                      open-vm-tools 13.0.0 Release Notes
+#                      open-vm-tools 13.0.5 Release Notes
 
-Updated on: 17 June 2025
+Updated on: 29 Sep 2025
 
-open-vm-tools | 17 JUNE 2025 | Build 24696409
+open-vm-tools | 29 SEP 2025 | Build 24915695
 
 Check back for additions and updates to these release notes.
 
@@ -12,7 +12,6 @@ The release notes cover the following topics:
 
 * [What's New](#whatsnew) 
 * [Internationalization](#i18n) 
-* [Product Support Notice](#suppnote)
 * [Guest Operating System Customization Support](#guestop) 
 * [Interoperability Matrix](#interop) 
 * [Resolved Issues](#resolvedissues) 
@@ -20,21 +19,21 @@ The release notes cover the following topics:
 
 ## <a id="whatsnew" name="whatsnew"></a>What's New
 
-*   The vm-support script has been improved (version 0.98).
+*   This release resolves [CVE-2025-41244](https://www.cve.org/CVERecord?id=CVE-2025-41244). For more information on this vulnerability and its impact on Broadcom products, see [VMSA-2025-0015](https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/36149).
 
-    To aid in triaging open-vm-tools issues, the vm-support script has been updated to:
-      * now collect all current open-vm-tools log files as configured in the [logging] section of tools.conf.
-      * collect one month of information from the systemd journal.
+    A patch to address CVE-2025-41244 on earlier open-vm-tools releases is provided to the Linux community at [CVE-2025-41244.patch](https://github.com/vmware/open-vm-tools/tree/CVE-2025-41244.patch).
+
+*   Guest OS Customization has been updated to use "systemctl reboot", if available.
 
 *   Please see the [Resolved Issues](#resolvedissues) and [Known Issues](#knownissues) sections below.
 
-*   A complete list of the granular changes in the open-vm-tools 13.0.0 release is available at:
+*   A complete list of the granular changes in the open-vm-tools 13.0.5 release is available at:
 
-    [open-vm-tools ChangeLog](https://github.com/vmware/open-vm-tools/blob/stable-13.0.0/open-vm-tools/ChangeLog)
+    [open-vm-tools ChangeLog](https://github.com/vmware/open-vm-tools/blob/stable-13.0.5/open-vm-tools/ChangeLog)
 
 ## <a id="i18n" name="i18n"></a>Internationalization
 
-open-vm-tools 13.0.0 is available in the following languages:
+open-vm-tools 13.0.5 is available in the following languages:
 
 * English
 * French
@@ -52,47 +51,18 @@ The [Broadcom Product Interoperability Matrix](https://interopmatrix.broadcom.c
 
 ## <a id="resolvedissues" name ="resolvedissues"></a> Resolved Issues
 
-*   **The following github.com/vmware/open-vm-tools pull requests and issues has been addressed.**
+*   **This release resolves CVE-2025-41244.**
 
-    * FTBFS: --std=c23 conflicting types between function definition and declaration MXUserTryAcquireForceFail()
+    * For more information on this vulnerability and its impact on Broadcom products, see [VMSA-2025-0015](https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/36149).
 
-      [Fixes Issue #750](https://github.com/vmware/open-vm-tools/issues/750)<br>
-      [Pull request #751](https://github.com/vmware/open-vm-tools/pull/751)
+    * A patch to address CVE-2025-41244 on earlier open-vm-tools releases is provided to the Linux community at [CVE-2025-41244.patch](https://github.com/vmware/open-vm-tools/tree/CVE-2025-41244.patch).
 
-    * Provide tools.conf settings to deactivate one-time and periodic time synchronization
+*   **Guest OS Customization updated to use "systemctl reboot".**
 
-      The new tools.conf settings `disable-all` and `disable-periodic` allow the guest OS administrator to deactivate one-time and periodic time synchronization without rebooting the VM or restarting the guest OS.
+    Currently the "telinit 6" command is used to reboot a Linux VM following Guest OS Customization.  As the classic Linux init system, SysVinit, is deprecated in favor of a newer init system, systemd, the telinit command may not be available on the base Linux OS.
 
-      [Fixes Issue #302](https://github.com/vmware/open-vm-tools/issues/302)
+    This change adds support to Guest OS Customization for the systemd init system.  If the modern init system, systemd, is available, then a "systemctl reboot" command will be used to trigger reboot.  Otherwise, the "telinit 6" command will be used assuming the traditional init system, SysVinit, is still available.
 
-    * Fix xmlsec detection when cross-compiling with pkg-config
-
-      [Pull request #732](https://github.com/vmware/open-vm-tools/pull/732)
-
-*   **After October 25, 2024, with open-vm-tools earlier than 13.0.0, the salt-minion component is not installed or fails to install in a guest operating system through the VMware Component Manager**
-
-    When you configure the salt-minion component in the present state, its last status is set to 102 (not installed) or 103 (installation failed), never reaching the installed state 100.
-
-    * The VM advanced setting with the key "guestinfo./vmware.components.salt_minion.desiredstate" has a value present.
-    * The VM advanced setting with the key "guestinfo.vmware.components.salt_minion.laststatus" has a value 102 or 103.
-
-    The salt-minion component installs a log file with traces indicating failure to access the online salt repository on https://repo.saltproject.io.  The "vmware-svtminion.sh-install-*.log" file for the failed install shows a trace similar to:
-
-    ```
-    <date+time> INFO: /usr/lib64/open-vm-tools/componentMgr/saltMinion/svtminion.sh:_curl_download attempting download of file 'repo.json'
-    <date+time> WARNING: /usr/lib64/open-vm-tools/componentMgr/saltMinion/svtminion.sh:_curl_download failed to download file 'repo.json' from 'https://repo.saltproject.io/salt/py3/onedir/repo.json' on '0' attempt, retcode '6' 
-    <date+time> WARNING: /usr/lib64/open-vm-tools/componentMgr/saltMinion/svtminion.sh:_curl_download failed to download file 'repo.json' from 'https://repo.saltproject.io/salt/py3/onedir/repo.json' on '1' attempt, retcode '6' 
-    <date+time> WARNING: /usr/lib64/open-vm-tools/componentMgr/saltMinion/svtminion.sh:_curl_download failed to download file 'repo.json' from 'https://repo.saltproject.io/salt/py3/onedir/repo.json' on '2' attempt, retcode '6' 
-    <date+time> WARNING: /usr/lib64/open-vm-tools/componentMgr/saltMinion/svtminion.sh:_curl_download failed to download file 'repo.json' from 'https://repo.saltproject.io/salt/py3/onedir/repo.json' on '3' attempt, retcode '6' 
-    <date+time> WARNING: /usr/lib64/open-vm-tools/componentMgr/saltMinion/svtminion.sh:_curl_download failed to download file 'repo.json' from 'https://repo.saltproject.io/salt/py3/onedir/repo.json' on '4' attempt, retcode '6' 
-    <date+time> ERROR: /usr/lib64/open-vm-tools/componentMgr/saltMinion/svtminion.sh:_curl_download failed to download file 'repo.json' from 'https://repo.saltproject.io/salt/py3/onedir/repo.json' after '5' attempts
-    ```
-
-    This issue is resolved in this release.
-
-    The new versions of the salt-minion integration scripts supporting the new Salt Project repository locations are available at:
-
-    * [https://packages.broadcom.com/artifactory/saltproject-generic/onedir/](https://packages.broadcom.com/artifactory/saltproject-generic/onedir/)
 
 ## <a id="knownissues" name="knownissues"></a>Known Issues
 
@@ -108,4 +78,4 @@ The [Broadcom Product Interoperability Matrix](https://interopmatrix.broadcom.c
 
     <tt>vmhgfs-fuse   /mnt/hgfs    fuse    defaults,allow_other    0    0</tt>
 
-    For more information on how to configure VMware Tools Shared Folders, see [KB 60262](https://knowledge.broadcom.com/external/article?legacyId=60262)
+    For more information on how to configure VMware Tools Shared Folders, see [KB 60262](https://knowledge.broadcom.com/external/article?legacyId=60262).
