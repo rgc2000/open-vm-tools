@@ -8,7 +8,7 @@ export SYSCONFDIR=/etc
 export LIBDIR=${PREFIX}/lib
 export LD_RUN_PATH=${LIBDIR}
 export PKG_CONFIG_PATH=/usr/lib/amd64/pkgconfig
-export LIBRESSL_VERSION=4.1.1
+export LIBRESSL_VERSION=4.2.0
 export CURDIR=${PWD}
 
 TARGETOS=$(uname -s)
