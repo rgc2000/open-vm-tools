@@ -38,6 +38,7 @@ CFLAGS    += -Wall -Werror -Wno-unknown-pragmas
 CFLAGS    += -U_NO_LONGLONG
 CFLAGS    += -D_KERNEL
 CFLAGS    += -I../../../lib/include    # for buildNumber.h
+CFLAGS    += -std=gnu17
 
 CFLAGS    += -ffreestanding
 CFLAGS    += -nodefaultlibs

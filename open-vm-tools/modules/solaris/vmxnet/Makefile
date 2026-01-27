@@ -31,6 +31,7 @@ CFLAGS    += -Wall -Werror -Wno-unused-but-set-variable
 CFLAGS    += -U_NO_LONGLONG
 CFLAGS    += -D_KERNEL
 CFLAGS    += -I../../../lib/include    # for buildNumber.h
+CFLAGS    += -std=gnu17
 
 ##
 ## Objects needed to build the HGFS kernel module

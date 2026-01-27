@@ -30,6 +30,7 @@ LDFLAGS   := -ztype=kmod -znodefs
 CFLAGS    += -O
 CFLAGS    += -Wall -Wno-unknown-pragmas -Werror
 CFLAGS    += -I../../../lib/include    # for buildNumber.h
+CFLAGS    += -std=gnu17
 
 KFLAGS    += -D_KERNEL
 

@@ -45,7 +45,7 @@ case "${TARGETOS}" in
 
         cd ../open-vm-tools
         autoreconf -i
-        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --enable-vgauth CFLAGS="${INCLUDES}" LDFLAGS="-L${CURDIR}/libressl-bin/lib"
+        ./configure --enable-silent-rules --prefix=${PREFIX} --sysconfdir=${SYSCONFDIR} --libdir=${LIBDIR} --disable-static --enable-libappmonitor --enable-vgauth CFLAGS="${INCLUDES} -std=gnu17" LDFLAGS="-L${CURDIR}/libressl-bin/lib"
         gmake -j 5
         gmake install
         cd ../solaris-build
