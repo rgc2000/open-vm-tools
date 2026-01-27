@@ -1,8 +1,8 @@
-#                      open-vm-tools 13.0.5 Release Notes
+#                      open-vm-tools 13.0.10 Release Notes
 
-Updated on: 29 Sep 2025
+Updated on: 20 Jan 2026
 
-open-vm-tools | 29 SEP 2025 | Build 24915695
+open-vm-tools | 20 JAN 2026 | Build 25056151
 
 Check back for additions and updates to these release notes.
 
@@ -19,21 +19,15 @@ The release notes cover the following topics:
 
 ## <a id="whatsnew" name="whatsnew"></a>What's New
 
-*   This release resolves [CVE-2025-41244](https://www.cve.org/CVERecord?id=CVE-2025-41244). For more information on this vulnerability and its impact on Broadcom products, see [VMSA-2025-0015](https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/36149).
-
-    A patch to address CVE-2025-41244 on earlier open-vm-tools releases is provided to the Linux community at [CVE-2025-41244.patch](https://github.com/vmware/open-vm-tools/tree/CVE-2025-41244.patch).
-
-*   Guest OS Customization has been updated to use "systemctl reboot", if available.
-
 *   Please see the [Resolved Issues](#resolvedissues) and [Known Issues](#knownissues) sections below.
 
-*   A complete list of the granular changes in the open-vm-tools 13.0.5 release is available at:
+*   A complete list of the granular changes in the open-vm-tools 13.0.10 release is available at:
 
-    [open-vm-tools ChangeLog](https://github.com/vmware/open-vm-tools/blob/stable-13.0.5/open-vm-tools/ChangeLog)
+    [open-vm-tools ChangeLog](https://github.com/vmware/open-vm-tools/blob/stable-13.0.10/open-vm-tools/ChangeLog)
 
 ## <a id="i18n" name="i18n"></a>Internationalization
 
-open-vm-tools 13.0.5 is available in the following languages:
+open-vm-tools 13.0.10 is available in the following languages:
 
 * English
 * French
@@ -42,7 +36,7 @@ open-vm-tools 13.0.5 is available in the following languages:
 
 ## <a id="guestop" name="guestop"></a>Guest Operating System Customization Support
 
-The [Guest OS Customization Support Matrix](https://compatibilityguide.broadcom.com/search?program=software&persona=live&customization=Guest+Customization&column=osVendors&order=asc) provides details about the guest operating systems supported for customization.
+The [Broadcom Guest OS Compatibility Guide (filtered for Guest Customization)](https://compatibilityguide.broadcom.com/search?program=software&persona=live&customization=Guest+Customization&column=osVendors&order=asc) provides details about the guest operating systems supported for customization.
 
 
 ## <a id="interop" name="interop"></a>Interoperability Matrix
@@ -51,18 +45,13 @@ The [Broadcom Product Interoperability Matrix](https://interopmatrix.broadcom.c
 
 ## <a id="resolvedissues" name ="resolvedissues"></a> Resolved Issues
 
-*   **This release resolves CVE-2025-41244.**
+*   **During Linux guest customization, open-vm-tools may reboot the VM without waiting for cloud-init execution to complete if cloud-init encounters a recoverable error**
 
-    * For more information on this vulnerability and its impact on Broadcom products, see [VMSA-2025-0015](https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/36149).
+    [Issue #768](https://github.com/vmware/open-vm-tools/issues/768) Make GetCloudinitStatus() more robust 
 
-    * A patch to address CVE-2025-41244 on earlier open-vm-tools releases is provided to the Linux community at [CVE-2025-41244.patch](https://github.com/vmware/open-vm-tools/tree/CVE-2025-41244.patch).
+    Starting with cloud-init version 23.4, an error code was introduced to signal a recoverable error. open-vm-tools interprets this error code as a cloud-init execution failure, so continues executing guest customization with a VM reboot in the end. 
 
-*   **Guest OS Customization updated to use "systemctl reboot".**
-
-    Currently the "telinit 6" command is used to reboot a Linux VM following Guest OS Customization.  As the classic Linux init system, SysVinit, is deprecated in favor of a newer init system, systemd, the telinit command may not be available on the base Linux OS.
-
-    This change adds support to Guest OS Customization for the systemd init system.  If the modern init system, systemd, is available, then a "systemctl reboot" command will be used to trigger reboot.  Otherwise, the "telinit 6" command will be used assuming the traditional init system, SysVinit, is still available.
-
+    This issue is resolved in this release. During Linux guest customization, open-vm-tools now correctly waits for cloud-init execution to complete, even when cloud-init encounters recoverable errors.
 
 ## <a id="knownissues" name="knownissues"></a>Known Issues
 
@@ -78,4 +67,4 @@ The [Broadcom Product Interoperability Matrix](https://interopmatrix.broadcom.c
 
     <tt>vmhgfs-fuse   /mnt/hgfs    fuse    defaults,allow_other    0    0</tt>
 
-    For more information on how to configure VMware Tools Shared Folders, see [KB 60262](https://knowledge.broadcom.com/external/article?legacyId=60262).
+    For more information on how to configure open-vm-tools Shared Folders, see [KB 60262](https://knowledge.broadcom.com/external/article?legacyId=60262).
