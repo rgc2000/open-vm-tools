@@ -1,5 +1,6 @@
 ################################################################################
-### Copyright (C) 2014-2016,2023 VMware, Inc.  All rights reserved.
+### Copyright (c) 2014-2025 Broadcom. All Rights Reserved.
+### The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 ###
 ### This program is free software; you can redistribute it and/or modify
 ### it under the terms of version 2 of the GNU General Public License as
@@ -54,6 +55,10 @@ libvgauth_la_CPPFLAGS += -I$(top_srcdir)/libvmtools
 libvgauth_la_CPPFLAGS += -I$(top_srcdir)/vgauth/public
 libvgauth_la_CPPFLAGS += -I$(top_srcdir)/vgauth/common
 
+if SOLARIS
+libvgauth_la_CPPFLAGS += -D__USE_DRAFT6_PROTOTYPES__
+endif
+
 libvgauth_la_LDFLAGS =
 # We require GCC, so we're fine passing compiler-specific flags.
 if !MACOS
@@ -65,4 +70,4 @@ libvgauth_la_LIBADD += -lc
 
 # Message catalogs.
 install-data-hook:
-	@INSTVMSG@ libvgauth.la $(srcdir)/l10n $(DESTDIR)$(datadir)
+	@INSTVMSG@ VGAuthLib $(srcdir)/l10n $(DESTDIR)$(datadir)
