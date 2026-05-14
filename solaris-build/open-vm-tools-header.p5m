@@ -1,5 +1,5 @@
-set name=pkg.fmri value=open-vm-tools@13.0.10,13322-0
-set name=pkg.human-version value="13.0.10-0"
+set name=pkg.fmri value=open-vm-tools@13.1.0,13344-0
+set name=pkg.human-version value="13.1.0-0"
 set name=org.opensolaris.smf.fmri value=svc:/open-vm-tools/vmtoolsd value=svc:/open-vm-tools/vmtoolsd:default \
     value=svc:/open-vm-tools/balloon value=svc:/open-vm-tools/balloon:default \
     value=svc:/open-vm-tools/shares value=svc:/open-vm-tools/shares:default \
