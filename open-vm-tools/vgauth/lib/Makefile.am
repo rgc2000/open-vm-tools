@@ -55,6 +55,10 @@ libvgauth_la_CPPFLAGS += -I$(top_srcdir)/libvmtools
 libvgauth_la_CPPFLAGS += -I$(top_srcdir)/vgauth/public
 libvgauth_la_CPPFLAGS += -I$(top_srcdir)/vgauth/common
 
+if SOLARIS
+libvgauth_la_CPPFLAGS += -D__USE_DRAFT6_PROTOTYPES__
+endif
+
 libvgauth_la_LDFLAGS =
 # We require GCC, so we're fine passing compiler-specific flags.
 if !MACOS

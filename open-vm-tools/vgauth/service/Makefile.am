@@ -68,6 +68,10 @@ VGAuthService_CPPFLAGS += -I$(top_srcdir)/vgauth/public
 VGAuthService_CPPFLAGS += -I$(top_srcdir)/vgauth/common
 VGAuthService_CPPFLAGS += -I$(top_srcdir)/vgauth/serviceImpl
 
+if SOLARIS
+VGAuthService_CPPFLAGS += -D__USE_DRAFT6_PROTOTYPES__
+endif
+
 VGAuthService_LDADD =
 VGAuthService_LDADD += @GLIB2_LIBS@
 VGAuthService_LDADD += @GTHREAD_LIBS@
